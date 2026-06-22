@@ -1,0 +1,631 @@
+/* ==========================================================================
+   1. CORE THEME SYSTEM & RESETS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: #0c0a0a;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+
+/* Jab page load ho jaye toh overlay gayab karne ke liye class */
+.page-transition-overlay.fade-out {
+    opacity: 0;
+}
+
+/* Pure body content par halka sa scale aur fade animation lagane ke liye class */
+body {
+    opacity: 0;
+    transform: scale(0.99);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.page-ready {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ==========================================================================
+   2. TOP BAR FLOATING NAVIGATION MENU
+   ========================================================================== */
+.nav {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #151212;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.5);
+    z-index: 1000;
+}
+
+.nav a {
+    color: #666666;
+    font-size: 1.3rem;
+    text-decoration: none;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.nav a:hover, 
+.nav a.active-nav {
+    color: #ffffff;
+}
+
+.tooltip-text {
+    position: absolute;
+    top: 145%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background-color: #151212;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #151212 transparent;
+}
+
+.nav a:hover .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   3. COLUMN STRUCTURING (GRID ARCHITECTURE)
+   ========================================================================== */
+.main-portfolio-layout {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 140px;
+    padding: 0 20px;
+    gap: 50px;
+}
+
+.left-column {
+    width: 35%;
+    position: sticky;
+    top: 140px;
+    height: max-content;
+}
+
+.right-column {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   4. LEFT COLUMN: PROFILE CARD DESIGN
+   ========================================================================== */
+.profile-card {
+    background-color: #ffffff;
+    border-radius: 32px;
+    padding: 40px 25px;
+    text-align: center;
+    color: #0c0a0a;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+    height: 270px;
+    margin: 0 auto 25px auto;
+    overflow: visible;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+    background-color: #e65f2b;
+    display: block;
+}
+
+.dashed-circle {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #e65f2b;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.profile-name {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+.fire-badge {
+    background-color: #e65f2b;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    margin: 0 auto 15px auto;
+    color: white;
+}
+
+.profile-desc {
+    font-size: 0.95rem;
+    color: #555555;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.profile-socials {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.profile-socials a {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0c0a0a;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.profile-socials a:hover {
+    background-color: #0c0a0a;
+    color: #ffffff;
+}
+
+.heading-light { color: #ffffff; }
+.heading-dark { color: #1a1717; }
+
+/* ==========================================================================
+   5. THOUGHTS / BLOG PAGE SPECIFIC STYLES
+   ========================================================================== */
+.blog-main-heading {
+    line-height: 0.95;
+    margin-bottom: 55px;
+}
+
+.blog-main-heading h2 {
+    font-size: 5.5rem;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -3px;
+}
+
+.blog-posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.blog-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30px 0px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.blog-card:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.blog-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 85%;
+}
+
+.blog-title {
+    font-size: 1.8rem;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+}
+
+.blog-card:hover .blog-title {
+    color: #e65f2b;
+}
+
+.blog-description {
+    font-size: 1.05rem;
+    color: #888888;
+    line-height: 1.6;
+}
+
+.blog-meta {
+    display: flex;
+    gap: 25px;
+    font-size: 0.9rem;
+    color: #555555;
+}
+
+.blog-arrow-box {
+    color: #e65f2b; 
+    font-size: 1.2rem;
+    padding-top: 8px;
+    transition: transform 0.3s ease;
+}
+
+.blog-card:hover .blog-arrow-box {
+    transform: translate(3px, -3px);
+}
+
+/* ==========================================================================
+   6. FLOATING ACTION BADGES DESIGN (BOTTOM RIGHT PANEL)
+   ========================================================================== */
+.floating-action-badges {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+    z-index: 2000;
+}
+
+.badge-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.badge-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+.orange-badge {
+    background-color: #e65f2b;
+    color: #ffffff;
+}
+
+.lime-badge {
+    background-color: #a3e635;
+    color: #000000;
+}
+
+.framer-brand-badge {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 992px) {
+    .main-portfolio-layout {
+        flex-direction: column;
+        margin-top: 100px;
+    }
+    .left-column {
+        width: 100%;
+        position: relative;
+        top: 0;
+    }
+    .right-column {
+        width: 100%;
+    }
+    .blog-main-heading h2 {
+        font-size: 4rem;
+        letter-spacing: -1.5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-title {
+        font-size: 1.4rem;
+    }
+    .floating-action-badges {
+        position: relative;
+        bottom: 0;
+        right: 0;
+        margin: 40px auto 20px auto;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+/* ==========================================================================
+   THOUGHTS / BLOG CARDS STYLING
+   ========================================================================== */
+.blog-posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Cards ke darmiyan spacing */
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+/* Default Card State (Divider Line Ke Sath) */
+.blog-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 35px 30px;
+    border: 1px solid transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04); /* Divider line */
+    border-radius: 0px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover aur Active Box State (Screenshot 787 ke mutabiq Dark Container Effect) */
+.blog-card:hover, 
+.blog-card.active-blog-box {
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 24px; /* Corners rounded ho jayenge */
+    padding: 35px 30px;
+}
+
+.blog-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 88%;
+}
+
+.blog-title {
+    font-size: 1.9rem;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+}
+
+.blog-description {
+    font-size: 1.05rem;
+    color: #6e6b6b; /* Muted gray text */
+    line-height: 1.55;
+    font-weight: 400;
+}
+
+.blog-meta {
+    display: flex;
+    justify-content: space-between; /* Date left par aur read-time right par */
+    width: 100%;
+    font-size: 0.95rem;
+    color: #555555;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+/* Diagonal Arrow Icon Box */
+.blog-arrow-box {
+    color: #e65f2b; /* Orange color arrow */
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+
+/* Hover ya Active state par Arrow up-right shift hoga */
+.blog-card:hover .blog-arrow-box,
+.blog-card.active-blog-box .blog-arrow-box {
+    transform: translate(4px, -4px);
+}
+/* ==========================================================================
+   8. CONTACT FORM & FOOTER DESIGN (SCREENSHOT 788)
+   ========================================================================== */
+.contact-section {
+    margin-top: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.contact-heading {
+    line-height: 0.95;
+}
+
+.contact-heading h2 {
+    font-size: 5.5rem;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -3px;
+}
+
+.contact-light {
+    color: #ffffff;
+}
+
+.contact-dark {
+    color: #1a1717; /* Dark muted gray tone behind */
+}
+
+/* Form Layout */
+.portfolio-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: #6e6b6b;
+    font-weight: 500;
+}
+
+/* Input Inputs & Textarea Universal Style */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    background-color: #1b1919; /* Grayish dark input fields box tint */
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    color: #ffffff;
+    padding: 16px 20px;
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #555555;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #e65f2b; /* Subtle active border accent */
+}
+
+/* Custom Styled Dropdown Dropdown Select Arrow */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select-wrapper::after {
+    content: "\f078"; /* FontAwesome Chevron Down */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555555;
+    pointer-events: none;
+    font-size: 0.85rem;
+}
+
+.form-group select {
+    appearance: none; /* Default OS select dropdown arrow hides */
+    cursor: pointer;
+}
+
+/* Disable text resizing on text box */
+.form-group textarea {
+    resize: none;
+}
+
+/* Orange Flat Submit Button */
+.form-submit-btn {
+    background-color: #e65f2b;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.form-submit-btn:hover {
+    background-color: #f0713f;
+    transform: translateY(-1px);
+}
+
+/* Centered Bottom Small Text Footer */
+.site-footer {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    font-size: 0.85rem;
+    color: #555555;
+    font-weight: 500;
+}
+
+.footer-orange {
+    color: #e65f2b;
+}
+
+/* Responsive adjustment for forms on mobile devices */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 24px;
+    }
+    .contact-heading h2 {
+        font-size: 3.5rem;
+        letter-spacing: -1.5px;
+    }
+}
