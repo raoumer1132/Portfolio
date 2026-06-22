@@ -997,12 +997,10 @@ body {
         height: auto !important;
         min-height: 160px !important;
     }
-    /* Tools ko ek ke neeche ek karne ke liye */
     .tools-grid-box {
-        grid-template-columns: 1fr !important; /* 2 columns se 1 column kar diya */
-        gap: 20px !important; /* Spacing thodi set ki */
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
     }
-
 }
 
 
