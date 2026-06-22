@@ -944,6 +944,60 @@ body {
     font-weight: 500;
     transition: color 0.3s ease;
 }
+/* --- MOBILE RESPONSIVE STYLE --- */
+@media (max-width: 768px) {
+    
+    /* 1. Dono columns ko ek ke upar ek set karne ke liye */
+    .main-portfolio-layout {
+        grid-template-columns: 1fr !important; /* Do lines ke bajaye ek line */
+        gap: 40px !important;
+        padding: 100px 20px 40px 20px !important; /* Spacing kam ki */
+    }
+
+    /* 2. Profile Card (Left Column) ko mobile par set karne ke liye */
+    .left-column {
+        position: relative !important; /* Sticky hataya taake card scroll ho sake */
+        top: 0 !important;
+        width: 100% !important;
+    }
+
+    .profile-card {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* 3. Right Column ka content screen ke andar rakhne ke liye */
+    .right-column {
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    /* 4. SOFTWARE ENGINEER aur baki bade headings ko chota karne ke liye */
+    .main-title, .sub-title, 
+    .projects-heading h2, .experience-heading h2, 
+    .tools-heading h2, .design-heading h2, .contact-heading h2 {
+        font-size: 2.8rem !important; /* Size chota kiya taake screen se bahar na jaye */
+        line-height: 1.1 !important;
+    }
+
+    /* 5. Stats (+12 Years, +46 Projects) ko mobile par fit karne ke liye */
+    .stats-container {
+        flex-direction: column !important; /* Ek ke neeche ek aayenge */
+        gap: 20px !important;
+    }
+
+    /* 6. Orange aur Lime Cards ko mobile par fit karne ke liye */
+    .projects-grid {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+    
+    .project-card {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 160px !important;
+    }
+}
 
 
 
