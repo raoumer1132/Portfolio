@@ -275,43 +275,54 @@
             <h2 class="contact-light">LET'S WORK</h2>
             <h2 class="contact-dark">TOGETHER</h2>
         </div>
-  
-<div class="contact-section">
-    <form class="portfolio-form" action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="51fcb073-ecad-417b-9b0a-f4c1704daaf9">
+  <!-- --- CONTACT SECTION --- -->
+        <div class="contact-section">
+            
+            <div class="contact-heading">
+                <h2 class="contact-light">LET'S WORK</h2>
+                <h2 class="contact-dark">TOGETHER</h2>
+            </div>
+      
+            <!-- Humne yahan form par class 'contact-form' kar di hai taake CSS apply ho sake -->
+            <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="51fcb073-ecad-417b-9b0a-f4c1704daaf9">
 
-        <div class="form-row">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-input" name="name" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" class="form-input" name="email" placeholder="Your@email.com" required>
-            </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="Your@email.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Budget</label>
+                    <div class="select-wrapper">
+                        <select name="budget">
+                            <option value="" disabled selected hidden>Select...</option>
+                            <option value="small">Less than $1,000</option>
+                            <option value="medium">$1,000 - $5,000</option>
+                            <option value="large">$5,000+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message" placeholder="Message" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
         </div>
 
-        <div class="form-group">
-            <label>Budget</label>
-            <div class="select-wrapper">
-                <select name="budget" class="form-input">
-                    <option value="" disabled selected hidden>Select...</option>
-                    <option value="small">Less than $1,000</option>
-                    <option value="medium">$1,000 - $5,000</option>
-                    <option value="large">$5,000+</option>
-                </select>
-            </div>
-        </div>
+    </div> 
+</div> 
 
-        <div class="form-group">
-            <label>Message</label>
-            <textarea name="message" class="form-input" placeholder="Message" required></textarea>
-        </div>
-
-        <button type="submit" class="submit-btn">Submit</button>
-    </form>
-</div>
-<!-- Main JavaScript Link -->
-    <script src="./script.js"></script>
+<script src="./script.js"></script>
 </body>
+</html>
 </html>
