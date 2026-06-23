@@ -15,23 +15,31 @@ body {
     display: flex;
     justify-content: center;
     overflow-x: hidden;
+    /* Opacity issue fixed: Default visible rakhein agar JS fail ho jaye tab bhi */
+    opacity: 1; 
+    transition: opacity 0.6s ease;
 }
 
-/* Jab page load ho jaye toh overlay gayab karne ke liye class */
-.page-transition-overlay.fade-out {
-    opacity: 0;
-}
-
-/* Pure body content par halka sa scale aur fade animation lagane ke liye class */
-body {
-    opacity: 0;
-    transform: scale(0.99);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
+/* Jab script sahi chale tabhi transition effect smoothly chalega */
 body.page-ready {
     opacity: 1;
-    transform: scale(1);
+}
+
+/* Dropdown styling fix taake select box click ho sake */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    font-size: 0.8rem;
+    color: #888888;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Yeh click ko block nahi karega */
 }
 
 /* ==========================================================================
