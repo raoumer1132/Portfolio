@@ -1016,5 +1016,42 @@ body {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
     }
+/* ==========================================
+   FINAL SUCCESSFUL FIX FOR PROJECT CARDS
+   ========================================== */
 
+/* Dono cards ka main wrapper layout */
+.project-card.orange-card, 
+.project-card.lime-card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 32px !important;            /* Card ke andar har taraf space barabar karega */
+    box-sizing: border-box !important;   /* Card ko layout se baahir nikalne se rokega */
+    height: 100% !important;             /* Height dono ki barabar rakhega */
+    min-height: 260px !important;        /* Ek minimum height set karega taake arrow niche hi rahe */
+}
+
+/* Green card ka color full fix */
+.project-card.lime-card {
+    background-color: #adff2f !important;
+    color: #000000 !important;
+}
+
+/* Dono cards ke andar text (title) ko control karne ke liye */
+.project-card .card-title {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    margin: 20px 0 auto 0 !important;   /* Bottom margin auto taake arrow mazeed niche push ho jaye */
+    max-width: 85% !important;          /* Text right border aur arrow se door rahega */
+    white-space: normal !important;     /* Text ko wrap hone par majboor karega */
+    word-break: break-word !important;  
+}
+
+/* Arrow Button Alignment */
+.project-card .arrow-btn {
+    align-self: flex-end !important;    /* Arrow button ko hamesha right side par rakhega */
+    margin-top: auto !important;        /* Text khatam hone ke baad sab se niche shift karega */
+}
    
