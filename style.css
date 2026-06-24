@@ -425,7 +425,8 @@ body {
     align-items: center;
 }
 
-/* --- PROJECTS LIST  --- */
+
+/* --- PROJECTS LIST --- */
 .projects-list {
     display: flex;
     flex-direction: column;
@@ -443,9 +444,9 @@ body {
     transition: background 0.3s ease;
     cursor: pointer;
     position: relative;
+    width: 100%;
 }
 
-/* Default rows layout spacing */
 .project-row:not(.highlighted-row) {
     background: transparent;
 }
@@ -454,14 +455,14 @@ body {
     background: rgba(255, 255, 255, 0.05); 
 }
 
-/* Highlighted  */
-/* 👇 Yahan flex behavior miss tha jo fix kar diya hai layout wrap hone se rokne ke liye */
+/* Highlighted Row Fix */
 .highlighted-row {
     display: flex;
     align-items: center;
     background: #141414; 
     padding: 24px; 
     width: 100%;
+    border-radius: 24px;
     box-sizing: border-box;
 }
 
@@ -473,7 +474,7 @@ body {
     overflow: hidden;
     background: #222;
     margin-right: 24px;
-    flex-shrink: 0; /* Thumbnail ko shrink hone se rokne ke liye */
+    flex-shrink: 0;
 }
 
 .project-thumb img {
@@ -500,18 +501,13 @@ body {
     margin: 0;
 }
 
-/* Top Right Diagonal Arrow */
+/* Arrow alignment */
 .diagonal-arrow {
     font-size: 1.4rem;
     color: #e85a24; 
     font-weight: bold;
-    align-self: flex-start; 
-    margin-top: 5px;
+    align-self: center;
     transition: transform 0.2s ease;
-}
-
-.project-row:hover .diagonal-arrow {
-    transform: translate(3px, -3px); 
 }
 
 /* Main Page Grid Wrapper */
