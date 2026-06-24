@@ -1012,12 +1012,17 @@ body {
         height: auto !important;
         min-height: 160px !important;
     }
+
     .tools-grid-box {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
     }
+} /* <--- YEH BRACKET MISSING THA, JIS SE MASLA HORAHA THA */
+
+
 /* ==========================================
    FINAL SUCCESSFUL FIX FOR PROJECT CARDS
+   (Ab yeh responsive block se bahar hai aur har screen par chalega)
    ========================================== */
 
 /* Dono cards ka main wrapper layout */
@@ -1040,6 +1045,7 @@ body {
 
 /* Dono cards ke andar text (title) ko control karne ke liye */
 .project-card .card-title {
+    color: inherit !important;
     font-size: 1.25rem !important;
     font-weight: 700 !important;
     line-height: 1.4 !important;
@@ -1054,4 +1060,3 @@ body {
     align-self: flex-end !important;    /* Arrow button ko hamesha right side par rakhega */
     margin-top: auto !important;        /* Text khatam hone ke baad sab se niche shift karega */
 }
-   
