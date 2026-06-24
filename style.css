@@ -6,7 +6,6 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-
 background:#0d0d0d;
 color:white;
 }    
@@ -42,14 +41,11 @@ color:white;
 }
 
 /* Icons */
-
 .nav i{
     font-size:19px;
 }
 
 /* Tooltip */
-
-
 .tooltip-text {
     position: absolute;
     top: 140%; 
@@ -72,7 +68,6 @@ color:white;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 }
 
-
 .tooltip-text::after {
     content: "";
     position: absolute;
@@ -81,17 +76,17 @@ color:white;
     transform: translateX(-50%);
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent #151212 transparent; /* 👈 Arrow ka rukh upar ki taraf kar diya */
+    border-color: transparent transparent #151212 transparent;
 }
 
-/* /* Hover  */
+/* Hover  */
 .nav a:hover .tooltip-text {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
 
-/* /* Fonts  */
+/* Fonts  */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
 body {
@@ -223,7 +218,7 @@ body {
     position: relative;
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
-/* /================================ */
+/* ================================ */
 .profile-desc {
     font-size: 0.95rem;
     color: #666666; 
@@ -268,7 +263,6 @@ body {
     display: block;
     border-radius: 24px;
 }
-
 
 .profile-name {
     color: #000000;
@@ -368,7 +362,6 @@ body {
 .lime-card {
     background-color: #adff2f; 
     color: #000000;
-    /* Diagonal zigzag line background effect ka approximation */
     background-image: linear-gradient(135deg, rgba(0,0,0,0.03) 25%, transparent 25%), 
                       linear-gradient(225deg, rgba(0,0,0,0.03) 25%, transparent 25%);
     background-size: 30px 30px;
@@ -390,7 +383,6 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* ================== */
 .arrow-btn {
     width: 35px;
     height: 35px;
@@ -424,13 +416,15 @@ body {
 
 .title-dark {
     color: #1a1a1a; 
+}
+
 .portfolio-wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
 }
-}
+
 /* --- PROJECTS LIST  --- */
 .projects-list {
     display: flex;
@@ -639,6 +633,7 @@ body {
     font-weight: 500;
     margin-top: 5px;
 }
+
 /* --- PREMIUM TOOLS HEADING STYLES --- */
 .tools-heading {
     line-height: 0.95;
@@ -672,10 +667,23 @@ body {
 }
 
 /* Individual Tool Item Layout */
+/* 👇 Yahan main changes ki hain hover box shadow lane ke liye */
 .tool-item {
     display: flex;
     align-items: center;
     gap: 20px;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 20px;
+    background: transparent;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 👇 Hover karne par premium shadow box aur background lane ke liye */
+.tool-item:hover {
+    background-color: #141414; /* Same as highlighted row/job card background */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Clean dark drop shadow */
+    transform: translateY(-3px); /* Dynamic lift effect */
 }
 
 /* White Icon Box Design */
@@ -806,7 +814,7 @@ body {
 }
 
 .blog-read-time {
-    color: #444444; /
+    color: #444444; 
 }
 /* --- CONTACT SECTION STYLES --- */
 .contact-section {
@@ -930,7 +938,6 @@ body {
     transform: scale(0.99); 
 }
 
-
 /* --- FOOTER  --- */
 .footer-credits {
     text-align: center;
@@ -944,19 +951,20 @@ body {
     font-weight: 500;
     transition: color 0.3s ease;
 }
+
 /* --- MOBILE RESPONSIVE STYLE --- */
 @media (max-width: 768px) {
     
-    /* 1. Dono columns ko ek ke upar ek set karne ke liye */
+    
     .main-portfolio-layout {
-        grid-template-columns: 1fr !important; /* Do lines ke bajaye ek line */
+        grid-template-columns: 1fr !important;
         gap: 40px !important;
-        padding: 100px 20px 40px 20px !important; /* Spacing kam ki */
+        padding: 100px 20px 40px 20px !important;
     }
 
-    /* 2. Profile Card (Left Column) ko mobile par set karne ke liye */
+    
     .left-column {
-        position: relative !important; /* Sticky hataya taake card scroll ho sake */
+        position: relative !important;
         top: 0 !important;
         width: 100% !important;
     }
@@ -966,27 +974,24 @@ body {
         max-width: 100% !important;
     }
 
-    /* 3. Right Column ka content screen ke andar rakhne ke liye */
     .right-column {
         width: 100% !important;
         overflow-x: hidden !important;
     }
 
-    /* 4. SOFTWARE ENGINEER aur baki bade headings ko chota karne ke liye */
+    
     .main-title, .sub-title, 
     .projects-heading h2, .experience-heading h2, 
     .tools-heading h2, .design-heading h2, .contact-heading h2 {
-        font-size: 2.8rem !important; /* Size chota kiya taake screen se bahar na jaye */
+        font-size: 2.8rem !important;
         line-height: 1.1 !important;
     }
 
-    /* 5. Stats (+12 Years, +46 Projects) ko mobile par fit karne ke liye */
     .stats-container {
-        flex-direction: column !important; /* Ek ke neeche ek aayenge */
+        flex-direction: column !important;
         gap: 20px !important;
     }
 
-    /* 6. Orange aur Lime Cards ko mobile par fit karne ke liye */
     .projects-grid {
         flex-direction: column !important;
         gap: 15px !important;
@@ -1002,6 +1007,3 @@ body {
         gap: 20px !important;
     }
 }
-
-
-
