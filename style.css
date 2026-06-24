@@ -1017,46 +1017,4 @@ body {
         gap: 20px !important;
     }
 
-    /* ==========================================
-   FORCE FIX FOR CARDS LAYOUT (PASTE AT END)
-   ========================================== */
-.orange-card, .lime-card {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    padding: 24px !important;
-    box-sizing: border-box !important;
-    min-height: 250px; /* Cards ki height barabar karne ke liye */
-}
-
-.orange-card {
-    background-color: #e85a24 !important;
-    color: #ffffff !important;
-}
-
-.lime-card {
-    background-color: #adff2f !important;
-    color: #000000 !important; /* Text kali rang mein taake sahi nazar aaye */
-}
-
-.lime-card .card-title {
-    color: #000000 !important;
-}
-
-/* Text Box Fix */
-.card-title {
-    font-size: 1.2rem !important;
-    font-weight: 700 !important;
-    line-height: 1.4 !important;
-    margin: 20px 0 auto 0 !important;
-    max-width: 85% !important; /* Text ko arrow se door rakhega */
-    white-space: normal !important; /* Text ko wrap hone par majboor karega */
-    word-break: break-word !important; 
-}
-
-/* Arrow Button Fix */
-.arrow-btn {
-    align-self: flex-end !important;
-    margin-top: auto !important;
-}
-}
+   
