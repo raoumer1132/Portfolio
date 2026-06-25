@@ -230,6 +230,21 @@ body.page-ready {
 /* ==========================================================================
    5. TOOLS PAGE SPECIFIC STYLES
    ========================================================================== */
+.tool-logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ya 'cover' use karein agar aap chahte hain image poora box fill kare */
+    border-radius: 12px; /* Smooth corners ke liye */
+    display: block;
+}
+.tool-logo-box img,
+.tool-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    display: block;
+}
 .tools-main-heading {
     line-height: 0.95;
     margin-bottom: 45px;
