@@ -230,20 +230,23 @@ body.page-ready {
 /* ==========================================================================
    5. TOOLS PAGE SPECIFIC STYLES
    ========================================================================== */
-.tool-logo-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Ya 'cover' use karein agar aap chahte hain image poora box fill kare */
-    border-radius: 12px; /* Smooth corners ke liye */
-    display: block;
+.tool-thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Image corners ko card se baahar nikalne se rokega */
+    background-color: #ffffff; /* Taki agar transparent image ho toh background white rahe */
 }
-.tool-logo-box img,
+
 .tool-thumb img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    border-radius: 12px;
-    display: block;
+    object-fit: cover; /* Logo ko exact 64x64 ke dabbe me scale karega */
 }
 .tools-main-heading {
     line-height: 0.95;
