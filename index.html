@@ -9,26 +9,65 @@
 </head>
 <body>
 
-<button id="menuToggleBtn" class="top-menu-trigger">
-    <i class="fa-solid fa-ellipsis-vertical"></i> </button>
-
-<nav id="slidingSidebar" class="floating-sidebar">
-    <button id="menuCloseBtn" class="close-btn">
-        <i class="fa-solid fa-xmark"></i>
-    </button>
-
-    <div class="sidebar-logo">
-        <i class="fa-solid fa-code"></i>
+<!-- Gemini Style Collapsible Sidebar -->
+<nav id="geminiSidebar" class="gemini-sidebar">
+    <!-- Top Section: Toggle Aur New Chat Card -->
+    <div class="sidebar-top">
+        <button id="sidebarToggleBtn" class="sidebar-toggle-trigger" title="Main menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        
+        <div class="new-chat-btn">
+            <i class="fa-solid fa-plus"></i>
+            <span class="nav-text">New Thread</span>
+        </div>
     </div>
-    
+
+    <!-- Middle Section: Main Navigation Links -->
     <ul class="sidebar-links">
-        <li><a href="#home" class="active" title="Home"><i class="fa-solid fa-house"></i> Home</a></li>
-        <li><a href="#about" title="About"><i class="fa-solid fa-user"></i> About</a></li>
-        <li><a href="#projects" title="Projects"><i class="fa-solid fa-folder-open"></i> Projects</a></li>
-        <li><a href="#experience" title="Experience"><i class="fa-solid fa-briefcase"></i> Experience</a></li>
-        <li><a href="#skills" title="Skills"><i class="fa-solid fa-screwdriver-wrench"></i> Skills</a></li>
-        <li><a href="#contact" title="Contact"><i class="fa-solid fa-pen-to-square"></i> Contact</a></li>
+        <li>
+            <a href="#home" class="active">
+                <i class="fa-solid fa-house"></i>
+                <span class="nav-text">Home</span>
+                <span class="floating-tooltip">Home</span>
+            </a>
+        </li>
+        <li>
+            <a href="#about">
+                <i class="fa-solid fa-user"></i>
+                <span class="nav-text">About</span>
+                <span class="floating-tooltip">About</span>
+            </a>
+        </li>
+        <li>
+            <a href="#projects">
+                <i class="fa-solid fa-folder-open"></i>
+                <span class="nav-text">Projects</span>
+                <span class="floating-tooltip">Projects</span>
+            </a>
+        </li>
+        <li>
+            <a href="#skills">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <span class="nav-text">Skills</span>
+                <span class="floating-tooltip">Skills</span>
+            </a>
+        </li>
     </ul>
+
+    <!-- Bottom Section: Settings & Profile (Gemini Style) -->
+    <div class="sidebar-bottom">
+        <div class="sidebar-item-bottom">
+            <i class="fa-solid fa-gear"></i>
+            <span class="nav-text">Settings</span>
+            <span class="floating-tooltip">Settings</span>
+        </div>
+        <div class="sidebar-item-bottom user-profile-item">
+            <div class="small-avatar">🔥</div>
+            <span class="nav-text">Umer Bilal</span>
+            <span class="floating-tooltip">Umer Bilal</span>
+        </div>
+    </div>
 </nav>
 
 <div id="sidebarOverlay" class="sidebar-overlay"></div>
