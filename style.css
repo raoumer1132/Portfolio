@@ -16,17 +16,12 @@ body {
 
 /* --- PREMIUM GLASSMORPHISM SIDEBAR BASE --- */
 .gemini-sidebar {
-    position: sticky !important;    /* Absolute ya fixed ke bajaye sticky use karein */
-    top: 30px !important;           /* Scroll karte waqt top se gap */
+    position: fixed !important;
+    top: 30px !important;
+    left: 30px !important;
     width: 240px; 
-    height: calc(100vh - 60px);    /* Screen ki height ke mutabiq adjust hoga */
-    z-index: 2000;
-    
-    /* Agar sidebar ka content screen se bara ho jaye toh iske andar apna scroll chalega */
-    overflow-y: auto;
-    scrollbar-width: none;          /* Firefox ke liye scrollbar hide */
-    
-    /* Aapki baaki glassmorphic styling */
+    height: calc(100vh - 60px) !important;
+    z-index: 9999 !important; /* Har cheez ke upar rahega */
     background: rgba(255, 255, 255, 0.03) !important; 
     backdrop-filter: blur(20px) saturate(160%) !important; 
     -webkit-backdrop-filter: blur(20px) saturate(160%);
@@ -37,15 +32,20 @@ body {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    transition: width 0.3s ease;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Gemini style internal scrolling agar content bara ho */
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 .gemini-sidebar::-webkit-scrollbar {
     display: none;
 }
-.gemini-sidebar.collapsed {
-    width: 68px; 
-}
 
+/* Jab sidebar collapsed ho toh width choti ho jaye */
+.gemini-sidebar.collapsed {
+    width: 68px !important; 
+}
 .sidebar-toggle-trigger {
     background: transparent;
     border: none;
@@ -188,24 +188,31 @@ body {
 /* --- GRID SYSTEM SYSTEM WORKBENCH --- */
 .main-portfolio-layout {
     display: grid;
-    /* Pehle column mein sidebar aur profile card aayenge, doosre mein right content */
-    grid-template-columns: 260px 320px minmax(0, 1fr); 
-    gap: 40px;
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 120px 40px 60px 40px;  
+    grid-template-columns: 320px minmax(0, 1fr); /* Sirf Left profile aur Right content column */
+    gap: 50px;
+    max-width: 1400px;
+    width: auto;                  
+    margin-right: 40px;           
+    margin-bottom: 0;
+    
+    /* Jab sidebar OPEN ho (Default state), toh left se itni jagah chorega */
+    margin-left: 300px;           
+    padding: 120px 0px 60px 0px;  
     align-items: start;
-}
-body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
-    margin-left: 120px;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 3. DYNAMIC MARGIN (Jab sidebar CLOSE/COLLAPSED ho toh content khud ba khud left ho jaye) */
+body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
+    margin-left: 120px; /* Content upar nahi jayega, balki tameez se left shift ho jayega */
+}
+
+/* Left column wala profile card apni jagah browser screen par sticky rahega */
 .left-column {
     position: sticky;
     top: 120px; 
     width: 100%;
 }
-
 .right-column {
     display: flex;
     flex-direction: column;
