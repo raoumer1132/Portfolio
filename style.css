@@ -9,21 +9,32 @@ body{
 background:#0d0d0d;
 color:white;
 }    
-/* Top Menu Trigger Button (3 Dots) */
-.top-menu-trigger {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    padding: 10px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-.top-menu-trigger:hover {
-    background: rgba(255, 255, 255, 0.2);
+/* Top navbar ke andar button ko properly space dene ke liye */
+.nav {
+    display: flex;
+    align-items: center; /* Taake button aur home icon ek hi line me rahein */
+    gap: 15px; /* Icons ke darmiyan gap */
 }
 
+/* 3-dots button ki styling */
+.top-menu-trigger {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.top-menu-trigger:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ff6b4a; /* Hover karne par orange ho jayega */
+}
 /* Floating Sidebar (Initially Hidden on Left) */
 .floating-sidebar {
     position: fixed;
