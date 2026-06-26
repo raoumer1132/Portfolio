@@ -9,18 +9,29 @@
 </head>
 <body>
 
-<nav class="floating-sidebar">
+<button id="menuToggleBtn" class="top-menu-trigger">
+    <i class="fa-solid fa-ellipsis-vertical"></i> </button>
+
+<nav id="slidingSidebar" class="floating-sidebar">
+    <button id="menuCloseBtn" class="close-btn">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
     <div class="sidebar-logo">
-        <i class="fa-solid fa-code"></i> </div>
+        <i class="fa-solid fa-code"></i>
+    </div>
+    
     <ul class="sidebar-links">
-        <li><a href="#home" class="active" title="Home"><i class="fa-solid fa-house"></i></a></li>
-        <li><a href="#about" title="About"><i class="fa-solid fa-user"></i></a></li>
-        <li><a href="#projects" title="Projects"><i class="fa-solid fa-folder-open"></i></a></li>
-        <li><a href="#experience" title="Experience"><i class="fa-solid fa-briefcase"></i></a></li>
-        <li><a href="#skills" title="Skills"><i class="fa-solid fa-screwdriver-wrench"></i></a></li>
-        <li><a href="#contact" title="Contact"><i class="fa-solid fa-pen-to-square"></i></a></li>
+        <li><a href="#home" class="active" title="Home"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="#about" title="About"><i class="fa-solid fa-user"></i> About</a></li>
+        <li><a href="#projects" title="Projects"><i class="fa-solid fa-folder-open"></i> Projects</a></li>
+        <li><a href="#experience" title="Experience"><i class="fa-solid fa-briefcase"></i> Experience</a></li>
+        <li><a href="#skills" title="Skills"><i class="fa-solid fa-screwdriver-wrench"></i> Skills</a></li>
+        <li><a href="#contact" title="Contact"><i class="fa-solid fa-pen-to-square"></i> Contact</a></li>
     </ul>
 </nav>
+
+<div id="sidebarOverlay" class="sidebar-overlay"></div>
     
     <nav class="nav">
     <a href="index.html" class="home-icon">
