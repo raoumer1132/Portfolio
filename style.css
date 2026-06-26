@@ -38,6 +38,9 @@ body {
     overflow-y: auto;
     scrollbar-width: none;
 }
+.gemini-sidebar.collapsed {
+    width: 68px !important;
+}
 .gemini-sidebar::-webkit-scrollbar {
     display: none;
 }
