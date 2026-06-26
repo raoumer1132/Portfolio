@@ -16,7 +16,7 @@ body {
 
 /* --- PREMIUM GLASSMORPHISM SIDEBAR BASE --- */
 .gemini-sidebar {
-    position: absolute;
+    position: fixed;
     top: 30px;                    
     left: 30px;                    
     width: 240px; 
@@ -34,7 +34,9 @@ body {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
+.gemini-sidebar::-webkit-scrollbar {
+    display: none;
+}
 .gemini-sidebar.collapsed {
     width: 68px; 
 }
