@@ -1,244 +1,212 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
+/* --- RESET & GLOBAL STYLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
-background:#0d0d0d;
-color:white;
+body {
+    background: #0d0d0d;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
 }    
-/* Top navbar ke andar button ko properly space dene ke liye */
-.nav {
+
+/* --- GEMINI SIDEBAR BASE --- */
+.gemini-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px; 
+    height: 100vh;
+    background-color: #131314; 
+    padding: 20px 12px;
     display: flex;
-    align-items: center; /* Taake button aur home icon ek hi line me rahein */
-    gap: 15px; /* Icons ke darmiyan gap */
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2000;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* 3-dots button ki styling */
-.top-menu-trigger {
+/* Collapsed State (Jab menu chota hoga) */
+.gemini-sidebar.collapsed {
+    width: 68px; 
+}
+
+/* Bar/Toggle Button */
+.sidebar-toggle-trigger {
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: #e3e3e3;
     font-size: 1.2rem;
-    padding: 5px 10px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    border-radius: 8px;
+    transition: background 0.2s;
+    margin-bottom: 20px;
+}
+.sidebar-toggle-trigger:hover {
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
-.top-menu-trigger:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ff6b4a; /* Hover karne par orange ho jayega */
-}
-/* Floating Sidebar (Initially Hidden on Left) */
-.floating-sidebar {
-    position: fixed;
-    top: 0;
-    left: -300px; /* Screen se bahar chupa hua */
-    width: 260px;
-    height: 100vh;
-    background: rgba(20, 20, 20, 0.85);
-    backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 40px 20px;
+/* Plus/New Chat Card */
+.new-chat-btn {
     display: flex;
-    flex-direction: column;
-    gap: 40px;
-    z-index: 2000;
-    transition: left 0.4s cubic-bezier(0.77, 0.2, 0.05, 1); /* Smooth Slide Effect */
-    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.7);
-}
-
-/* Jab Class Active hogi to menu andar slide karega */
-.floating-sidebar.active {
-    left: 0;
-}
-
-/* Close Button Design */
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    border: none;
-    color: #a0a0a0;
-    font-size: 1.3rem;
+    align-items: center;
+    gap: 12px;
+    background-color: #1a1a1c;
+    padding: 12px 16px;
+    border-radius: 24px;
+    color: #8e918f;
+    font-size: 0.9rem;
     cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 25px;
+    transition: background 0.2s;
 }
-.close-btn:hover {
-    color: #fff;
+.new-chat-btn:hover {
+    background-color: #282a2c;
+    color: #e3e3e3;
 }
 
 /* Sidebar Links */
 .sidebar-links {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 6px;
+    flex-grow: 1;
 }
 
-.sidebar-links li a {
-    color: #a0a0a0;
-    font-size: 1.1rem;
-    text-decoration: none;
+.sidebar-links li a, .sidebar-item-bottom {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 12px 15px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
+    gap: 16px;
+    color: #e3e3e3;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 24px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-.sidebar-links li a i {
-    font-size: 1.2rem;
-    width: 25px;
+.sidebar-links li a i, .sidebar-item-bottom i {
+    font-size: 1.1rem;
+    min-width: 20px;
+    text-align: center;
 }
 
-/* Hover & Active Effects */
-.sidebar-links li a:hover, 
+.sidebar-links li a:hover, .sidebar-item-bottom:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
 .sidebar-links li a.active {
-    color: #fff;
-    background: rgba(255, 107, 74, 0.15); /* Orange tint background */
-    border-left: 4px solid #ff6b4a; /* Flame Orange line */
+    background-color: #004a77; 
+    color: #c2e7ff;
 }
 
-/* Dark Background Overlay */
-.sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1999;
+/* Hide Text on Collapse */
+.gemini-sidebar .nav-text {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.gemini-sidebar.collapsed .nav-text {
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s ease;
+    display: none; 
 }
-.sidebar-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-.nav {
-    position: absolute;
-    top: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #151212;
+
+/* Bottom Items */
+.sidebar-bottom {
     display: flex;
-    gap: 40px;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 15px;
+}
+.small-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #e65f2b;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    padding: 16px 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,.5);
-    z-index: 1000;
-}
-.nav a{
-    align-items: center;
-    height:34px;
-    display:flex;
-    color:white;
-    text-decoration:none;
-    border-radius:8px;
-    transition:.3s;
-    position:relative;
-}
-
-.nav a:hover{
-    background:#242424;
-}
-
-/* Icons */
-.nav i{
-    font-size:19px;
-}
-
-/* Tooltip */
-.tooltip-text {
-    position: absolute;
-    top: 140%; 
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px); 
-    background-color: #151212;
-    color: #ffffff;
     font-size: 0.75rem;
-    font-weight: 500;
+}
+
+/* Hover Tooltips */
+.floating-tooltip {
+    position: absolute;
+    left: 80px;
+    background-color: #2e3032;
+    color: #f2f2f2;
     padding: 6px 12px;
-    border-radius: 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
     white-space: nowrap;
-    
-    /* Default Hidden State */
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    transition: opacity 0.15s ease;
 }
 
-.tooltip-text::after {
-    content: "";
-    position: absolute;
-    bottom: 100%; 
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #151212 transparent;
-}
-
-/* Hover  */
-.nav a:hover .tooltip-text {
+.gemini-sidebar.collapsed .sidebar-links li a:hover .floating-tooltip,
+.gemini-sidebar.collapsed .sidebar-bottom .sidebar-item-bottom:hover .floating-tooltip {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
 }
 
-/* Fonts  */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-
-body {
-    background-color: #0f0f0f; 
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+/* --- MAIN PAGE GRID LAYOUT --- */
+.main-portfolio-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;  /* Profile card fixed size layout */
+    gap: 60px;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto 0 240px; /* Sidebar ke liye left space chhodi */
+    padding: 140px 40px 60px 40px; 
+    align-items: start;
+    transition: margin-left 0.3s ease;
 }
 
-/* Main Container Layout */
-.hero-container {
+/* Jab sidebar chota hoga to layout automatic left shift hoga */
+body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
+    margin-left: 68px;
+}
+
+.left-column {
+    position: sticky;
+    top: 140px; 
+}
+
+.right-column {
     display: flex;
-    align-items: center;
-    gap: 80px;
-    max-width: 1200px;
-    padding: 120px 40px 40px 40px;
+    flex-direction: column;
+    gap: 60px; 
     width: 100%;
 }
-.left-column {
-    width: 35%;
-    position: sticky;
-    top: 140px;
-    height: max-content;
-}
+
+/* --- PROFILE CARD --- */
 .profile-card {
     background-color: #ffffff;
     border-radius: 32px;
     padding: 40px 25px;
     text-align: center;
     color: #0c0a0a;
-    position: relative;
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
@@ -248,7 +216,6 @@ body {
     max-width: 220px;
     height: 270px;
     margin: 0 auto 25px auto;
-    overflow: visible;
 }
 
 .avatar-img {
@@ -272,10 +239,10 @@ body {
 }
 
 .profile-name {
-    font-size: 1.8rem;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 12px;
+    color: #000000;
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 15px 0;
 }
 
 .fire-badge {
@@ -293,50 +260,6 @@ body {
 
 .profile-desc {
     font-size: 0.95rem;
-    color: #555555;
-    line-height: 1.5;
-    margin-bottom: 25px;
-    font-weight: 500;
-}
-
-.profile-socials {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-}
-
-.profile-socials a {
-    width: 38px;
-    height: 38px;
-    border: 1px solid #dddddd;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #0c0a0a;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-.profile-socials a:hover {
-    background-color: #0c0a0a;
-    color: #ffffff;
-}
-
-/* ==================== */
-.profile-card {
-    background-color: #ffffff;
-    border-radius: 32px;
-    padding: 40px;
-    width: 320px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-}
-/* ================================ */
-.profile-desc {
-    font-size: 0.95rem;
     color: #666666; 
     line-height: 1.5;
     text-align: center;
@@ -345,7 +268,6 @@ body {
     font-weight: 500;
 }
 
-/*  Icons  */
 .profile-socials {
     display: flex;
     justify-content: center;
@@ -354,7 +276,6 @@ body {
     margin-bottom: 20px; 
 }
 
-/*  Icon Style */
 .profile-socials a {
     color: #e65f2b; 
     font-size: 1.2rem;
@@ -362,35 +283,12 @@ body {
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Hover  */
 .profile-socials a:hover {
     color: #cf4f20; 
     transform: translateY(-3px); 
 }
-.image-container {
-    position: relative;
-    border-radius: 24px;
-    overflow: visible;
-    margin-bottom: 25px;
-}
 
-.profile-img {
-    width: 100%;
-    display: block;
-    border-radius: 24px;
-}
-
-.profile-name {
-    color: #000000;
-    font-size: 2rem;
-    font-weight: 900;
-    margin: 15px 0;
-}
-
-.content-side {
-    flex: 1;
-}
-
+/* --- HERO SECTION --- */
 .title-group h1 {
     margin: 0;
     line-height: 0.95;
@@ -415,7 +313,6 @@ body {
     margin: 30px 0 50px 0;
 }
 
-/*  Section Layout */
 .stats-container {
     display: flex;
     gap: 40px;
@@ -437,124 +334,26 @@ body {
     max-width: 110px;
 }
 
-/* ---  SECTION --- */
-.projects-section {
-    max-width: 1200px;
-    width: 100%;
-    margin: 50px auto;
-    padding: 0 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
-/* Cards Grid Layout */
+/* --- PROJECTS BENTO GRID --- */
 .projects-grid {
     display: flex;
     gap: 24px;
-    justify-content: flex-end; 
+    justify-content: flex-start; 
 }
 
-/*  Card Style */
-.project-card {
-    border-radius: 24px;
-    padding: 30px;
-    width: 320px;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-/* Orange Card Themes */
-.orange-card {
-    background-color: #e85a24; 
-    color: #ffffff;
-}
-
-/* Card Themes */
-.lime-card {
-    background-color: #adff2f;
-    color: #000000; /* Isko black rakhein taake green par text nazar aaye */
-    background-image: linear-gradient(135deg, rgba(0,0,0,0.03) 25%, transparent 25%),
-                      linear-gradient(225deg, rgba(0,0,0,0.03) 25%, transparent 25%);
-    background-size: 30px 30px;
-    
-    /* --- ALIGNMENT & SIZE FIX --- */
-    padding: 24px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-/* Card Icons */
-.card-icon {
-    opacity: 0.9;
-}
-.orange-card .card-icon { stroke: #ffffff; }
-.lime-card .card-icon { stroke: #000000; }
-
-/* Card Titles */
-.card-title {
-    font-size: 1.25rem; /* Size thora optimize kiya taake words fit aayein */
-    font-weight: 700;
-    line-height: 1.4;        
-    margin: 20px 0 auto 0;    
-    letter-spacing: 0.5px;
-    
-    /* --- TEXT WRAPPING FIX --- */
-    max-width: 85%;           
-    word-wrap: break-word;    
-    overflow-wrap: break-word;
-}
-
-.arrow-btn {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-end;
-    font-size: 1.1rem;
-    border: 1px solid currentColor;
-    opacity: 0.7;
-    margin-top: 15px; /* Arrow ko text se thora gap dene ke liye */
-}
-/* Big Heading Typography */
-.projects-heading {
-    line-height: 0.95;
-    margin-top: 20px;
-    margin-right: 60px;
-}
-
-.projects-heading h2 {
-    font-size: 6rem;
+.projects-heading h2, .experience-heading h2, 
+.tools-heading h2, .design-heading h2, .contact-heading h2 {
+    font-size: 5.5rem;
     font-weight: 900;
     margin: 0;
     letter-spacing: -2px;
+    line-height: 0.95;
 }
 
-.title-light {
-    color: #ffffff;
-}
+.title-light, .exp-light, .tools-light, .design-light, .contact-light { color: #ffffff; }
+.title-dark, .exp-dark, .tools-dark, .design-dark, .contact-dark { color: #1a1a1a; }
 
-.title-dark {
-    color: #1a1a1a; 
-}
-
-.portfolio-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-}
-
-
-/* --- PROJECTS LIST --- */
+/* --- PROJECTS LIST ROW --- */
 .projects-list {
     display: flex;
     flex-direction: column;
@@ -563,44 +362,30 @@ body {
     max-width: 650px; 
 }
 
-/* Base Project Row Style */
 .project-row {
     display: flex;
     align-items: center;
     padding: 16px;
     border-radius: 20px;
     transition: background 0.3s ease;
-    cursor: pointer;
-    position: relative;
     width: 100%;
-}
-
-.project-row:not(.highlighted-row) {
-    background: transparent;
 }
 
 .project-row:not(.highlighted-row):hover {
     background: rgba(255, 255, 255, 0.05); 
 }
 
-/* Highlighted Row Fix */
 .highlighted-row {
-    display: flex;
-    align-items: center;
     background: #141414; 
     padding: 24px; 
-    width: 100%;
     border-radius: 24px;
-    box-sizing: border-box;
 }
 
-/* Thumbnail Images Container */
 .project-thumb {
     width: 100px;
     height: 75px;
     border-radius: 12px;
     overflow: hidden;
-    background: #222;
     margin-right: 24px;
     flex-shrink: 0;
 }
@@ -611,7 +396,6 @@ body {
     object-fit: cover;
 }
 
-/* Text Adjustment */
 .project-info {
     flex-grow: 1;
 }
@@ -626,85 +410,15 @@ body {
 .proj-subtitle {
     font-size: 0.95rem;
     color: #666666; 
-    margin: 0;
 }
 
-/* Arrow alignment */
 .diagonal-arrow {
     font-size: 1.4rem;
     color: #e85a24; 
     font-weight: bold;
-    align-self: center;
-    transition: transform 0.2s ease;
 }
 
-/* Main Page Grid Wrapper */
-.main-portfolio-layout {
-    display: grid;
-    grid-template-columns: 350px 1fr; 
-    gap: 60px;
-    max-width: 1300px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 140px 40px 60px 40px; 
-    align-items: start;
-}
-
-/* Left Column  */
-.left-column {
-    position: sticky;
-    top: 140px; 
-}
-
-/* Right Column */
-.right-column {
-    display: flex;
-    flex-direction: column;
-    gap: 60px; 
-    width: 100%;
-}
-
-/*  sections  */
-.hero-content, .projects-grid, .projects-heading, .projects-list {
-    width: 100%;
-}
-
-.projects-grid {
-    display: flex;
-    gap: 24px;
-    justify-content: flex-start; 
-}
-
-/* ---  SECTION  --- */
-.experience-section {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 35px;
-    margin-top: 40px;
-}
-
-/*  Heading */
-.experience-heading {
-    line-height: 0.95;
-}
-
-.experience-heading h2 {
-    font-size: 5.5rem;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -2px;
-}
-
-.exp-light {
-    color: #ffffff;
-}
-
-.exp-dark {
-    color: #1a1a1a; 
-}
-
-/* Cards Layout */
+/* --- EXPERIENCE --- */
 .experience-cards-container {
     display: flex;
     flex-direction: column;
@@ -712,7 +426,6 @@ body {
     width: 100%;
 }
 
-/* Job Card */
 .job-card {
     background: #141414; 
     border-radius: 24px;
@@ -720,14 +433,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    transition: transform 0.3s ease, background 0.3s ease;
+    transition: background 0.3s ease;
 }
 
-.job-card:hover {
-    background: #1c1c1c;
-}
+.job-card:hover { background: #1c1c1c; }
 
-/* Job Title  */
 .job-header {
     display: flex;
     justify-content: space-between;
@@ -738,55 +448,24 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     color: #ffffff;
-    margin: 0;
 }
 
-.job-arrow {
-    font-size: 1.4rem;
-    color: #e85a24; 
-    font-weight: bold;
-}
+.job-arrow { color: #e85a24; font-size: 1.4rem; }
 
-/* Description Text */
 .job-desc {
     font-size: 1.05rem;
     color: #888888; 
     line-height: 1.6;
-    margin: 0;
     max-width: 650px; 
 }
 
-/* Job Duration Date styling */
 .job-date {
     font-size: 0.95rem;
     color: #555555;
-    font-weight: 500;
     margin-top: 5px;
 }
 
-/* --- PREMIUM TOOLS HEADING STYLES --- */
-.tools-heading {
-    line-height: 0.95;
-    margin-top: 40px;
-    text-align: left;
-}
-
-.tools-heading h2 {
-    font-size: 5.5rem;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -2px;
-}
-
-.tools-light {
-    color: #ffffff; 
-}
-
-.tools-dark {
-    color: #1a1a1a; 
-}   
-
-/* --- TOOLS GRID STYLES --- */
+/* --- TOOLS GRID --- */
 .tools-grid-box {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
@@ -796,26 +475,21 @@ body {
     margin-top: 25px;
 }
 
-/* Individual Tool Item Layout */
 .tool-item {
     display: flex;
     align-items: center;
     gap: 20px;
-    cursor: pointer;
     padding: 12px;
     border-radius: 20px;
-    background: transparent;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* Hover effect */
 .tool-item:hover {
     background-color: #141414; 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
     transform: translateY(-3px); 
 }
 
-/* White Icon Box Design */
 .tool-icon-box {
     width: 64px;
     height: 64px;
@@ -833,43 +507,10 @@ body {
     object-fit: contain;
 }
 
-/* Tool Typography Text */
-.tool-text h4 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-}
+.tool-text h4 { font-size: 1.4rem; font-weight: 700; color: #ffffff; }
+.tool-text p { font-size: 0.95rem; color: #666666; margin-top: 4px; }
 
-.tool-text p {
-    font-size: 0.95rem;
-    color: #666666;
-    margin: 4px 0 0 0;
-}
-
-
-/* --- DESIGN THOUGHTS HEADING STYLES --- */
-.design-heading {
-    line-height: 0.95;
-    margin-top: 70px;
-    text-align: left;
-}
-
-.design-heading h2 {
-    font-size: 5.5rem;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -2px;
-}
-
-.design-light {
-    color: #ffffff;
-}
-
-.design-dark {
-    color: #1a1a1a;
-}
-/* --- BLOG / DESIGN THOUGHTS STYLES --- */
+/* --- DESIGN THOUGHTS / BLOG --- */
 .blog-container {
     display: flex;
     flex-direction: column;
@@ -877,302 +518,64 @@ body {
     width: 100%;
     max-width: 750px;
     margin-top: 40px; 
-    margin-bottom: 60px; 
 }
 
-.blog-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    cursor: pointer;
-}
+.blog-card { display: flex; flex-direction: column; width: 100%; }
+.blog-header { display: flex; justify-content: space-between; gap: 20px; }
+.blog-title { font-size: 1.6rem; font-weight: 700; color: #ffffff; line-height: 1.3; }
+.blog-arrow { color: #e65f2b; font-size: 1.5rem; transition: transform 0.3s ease; }
+.blog-card:hover .blog-title { color: #e65f2b; }
+.blog-card:hover .blog-arrow { transform: translate(3px, -3px); }
+.blog-desc { font-size: 1rem; color: #777777; line-height: 1.6; margin: 15px 0; }
+.blog-footer { display: flex; justify-content: space-between; font-size: 0.9rem; }
+.blog-date { color: #555555; }
+.blog-read-time { color: #444444; }
 
-/* Header: Title + Arrow alignment */
-.blog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
+/* --- CONTACT FORM --- */
+.contact-section { width: 100%; max-width: 750px; margin-top: 80px; }
+.contact-form { display: flex; flex-direction: column; gap: 25px; }
+.form-row { display: flex; gap: 20px; }
+.form-row .form-group { flex: 1; }
+.form-group { display: flex; flex-direction: column; gap: 10px; }
+.form-group label { font-size: 0.9rem; color: #777777; }
+.contact-form input, .contact-form select, .contact-form textarea {
+    background: #161616; border: 1px solid #282828; border-radius: 10px;
+    padding: 16px 20px; color: #ffffff; font-size: 1rem; outline: none; width: 100%;
 }
-
-.blog-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-    line-height: 1.3;
-    transition: color 0.3s ease;
-}
-
-/* Orange Arrow styling */
-.blog-arrow {
-    color: #e65f2b; 
-    font-size: 1.5rem;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-}
-
-/* Hover Effects */
-.blog-card:hover .blog-title {
-    color: #e65f2b; 
-}
-
-.blog-card:hover .blog-arrow {
-    transform: translate(3px, -3px);
-}
-
-/* Description Typography */
-.blog-desc {
-    font-size: 1rem;
-    color: #777777; 
-    line-height: 1.6;
-    margin: 15px 0;
-    max-width: 680px;
-}
-
-/* Footer layout */
-.blog-footer {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.blog-date {
-    color: #555555;
-}
-
-.blog-read-time {
-    color: #444444; 
-}
-/* --- CONTACT SECTION STYLES --- */
-.contact-section {
-    width: 100%;
-    max-width: 750px;
-    margin-top: 80px;
-    margin-bottom: 20px;
-}
-
-.contact-heading {
-    line-height: 0.95;
-    margin-bottom: 40px;
-    text-align: left;
-}
-
-.contact-heading h2 {
-    font-size: 5.5rem;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -2px;
-}
-
-.contact-light {
-    color: #ffffff;
-}
-
-.contact-dark {
-    color: #1a1a1a; 
-}
-
-/* Form Container Layout */
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 25px; 
-    width: 100%;
-}
-
-/* Name aur Email  */
-.form-row {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-}
-
-.form-row .form-group {
-    flex: 1;
-}
-
-/* Grouping Label & Input */
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.form-group label {
-    font-size: 0.9rem;
-    color: #777777; 
-    font-weight: 500;
-}
-
-/* Fields Styling  */
-.contact-form input,
-.contact-form select,
-.contact-form textarea {
-    background: #161616;
-    border: 1px solid #282828;
-    border-radius: 10px;
-    padding: 16px 20px;
-    color: #ffffff;
-    font-size: 1rem;
-    font-family: inherit;
-    outline: none;
-    width: 100%;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-}
-
-/* Active/Focus State */
-.contact-form input:focus,
-.contact-form select:focus,
-.contact-form textarea:focus {
-    border-color: #e65f2b; 
-}
-
-/* Dropdown arrow fix */
-.contact-form select {
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23777777' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 20px center;
-    background-size: 16px;
-    cursor: pointer;
-}
-
-.contact-form textarea {
-    resize: none; 
-}
-
-/*  Button */
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: #e65f2b; }
 .submit-btn {
-    background: #e65f2b;
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    padding: 18px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-    transition: background 0.3s ease, transform 0.1s ease;
+    background: #e65f2b; color: #ffffff; border: none; border-radius: 10px;
+    padding: 18px; font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-top: 10px;
 }
+.submit-btn:hover { background: #cf4f20; }
+.footer-credits { text-align: center; margin-top: 90px; font-size: 0.9rem; color: #555555; }
 
-.submit-btn:hover {
-    background: #cf4f20; 
-}
-
-.submit-btn:active {
-    transform: scale(0.99); 
-}
-
-/* --- FOOTER  --- */
-.footer-credits {
-    text-align: center;
-    margin-top: 90px;
-    font-size: 0.9rem;
-    color: #555555;
-}
-
-.footer-credits .credit-link {
-    color: #777777;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-/* --- MOBILE RESPONSIVE STYLE --- */
+/* --- RESPONSIVE MEDIA QUERIES --- */
 @media (max-width: 768px) {
-    
     .main-portfolio-layout {
         grid-template-columns: 1fr !important;
         gap: 40px !important;
         padding: 100px 20px 40px 20px !important;
+        margin-left: 0 !important;
     }
-
-    .left-column {
-        position: relative !important;
-        top: 0 !important;
-        width: 100% !important;
-    }
-
-    .profile-card {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    .right-column {
-        width: 100% !important;
-        overflow-x: hidden !important;
-    }
-
-    .main-title, .sub-title, 
-    .projects-heading h2, .experience-heading h2, 
-    .tools-heading h2, .design-heading h2, .contact-heading h2 {
-        font-size: 2.8rem !important;
-        line-height: 1.1 !important;
-    }
-
-    .stats-container {
-        flex-direction: column !important;
-        gap: 20px !important;
-    }
-
-    .projects-grid {
-        flex-direction: column !important;
-        gap: 15px !important;
-    }
-    
-    .project-card {
-        width: 100% !important;
-        height: auto !important;
-        min-height: 160px !important;
-    }
-
-    .tools-grid-box {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-    }
-} /* <--- YEH BRACKET MISSING THA, JIS SE MASLA HORAHA THA */
-
-
-/* ==========================================
-   FINAL SUCCESSFUL FIX FOR PROJECT CARDS
-   (Ab yeh responsive block se bahar hai aur har screen par chalega)
-   ========================================== */
-
-/* Dono cards ka main wrapper layout */
-.project-card.orange-card, 
-.project-card.lime-card {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    padding: 32px !important;            /* Card ke andar har taraf space barabar karega */
-    box-sizing: border-box !important;   /* Card ko layout se baahir nikalne se rokega */
-    height: 100% !important;             /* Height dono ki barabar rakhega */
-    min-height: 260px !important;        /* Ek minimum height set karega taake arrow niche hi rahe */
+    .left-column { position: relative !important; top: 0 !important; width: 100% !important; }
+    .right-column { width: 100% !important; }
+    .main-title, .sub-title, .projects-heading h2, .experience-heading h2, 
+    .tools-heading h2, .design-heading h2, .contact-heading h2 { font-size: 2.8rem !important; }
+    .stats-container, .projects-grid { flex-direction: column !important; gap: 20px !important; }
+    .project-card { width: 100% !important; height: auto !important; min-height: 160px !important; }
+    .tools-grid-box { grid-template-columns: 1fr !important; }
 }
 
-/* Green card ka color full fix */
-.project-card.lime-card {
-    background-color: #adff2f !important;
-    color: #000000 !important;
+/* --- FIX FOR PROJECT CARDS --- */
+.project-card.orange-card, .project-card.lime-card {
+    display: flex !important; flex-direction: column !important; justify-content: space-between !important;
+    padding: 32px !important; box-sizing: border-box !important; height: 100% !important; min-height: 260px !important;
 }
-
-/* Dono cards ke andar text (title) ko control karne ke liye */
+.project-card.lime-card { background-color: #adff2f !important; color: #000000 !important; }
 .project-card .card-title {
-    color: inherit !important;
-    font-size: 1.25rem !important;
-    font-weight: 700 !important;
-    line-height: 1.4 !important;
-    margin: 20px 0 auto 0 !important;   /* Bottom margin auto taake arrow mazeed niche push ho jaye */
-    max-width: 85% !important;          /* Text right border aur arrow se door rahega */
-    white-space: normal !important;     /* Text ko wrap hone par majboor karega */
-    word-break: break-word !important;  
+    color: inherit !important; font-size: 1.25rem !important; font-weight: 700 !important;
+    line-height: 1.4 !important; margin: 20px 0 auto 0 !important; max-width: 85% !important;
+    white-space: normal !important; word-break: break-word !important;  
 }
-
-/* Arrow Button Alignment */
-.project-card .arrow-btn {
-    align-self: flex-end !important;    /* Arrow button ko hamesha right side par rakhega */
-    margin-top: auto !important;        /* Text khatam hone ke baad sab se niche shift karega */
-}
+.project-card .arrow-btn { align-self: flex-end !important; margin-top: auto !important; }
