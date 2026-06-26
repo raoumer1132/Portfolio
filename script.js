@@ -44,14 +44,15 @@ window.addEventListener("pageshow", (event) => {
     }
 });
 
-// SIDEBAR TOGGLE FUNCTIONALITY
+// SIDEBAR TOGGLE FUNCTIONALITY (UPDATED)
 document.addEventListener("DOMContentLoaded", () => {
     const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
     const geminiSidebar = document.getElementById("geminiSidebar");
 
     if (sidebarToggleBtn && geminiSidebar) {
+        geminiSidebar.classList.add("collapsed");
+
         sidebarToggleBtn.addEventListener("click", () => {
-            // .collapsed class toggle hogi jo width shrink karegi
             geminiSidebar.classList.toggle("collapsed");
         });
     }
