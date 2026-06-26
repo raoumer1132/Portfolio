@@ -209,16 +209,18 @@ body {
 /* --- MAIN PAGE GRID LAYOUT --- */
 .main-portfolio-layout {
     display: grid;
-    grid-template-columns: 320px 1fr; 
-    gap: 60px;
+    /* 1fr ko minmax ke sath wrap kiya taake layout narrow viewports par crash na kare */
+    grid-template-columns: 320px minmax(0, 1fr); 
+    gap: 40px; /* Gap ko thoda optimized kiya */
     max-width: 1300px;
     width: 100%;
-    margin: 0 auto 0 260px; 
+    margin-left: 260px; /* Default margin jab sidebar open ho */
     padding: 120px 40px 60px 20px; 
     align-items: start;
-    transition: margin-left 0.3s ease;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Jab sidebar collapsed (band) ho, tab content area scale aur stretch hoga */
 body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     margin-left: 90px;
 }
@@ -226,6 +228,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 .left-column {
     position: sticky;
     top: 120px; 
+    width: 100%;
 }
 
 .right-column {
@@ -233,6 +236,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     flex-direction: column;
     gap: 60px; 
     width: 100%;
+    overflow: hidden; /* Kisi bhi element ko horizontal flow todne se rokega */
 }
 
 /* --- PROFILE CARD --- */
@@ -359,10 +363,21 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 .stat-box p { color: #595959; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; max-width: 110px; }
 
 /* --- BENTO PROJECT CARDS --- */
-.projects-grid { display: flex; gap: 24px; }
+.projects-grid { 
+    display: flex; 
+    flex-wrap: wrap; /* Tight space hone par cards stack ho sakein */
+    gap: 24px; 
+}
 .project-card.orange-card, .project-card.lime-card {
-    display: flex !important; flex-direction: column !important; justify-content: space-between !important;
-    padding: 32px !important; border-radius: 24px; height: 100% !important; min-height: 260px !important; width: 320px;
+    display: flex !important; 
+    flex-direction: column !important; 
+    justify-content: space-between !important;
+    padding: 32px !important; 
+    border-radius: 24px; 
+    height: 100% !important; 
+    min-height: 260px !important; 
+    flex: 1 1 280px; /* Width ko static 320px se flexible banta hai */
+    max-width: 100%;
 }
 .project-card.orange-card { background-color: #e65f2b; color: white; }
 .project-card.lime-card { background-color: #adff2f !important; color: #000000 !important; }
