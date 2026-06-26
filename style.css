@@ -579,3 +579,36 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     white-space: normal !important; word-break: break-word !important;  
 }
 .project-card .arrow-btn { align-self: flex-end !important; margin-top: auto !important; }
+
+/* --- TOP NAVBAR FIXED OVERRIDE --- */
+.nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(12px);
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 3000; /* Sidebar se upar rakhne ke liye */
+}
+
+.nav a {
+    color: #8c8c8c;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav a:hover, .nav a.active {
+    color: #ffffff;
+}
+
+/* Page margin ko layout ke mutabik thora adjust karne ke liye */
+.main-portfolio-layout {
+    padding-top: 100px !important; 
+}
