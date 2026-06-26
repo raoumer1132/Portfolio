@@ -30,3 +30,14 @@ document.querySelectorAll("a").forEach(link => {
         });
     }
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
+    const geminiSidebar = document.getElementById("geminiSidebar");
+
+    if (sidebarToggleBtn && geminiSidebar) {
+        sidebarToggleBtn.addEventListener("click", () => {
+            // .collapsed class toggle hogi jo width shrink karegi
+            geminiSidebar.classList.toggle("collapsed");
+        });
+    }
+});
