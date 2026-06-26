@@ -16,7 +16,7 @@ body {
 
 /* --- PREMIUM GLASSMORPHISM SIDEBAR BASE --- */
 .gemini-sidebar {
-    position: fixed;
+    position: absolute;
     top: 30px;                    
     left: 30px;                    
     width: 240px; 
@@ -112,7 +112,7 @@ body {
 
 /* --- TOP FLOATING NAVBAR FIXED --- */
 .nav {
-    position: fixed; /* Fixed taaki scroll karne par sath chale */
+    position: absolute;
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
