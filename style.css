@@ -300,6 +300,40 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     margin-top: 15px;
     font-weight: 500;
 }
+/* --- SOCIAL LINKS (FIRST SCREENSHOT STYLE) --- */
+.profile-socials {
+    display: flex !important;      /* Flexbox active karega */
+    flex-direction: row !important; /* Forcefully horizontal line mein layega */
+    justify-content: center;
+    align-items: center;
+    gap: 15px;                    /* Icons ke darmiyan gap */
+    margin-top: 25px;             /* Bio text se niche separation */
+    width: 100%;
+}
+
+.profile-socials a {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: #ffffff;    /* Card white hai, to circle background bhi white */
+    border: 1px solid #e0e0e0;    /* Light border jese pehli pic me hai */
+    border-radius: 50% !important;/* Perfect gol wrap */
+    color: #000000;               /* Icons ka color purely black */
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Soft premium shadow */
+}
+
+/* Hover effect taake portfolio responsive aur interactive lage */
+.profile-socials a:hover {
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #000000;
+    transform: translateY(-2px);
+}
 /* --- HERO SECTION --- */
 .title-group h1, .projects-heading h2, .experience-heading h2, 
 .tools-heading h2, .design-heading h2, .contact-heading h2 {
