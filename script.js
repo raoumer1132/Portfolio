@@ -9,11 +9,15 @@ setTimeout(() => {
 
 // B: Jab user kisi bhi navbar ya dusre page ke link par click kare
 document.querySelectorAll("a").forEach(link => {
-    // Check karein ke link kahin external website ya same page ka anchor (#) toh nahi hai
-    const isAnchor = link.getAttribute("href").startsWith("#");
+    const href = link.getAttribute("href");
+    
+    // Safety Check: Pehle dekhein href exist karta hai ya nahi
+    if (!href) return;
+
+    const isAnchor = href.startsWith("#");
     const isBlank = link.getAttribute("target") === "_blank";
 
-    if (!isAnchor && !isBlank && link.getAttribute("href")) {
+    if (!isAnchor && !isBlank) {
         link.addEventListener("click", function(e) {
             e.preventDefault(); // Furan page change hone se rokein
             const targetUrl = this.href;
@@ -30,6 +34,17 @@ document.querySelectorAll("a").forEach(link => {
         });
     }
 });
+
+// Browser Back Button Fix (Agar user wapas aaye toh page invisible na ho)
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+        document.body.style.opacity = "1";
+        document.body.style.transform = "scale(1)";
+        if (overlay) overlay.classList.add("fade-out");
+    }
+});
+
+// SIDEBAR TOGGLE FUNCTIONALITY
 document.addEventListener("DOMContentLoaded", () => {
     const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
     const geminiSidebar = document.getElementById("geminiSidebar");
