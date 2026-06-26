@@ -220,21 +220,7 @@ body.page-ready {
 /* ==========================================================================
    MAIN TWO-COLUMN WORKSPACE FRAMEWORK GRID
    ========================================================================== */
-.main-portfolio-layout {
-    display: flex;
-    width: 100%;
-    max-width: 1200px;
-    margin-top: 140px; /* Thoda gap diya floating menu se */
-    padding: 0 20px;
-    gap: 50px;
-}
 
-.left-column {
-    width: 35%;
-    position: sticky;
-    top: 140px;
-    height: max-content;
-}
 
 .right-column {
     width: 65%;
