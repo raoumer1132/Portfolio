@@ -206,21 +206,23 @@ body {
     transform: translateX(-50%) translateY(0);
 }
 
-/* --- MAIN PAGE GRID LAYOUT --- */
 .main-portfolio-layout {
     display: grid;
-    /* 1fr ko minmax ke sath wrap kiya taake layout narrow viewports par crash na kare */
+    /* 1fr ko minmax(0, 1fr) kiya taake tight layouts me right content automatic fluid compress ho */
     grid-template-columns: 320px minmax(0, 1fr); 
-    gap: 40px; /* Gap ko thoda optimized kiya */
-    max-width: 1300px;
-    width: 100%;
-    margin-left: 260px; /* Default margin jab sidebar open ho */
-    padding: 120px 40px 60px 20px; 
+    gap: 50px;
+    max-width: 1400px;
+    width: auto;                  /* Fixed 100% se overflow risk hota hai, auto width window bound rakhegi */
+    margin-right: 40px;           /* Right boundary clear balance rakhne ke liye */
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 260px;           /* Default expanded sidebar spacing */
+    padding: 120px 0px 60px 0px;  
     align-items: start;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Jab sidebar collapsed (band) ho, tab content area scale aur stretch hoga */
+/* Jab sidebar collapsed (band) ho, tab content safely khul kar expand hoga */
 body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     margin-left: 90px;
 }
@@ -236,7 +238,8 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     flex-direction: column;
     gap: 60px; 
     width: 100%;
-    overflow: hidden; /* Kisi bhi element ko horizontal flow todne se rokega */
+    min-width: 0;                 /* Structural flex box truncation prevent karne ke liye zaroori hai */
+    overflow: hidden;             /* Kisi bhi legacy rule ko width break karne se rokega */
 }
 
 /* --- PROFILE CARD --- */
@@ -362,12 +365,13 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 .stat-box h3 { font-size: 3.5rem; font-weight: 700; color: #ffffff; }
 .stat-box p { color: #595959; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; max-width: 110px; }
 
-/* --- BENTO PROJECT CARDS --- */
 .projects-grid { 
     display: flex; 
-    flex-wrap: wrap; /* Tight space hone par cards stack ho sakein */
+    flex-wrap: wrap;              /* Space narrow hone par cards stack ho sakenge */
     gap: 24px; 
+    width: 100%;
 }
+
 .project-card.orange-card, .project-card.lime-card {
     display: flex !important; 
     flex-direction: column !important; 
@@ -376,7 +380,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     border-radius: 24px; 
     height: 100% !important; 
     min-height: 260px !important; 
-    flex: 1 1 280px; /* Width ko static 320px se flexible banta hai */
+    flex: 1 1 280px;              /* Standard hard width bypass karke cards adaptive fluid banyega */
     max-width: 100%;
 }
 .project-card.orange-card { background-color: #e65f2b; color: white; }
@@ -424,9 +428,15 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 
 /* --- CONTACT FORM --- */
 .contact-section { width: 100%; max-width: 750px; margin-top: 80px; }
-.contact-form { display: flex; flex-direction: column; gap: 25px; }
-.form-row { display: flex; gap: 20px; }
-.form-row .form-group { flex: 1; }
+/* Contact form inputs wrapping space fix */
+.contact-form {
+    width: 100%;
+}
+.form-row {
+    display: flex;
+    flex-wrap: wrap;              /* Input sections space tight hone par screen se baahar nahi jayenge */
+    gap: 20px;
+}
 .form-group { display: flex; flex-direction: column; gap: 10px; }
 .form-group label { font-size: 0.9rem; color: #777777; }
 .contact-form input, .contact-form select, .contact-form textarea {
