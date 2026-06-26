@@ -222,10 +222,45 @@ body.page-ready {
    ========================================================================== */
 
 
+/* ==========================================================================
+   MAIN TWO-COLUMN WORKSPACE FRAMEWORK GRID (SIDEBAR COMPATIBLE)
+   ========================================================================== */
+.main-portfolio-layout {
+    display: grid !important;
+    grid-template-columns: 320px minmax(0, 1fr) !important; /* Force 2 Columns Layout */
+    gap: 50px !important;
+    max-width: 1400px !important;
+    width: 100% !important;
+    margin-right: auto !important;
+    margin-bottom: 0 !important;
+    padding: 120px 20px 60px 20px !important;  
+    align-items: start !important;
+    box-sizing: border-box !important;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Jab sidebar open ho toh left space automatic manage ho */
+    margin-left: 300px !important; 
+}
+
+/* Jab page load ho ya sidebar collapsed (chota) ho, toh left margin back to safe zone */
+body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
+    margin-left: 140px !important; 
+}
+
+/* Left column (Profile Card Wrapper) */
+.left-column {
+    width: 100% !important;
+    max-width: 320px !important;
+    position: sticky !important;
+    top: 120px !important; 
+    z-index: 10 !important;
+}
+
+/* Right column (Projects List Wrapper) */
 .right-column {
-    width: 65%;
-    display: flex;
-    flex-direction: column;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 /* LEFT SIDE CARD STRUCTURING */
