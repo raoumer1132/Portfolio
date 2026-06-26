@@ -139,68 +139,73 @@ body {
     color: white;
 }
 
-/* --- PREMIUM FLOATING CAPSULE NAVBAR (Screenshot (878).jpg Style) --- */
 .nav {
-    position: fixed !important;
-    top: 25px !important;
-    left: calc(50% + 120px) !important;
-    transform: translateX(-50%) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 32px !important;
-    background: rgba(23, 23, 23, 0.85) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px);
-    padding: 14px 40px !important;
-    border-radius: 20px !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    z-index: 3000 !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-body:has(.gemini-sidebar.collapsed) .nav {
-    left: calc(50% + 34px) !important;
+    position: absolute; /* Fixed taaki page scroll par menu upar hi rahe */
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #151212;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.5);
+    z-index: 1000;
 }
 
 .nav a {
-    color: #8c8c8c !important;
-    text-decoration: none !important;
-    font-size: 1.25rem !important;
-    transition: color 0.25s ease, transform 0.2s ease !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-.nav a:hover {
-    color: #ffffff !important;
-    transform: scale(1.1);
-}
-
-.nav a.active {
-    color: #ffffff !important;
+    color: #666666;
+    font-size: 1.3rem;
+    text-decoration: none;
     position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: color 0.3s ease;
 }
 
-.nav a.active::after {
-    content: '';
+.nav a:hover, .nav a.folder-icon {
+    color: #ffffff;
+}
+
+.tooltip-text {
     position: absolute;
-    bottom: -6px;
-    width: 4px;
-    height: 4px;
-    background-color: #ffffff;
-    border-radius: 50%;
+    top: 145%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background-color: #151212;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
 }
 
-@media (max-width: 1024px) {
-    .nav {
-        left: 50% !important;
-        padding: 12px 30px !important;
-        gap: 24px !important;
-    }
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #151212 transparent;
 }
+
+.nav a:hover .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
 /* --- MAIN PAGE GRID LAYOUT --- */
 .main-portfolio-layout {
     display: grid;
