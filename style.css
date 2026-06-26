@@ -1,4 +1,6 @@
-/* --- RESET & GLOBAL STYLES --- */
+/* ==========================================================================
+   1. RESET & GLOBAL STYLES
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +15,9 @@ body {
     overflow-x: hidden;
 }    
 
-/* --- GEMINI SIDEBAR BASE --- */
+/* ==========================================================================
+   2. GEMINI SIDEBAR BASE (LEFT FIXED SIDEBAR)
+   ========================================================================== */
 .gemini-sidebar {
     position: fixed;
     top: 0;
@@ -170,20 +174,87 @@ body {
     visibility: visible;
 }
 
-/* --- MAIN PAGE GRID LAYOUT --- */
+/* ==========================================================================
+   3. TOP FLOATING NAVBAR (HORIZONTAL NAVBAR UPER)
+   ========================================================================== */
+.nav {
+    position: fixed !important;
+    top: 20px !important;
+    left: calc(50% + 120px) !important; /* Sidebar ki space nikal kar screen center me fit karne ke liye */
+    transform: translateX(-50%) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 30px !important;
+    background: rgba(20, 20, 20, 0.75) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px);
+    padding: 12px 35px !important;
+    border-radius: 30px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    z-index: 3000 !important;
+    transition: left 0.3s ease !important;
+}
+
+/* Jab sidebar collapse ho to top navbar automatic shift ho jaye */
+body:has(.gemini-sidebar.collapsed) .nav {
+    left: calc(50% + 34px) !important;
+}
+
+.nav a {
+    color: #8c8c8c !important;
+    text-decoration: none !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    transition: color 0.3s ease !important;
+}
+
+.nav a:hover, .nav a.active {
+    color: #ffffff !important;
+}
+
+/* Ellipsis hidden trigger */
+.top-menu-trigger {
+    display: none !important;
+}
+
+/* Tooltip style */
+.tooltip-text {
+    position: absolute;
+    bottom: -35px;
+    background: #1e1e1e;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+}
+.nav a:hover .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================================================
+   4. MAIN PAGE GRID LAYOUT
+   ========================================================================== */
 .main-portfolio-layout {
     display: grid;
-    grid-template-columns: 320px 1fr;  /* Profile card fixed size layout */
+    grid-template-columns: 320px 1fr;  
     gap: 60px;
-    max-width: 1300px;
+    max-width: 1400px;
     width: 100%;
-    margin: 0 auto 0 240px; /* Sidebar ke liye left space chhodi */
-    padding: 140px 40px 60px 40px; 
+    margin-left: 240px; /* Sidebar ke barabar right spacing shift */
+    padding: 140px 50px 60px 50px; 
     align-items: start;
     transition: margin-left 0.3s ease;
 }
 
-/* Jab sidebar chota hoga to layout automatic left shift hoga */
+/* Jab sidebar chota hoga to layout left margin adjust karega */
 body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     margin-left: 68px;
 }
@@ -200,7 +271,9 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     width: 100%;
 }
 
-/* --- PROFILE CARD --- */
+/* ==========================================================================
+   5. PROFILE CARD
+   ========================================================================== */
 .profile-card {
     background-color: #ffffff;
     border-radius: 32px;
@@ -240,7 +313,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 
 .profile-name {
     color: #000000;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 900;
     margin: 15px 0;
 }
@@ -264,7 +337,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     line-height: 1.5;
     text-align: center;
     margin-top: 15px;
-    padding: 0 25px; 
+    padding: 0 15px; 
     font-weight: 500;
 }
 
@@ -288,7 +361,9 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     transform: translateY(-3px); 
 }
 
-/* --- HERO SECTION --- */
+/* ==========================================================================
+   6. HERO SECTION
+   ========================================================================== */
 .title-group h1 {
     margin: 0;
     line-height: 0.95;
@@ -309,7 +384,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     color: #8c8c8c;
     font-size: 1.15rem;
     line-height: 1.6;
-    max-width: 500px;
+    max-width: 550px;
     margin: 30px 0 50px 0;
 }
 
@@ -334,7 +409,9 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     max-width: 110px;
 }
 
-/* --- PROJECTS BENTO GRID --- */
+/* ==========================================================================
+   7. PROJECTS GRID & BENTO ROWS
+   ========================================================================== */
 .projects-grid {
     display: flex;
     gap: 24px;
@@ -353,13 +430,12 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 .title-light, .exp-light, .tools-light, .design-light, .contact-light { color: #ffffff; }
 .title-dark, .exp-dark, .tools-dark, .design-dark, .contact-dark { color: #1a1a1a; }
 
-/* --- PROJECTS LIST ROW --- */
 .projects-list {
     display: flex;
     flex-direction: column;
     gap: 24px;
     width: 100%;
-    max-width: 650px; 
+    max-width: 750px; 
 }
 
 .project-row {
@@ -372,243 +448,4 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 }
 
 .project-row:not(.highlighted-row):hover {
-    background: rgba(255, 255, 255, 0.05); 
-}
-
-.highlighted-row {
-    background: #141414; 
-    padding: 24px; 
-    border-radius: 24px;
-}
-
-.project-thumb {
-    width: 100px;
-    height: 75px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-right: 24px;
-    flex-shrink: 0;
-}
-
-.project-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.project-info {
-    flex-grow: 1;
-}
-
-.proj-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 4px 0;
-}
-
-.proj-subtitle {
-    font-size: 0.95rem;
-    color: #666666; 
-}
-
-.diagonal-arrow {
-    font-size: 1.4rem;
-    color: #e85a24; 
-    font-weight: bold;
-}
-
-/* --- EXPERIENCE --- */
-.experience-cards-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-}
-
-.job-card {
-    background: #141414; 
-    border-radius: 24px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: background 0.3s ease;
-}
-
-.job-card:hover { background: #1c1c1c; }
-
-.job-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.job-company {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.job-arrow { color: #e85a24; font-size: 1.4rem; }
-
-.job-desc {
-    font-size: 1.05rem;
-    color: #888888; 
-    line-height: 1.6;
-    max-width: 650px; 
-}
-
-.job-date {
-    font-size: 0.95rem;
-    color: #555555;
-    margin-top: 5px;
-}
-
-/* --- TOOLS GRID --- */
-.tools-grid-box {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 30px 40px;
-    width: 100%;
-    max-width: 750px;
-    margin-top: 25px;
-}
-
-.tool-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 12px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-.tool-item:hover {
-    background-color: #141414; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
-    transform: translateY(-3px); 
-}
-
-.tool-icon-box {
-    width: 64px;
-    height: 64px;
-    background: #ffffff; 
-    border-radius: 18px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.tool-icon-box img {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-}
-
-.tool-text h4 { font-size: 1.4rem; font-weight: 700; color: #ffffff; }
-.tool-text p { font-size: 0.95rem; color: #666666; margin-top: 4px; }
-
-/* --- DESIGN THOUGHTS / BLOG --- */
-.blog-container {
-    display: flex;
-    flex-direction: column;
-    gap: 50px; 
-    width: 100%;
-    max-width: 750px;
-    margin-top: 40px; 
-}
-
-.blog-card { display: flex; flex-direction: column; width: 100%; }
-.blog-header { display: flex; justify-content: space-between; gap: 20px; }
-.blog-title { font-size: 1.6rem; font-weight: 700; color: #ffffff; line-height: 1.3; }
-.blog-arrow { color: #e65f2b; font-size: 1.5rem; transition: transform 0.3s ease; }
-.blog-card:hover .blog-title { color: #e65f2b; }
-.blog-card:hover .blog-arrow { transform: translate(3px, -3px); }
-.blog-desc { font-size: 1rem; color: #777777; line-height: 1.6; margin: 15px 0; }
-.blog-footer { display: flex; justify-content: space-between; font-size: 0.9rem; }
-.blog-date { color: #555555; }
-.blog-read-time { color: #444444; }
-
-/* --- CONTACT FORM --- */
-.contact-section { width: 100%; max-width: 750px; margin-top: 80px; }
-.contact-form { display: flex; flex-direction: column; gap: 25px; }
-.form-row { display: flex; gap: 20px; }
-.form-row .form-group { flex: 1; }
-.form-group { display: flex; flex-direction: column; gap: 10px; }
-.form-group label { font-size: 0.9rem; color: #777777; }
-.contact-form input, .contact-form select, .contact-form textarea {
-    background: #161616; border: 1px solid #282828; border-radius: 10px;
-    padding: 16px 20px; color: #ffffff; font-size: 1rem; outline: none; width: 100%;
-}
-.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: #e65f2b; }
-.submit-btn {
-    background: #e65f2b; color: #ffffff; border: none; border-radius: 10px;
-    padding: 18px; font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-top: 10px;
-}
-.submit-btn:hover { background: #cf4f20; }
-.footer-credits { text-align: center; margin-top: 90px; font-size: 0.9rem; color: #555555; }
-
-/* --- RESPONSIVE MEDIA QUERIES --- */
-@media (max-width: 768px) {
-    .main-portfolio-layout {
-        grid-template-columns: 1fr !important;
-        gap: 40px !important;
-        padding: 100px 20px 40px 20px !important;
-        margin-left: 0 !important;
-    }
-    .left-column { position: relative !important; top: 0 !important; width: 100% !important; }
-    .right-column { width: 100% !important; }
-    .main-title, .sub-title, .projects-heading h2, .experience-heading h2, 
-    .tools-heading h2, .design-heading h2, .contact-heading h2 { font-size: 2.8rem !important; }
-    .stats-container, .projects-grid { flex-direction: column !important; gap: 20px !important; }
-    .project-card { width: 100% !important; height: auto !important; min-height: 160px !important; }
-    .tools-grid-box { grid-template-columns: 1fr !important; }
-}
-
-/* --- FIX FOR PROJECT CARDS --- */
-.project-card.orange-card, .project-card.lime-card {
-    display: flex !important; flex-direction: column !important; justify-content: space-between !important;
-    padding: 32px !important; box-sizing: border-box !important; height: 100% !important; min-height: 260px !important;
-}
-.project-card.lime-card { background-color: #adff2f !important; color: #000000 !important; }
-.project-card .card-title {
-    color: inherit !important; font-size: 1.25rem !important; font-weight: 700 !important;
-    line-height: 1.4 !important; margin: 20px 0 auto 0 !important; max-width: 85% !important;
-    white-space: normal !important; word-break: break-word !important;  
-}
-.project-card .arrow-btn { align-self: flex-end !important; margin-top: auto !important; }
-
-/* --- TOP NAVBAR FIXED OVERRIDE --- */
-.nav {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 30px;
-    background: rgba(20, 20, 20, 0.6);
-    backdrop-filter: blur(12px);
-    padding: 12px 30px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    z-index: 3000; /* Sidebar se upar rakhne ke liye */
-}
-
-.nav a {
-    color: #8c8c8c;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.nav a:hover, .nav a.active {
-    color: #ffffff;
-}
-
-/* Page margin ko layout ke mutabik thora adjust karne ke liye */
-.main-portfolio-layout {
-    padding-top: 100px !important; 
-}
+    background: rgba(255, 255, 2
