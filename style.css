@@ -9,98 +9,111 @@ body{
 background:#0d0d0d;
 color:white;
 }    
-/* Floating Sidebar Styling */
+/* Top Menu Trigger Button (3 Dots) */
+.top-menu-trigger {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.top-menu-trigger:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Floating Sidebar (Initially Hidden on Left) */
 .floating-sidebar {
     position: fixed;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-    background: rgba(30, 30, 30, 0.75); /* Dark semi-transparent background */
-    backdrop-filter: blur(10px); /* Glassmorphism effect */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 20px 12px;
-    border-radius: 20px;
+    top: 0;
+    left: -300px; /* Screen se bahar chupa hua */
+    width: 260px;
+    height: 100vh;
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    z-index: 1000;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease;
+    gap: 40px;
+    z-index: 2000;
+    transition: left 0.4s cubic-bezier(0.77, 0.2, 0.05, 1); /* Smooth Slide Effect */
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.7);
 }
 
-/* Logo Section */
-.sidebar-logo i {
-    color: #ff6b4a; /* Fire orange color aapke flame icon se match karta hua */
-    font-size: 1.4rem;
+/* Jab Class Active hogi to menu andar slide karega */
+.floating-sidebar.active {
+    left: 0;
 }
 
-/* Links List */
+/* Close Button Design */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #a0a0a0;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: #fff;
+}
+
+/* Sidebar Links */
 .sidebar-links {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
-/* Individual Link Design */
 .sidebar-links li a {
-    color: #a0a0a0; /* Subtle gray for inactive icons */
-    font-size: 1.2rem;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
+    color: #a0a0a0;
+    font-size: 1.1rem;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    border-radius: 12px;
     transition: all 0.3s ease;
-    position: relative;
 }
 
-/* Hover Effect */
-.sidebar-links li a:hover {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.1);
+.sidebar-links li a i {
+    font-size: 1.2rem;
+    width: 25px;
 }
 
-/* Active Page/Section Effect */
+/* Hover & Active Effects */
+.sidebar-links li a:hover, 
 .sidebar-links li a.active {
-    color: #ffffff;
-    background: #ff6b4a; /* Active state par bright orange background */
-    box-shadow: 0 5px 15px rgba(255, 107, 74, 0.4);
+    color: #fff;
+    background: rgba(255, 107, 74, 0.15); /* Orange tint background */
+    border-left: 4px solid #ff6b4a; /* Flame Orange line */
 }
 
-/* Tooltip (Hover karne par naam dikhane ke liye) */
-.sidebar-links li a::after {
-    content: attr(title);
-    position: absolute;
-    left: 65px;
-    background: #1e1e1e;
-    color: #fff;
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    border-radius: 6px;
-    white-space: nowrap;
+/* Dark Background Overlay */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: opacity 0.4s ease;
 }
-
-.sidebar-links li a:hover::after {
+.sidebar-overlay.active {
     opacity: 1;
-    left: 58px; /* Smoothly slides into view */
-}
-
-/* Mobile Responsive (Mobile par hide ho jayega ya bottom navigation ban sakta hai) */
-@media (max-width: 768px) {
-    .floating-sidebar {
-        display: none; /* Mobile screen par isko hide rakhein taake UI kharab na ho */
-    }
+    pointer-events: auto;
 }
 .nav {
     position: absolute;
