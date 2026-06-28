@@ -224,26 +224,38 @@ body.page-ready {
    3. COLUMN STRUCTURING (GRID ARCHITECTURE)
    ========================================================================== */
 .main-portfolio-layout {
-    display: flex;
-    width: 100%;
-    max-width: 1200px;
-    margin-top: 140px;
-    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
     gap: 50px;
+    max-width: 1400px;
+    width: 100%;                  
+    margin-right: 40px;           
+    margin-bottom: 0;
+    margin-left: 300px;           
+    padding: 120px 20px 60px 20px;  
+    align-items: start;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Shift content gracefully when sidebar collapses */
+body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
+    margin-left: 120px;
 }
 
 .left-column {
-    width: 35%;
     position: sticky;
-    top: 140px;
-    height: max-content;
+    top: 120px; 
+    width: 100%;
 }
 
 .right-column {
-    width: 65%;
     display: flex;
     flex-direction: column;
+    gap: 60px; 
+    width: 100%;
+    min-width: 0;                 
 }
+
 
 /* ==========================================================================
    4. LEFT COLUMN: PROFILE CARD DESIGN
