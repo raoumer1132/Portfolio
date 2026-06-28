@@ -15,7 +15,17 @@ body {
     display: flex;
     justify-content: center;
     overflow-x: hidden;
+    position: relative;
+    
+    /* Clean entry animation without breaking fixed layouts */
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+body.page-ready {
+    opacity: 1;
+}
+
 /* ==========================================================================
    2. PREMIUM GLASSMORPHISM SIDEBAR (FIXED VIEWPORT)
    ========================================================================== */
@@ -130,25 +140,8 @@ body {
     opacity: 0;
 }
 
-
-/* Jab page load ho jaye toh overlay gayab karne ke liye class */
-.page-transition-overlay.fade-out {
-    opacity: 0;
-}
-
-/* Pure body content par halka sa scale aur fade animation lagane ke liye class */
-body {
-    opacity: 0;
-    transform: scale(0.99);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body.page-ready {
-    opacity: 1;
-    transform: scale(1);
-}
 /* ==========================================================================
-   2. TOP BAR FLOATING NAVIGATION MENU
+   3. TOP BAR FLOATING NAVIGATION MENU
    ========================================================================== */
 .nav {
     position: absolute;
@@ -183,7 +176,6 @@ body.page-ready {
     color: #ffffff;
 }
 
-/* Tooltip bubbles on hovering icons */
 .tooltip-text {
     position: absolute;
     top: 145%;
@@ -221,7 +213,7 @@ body.page-ready {
 }
 
 /* ==========================================================================
-   3. COLUMN STRUCTURING (GRID ARCHITECTURE)
+   4. COLUMN STRUCTURING (GRID ARCHITECTURE)
    ========================================================================== */
 .main-portfolio-layout {
     display: grid;
@@ -237,7 +229,6 @@ body.page-ready {
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Shift content gracefully when sidebar collapses */
 body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     margin-left: 120px;
 }
@@ -253,12 +244,11 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     flex-direction: column;
     gap: 60px; 
     width: 100%;
-    min-width: 0;                 
+    min-width: 0;                  
 }
 
-
 /* ==========================================================================
-   4. LEFT COLUMN: PROFILE CARD DESIGN
+   5. LEFT COLUMN: PROFILE CARD DESIGN
    ========================================================================== */
 .profile-card {
     background-color: #ffffff;
@@ -353,26 +343,8 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 }
 
 /* ==========================================================================
-   5. TOOLS PAGE SPECIFIC STYLES
+   6. TOOLS PAGE SPECIFIC STYLES
    ========================================================================== */
-.tool-thumb {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    overflow: hidden; /* Image corners ko card se baahar nikalne se rokega */
-    background-color: #ffffff; /* Taki agar transparent image ho toh background white rahe */
-}
-
-.tool-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Logo ko exact 64x64 ke dabbe me scale karega */
-}
 .tools-main-heading {
     line-height: 0.95;
     margin-bottom: 45px;
@@ -390,10 +362,9 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 }
 
 .heading-dark {
-    color: #1a1717; /* Dark grayish tint background text effect */
+    color: #1a1717;
 }
 
-/* 2 Column Grid for Tools Layout */
 .tools-grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -414,6 +385,25 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     background-color: rgba(255, 255, 255, 0.03);
 }
 
+.tool-thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden; 
+    background-color: #ffffff; 
+}
+
+.tool-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
 .tool-logo-box {
     width: 64px;
     height: 64px;
@@ -425,14 +415,8 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.bg-white {
-    background-color: #ffffff;
-}
-
-.tool-icon-font {
-    font-size: 1.8rem;
-}
-
+.bg-white { background-color: #ffffff; }
+.tool-icon-font { font-size: 1.8rem; }
 .black-text { color: #000000; }
 .yellow-text { color: #ffc107; }
 .colored-figma { color: #a259ff; }
@@ -471,36 +455,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 }
 
 /* ==========================================================================
-   6. MULTI-DEVICE RESPONSIVENESS ADJUSTMENTS
-   ========================================================================== */
-@media (max-width: 992px) {
-    .main-portfolio-layout {
-        flex-direction: column;
-        margin-top: 100px;
-    }
-    .left-column {
-        width: 100%;
-        position: relative;
-        top: 0;
-    }
-    .right-column {
-        width: 100%;
-    }
-    .tools-main-heading h2 {
-        font-size: 4rem;
-        letter-spacing: -1.5px;
-    }
-}
-
-@media (max-width: 768px) {
-    .tools-grid-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-}
-
-/* ==========================================================================
-   CONTACT FORM BLOCK STYLES (FROM SCREENSHOT 784)
+   7. CONTACT FORM BLOCK STYLES
    ========================================================================== */
 .contact-section {
     width: 100%;
@@ -551,7 +506,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 .form-group input, 
 .form-group select, 
 .form-group textarea {
-    background-color: #1e1b1b; /* Matching darker field boxes from image */
+    background-color: #1e1b1b; 
     border: 1px solid rgba(255, 255, 255, 0.02);
     border-radius: 12px;
     padding: 16px 20px;
@@ -568,14 +523,13 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     border-color: #e65f2b;
 }
 
-/* Custom dropdown style */
 .select-wrapper {
     position: relative;
     width: 100%;
 }
 
 .select-wrapper::after {
-    content: "\f107"; /* FontAwesome Down Arrow */
+    content: "\f107"; 
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
     position: absolute;
@@ -594,9 +548,9 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 
 .form-group textarea {
     resize: none;
+    height: 150px;
 }
 
-/* Bright Orange Action Button */
 .submit-btn {
     background-color: #e65f2b;
     color: #ffffff;
@@ -619,13 +573,45 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     transform: scale(0.99);
 }
 
-/* Responsive optimization for mobile inputs layout */
+/* ==========================================================================
+   8. MULTI-DEVICE RESPONSIVENESS ADJUSTMENTS (BREAKPOINTS)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .main-portfolio-layout {
+        grid-template-columns: 1fr;
+        margin-left: 100px !important;
+        margin-right: 20px;
+        padding-top: 140px;
+    }
+    .left-column {
+        position: relative;
+        top: 0;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-portfolio-layout {
+        margin-left: 20px !important;
+        padding-top: 120px;
+    }
+    .gemini-sidebar {
+        display: none !important; 
+    }
+    .tools-grid-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .tools-main-heading h2, .contact-heading h2 {
+        font-size: 3.5rem;
+        letter-spacing: -1.5px;
+    }
+}
+
 @media (max-width: 600px) {
     .form-row {
         flex-direction: column;
         gap: 25px;
-    }
-    .contact-heading h2 {
-        font-size: 3.8rem;
     }
 }
