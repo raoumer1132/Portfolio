@@ -27,42 +27,35 @@ body.page-ready {
 }
 
 /* ==========================================================================
-   2. PREMIUM GLASSMORPHISM SIDEBAR (FIXED VIEWPORT) - FIXED LOGIC
+   2. PREMIUM GLASSMORPHISM SIDEBAR (FIXED VIEWPORT)
    ========================================================================== */
 .gemini-sidebar {
     position: fixed !important; 
     top: 30px !important;
     left: 30px !important;
-    width: 240px; /* Full expanded width */
+    width: 240px; /* Jab sidebar poora khula ho */
     height: calc(100vh - 60px) !important; 
     z-index: 9999 !important;
-    
-    /* Glassmorphism styling */
     background: rgba(255, 255, 255, 0.03) !important; 
     backdrop-filter: blur(20px) saturate(160%) !important; 
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.08) !important; 
     border-radius: 24px !important; 
     padding: 20px 12px;
-    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     
-    /* Smooth transitions for width */
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), left 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    /* Smooth width change animation */
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s ease !important;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* Jab sidebar collapsed ho */
+/* --- Jab button click ho aur collapsed class lag jaye --- */
 .gemini-sidebar.collapsed {
-    width: 68px !important; 
-}
-
-.gemini-sidebar::-webkit-scrollbar {
-    display: none;
+    width: 68px !important; /* Sidebar patla ho jaye */
 }
 
 .sidebar-toggle-trigger {
@@ -79,7 +72,7 @@ body.page-ready {
     justify-content: center;
     transition: background 0.2s;
     margin-bottom: 20px;
-    flex-shrink: 0; /* Button responsive hone par pichke na */
+    flex-shrink: 0;
 }
 
 .sidebar-toggle-trigger:hover {
@@ -123,52 +116,36 @@ body.page-ready {
 .sidebar-links li a.active {
     background-color: rgba(255, 255, 255, 0.12) !important; 
     color: #ffffff;
-    backdrop-filter: blur(5px);
 }
 
-/* Visibility Control for Text Elements */
-.gemini-sidebar .nav-text {
+/* Text aur user details hide karne ke liye jab sidebar chota ho */
+.gemini-sidebar .nav-text, 
+.gemini-sidebar .sidebar-section-title,
+.gemini-sidebar .user-info-text,
+.gemini-sidebar .arrow-icon {
     opacity: 1;
     transition: opacity 0.2s ease;
 }
 
-/* Collapsed state me items smoothly disappear honge */
+/* Jab sidebar collapsed ho toh text chupa do */
 .gemini-sidebar.collapsed .nav-text,
-.gemini-sidebar.collapsed .sidebar-bottom-user .user-info-text,
-.gemini-sidebar.collapsed .sidebar-bottom-user .arrow-icon {
+.gemini-sidebar.collapsed .sidebar-section-title,
+.gemini-sidebar.collapsed .user-info-text,
+.gemini-sidebar.collapsed .arrow-icon {
     opacity: 0;
-    pointer-events: none;
-    display: none !important; 
+    display: none !important; /* Text bahr nahi nikalna chahiye */
 }
 
-/* Mobile Devices Overlay Control */
-.sidebar-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    z-index: 9998;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-.sidebar-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Mobile responsive fixes update */
+/* Mobile Screens Fix */
 @media (max-width: 768px) {
     .gemini-sidebar {
-        /* Mobile par display: none !important ki jagah screen se baahar shift karein */
-        left: -260px !important; 
-        width: 240px !important;
+        left: -260px !important; /* Screen se baahar rahe default me */
     }
     .gemini-sidebar.open {
-        left: 30px !important; /* Click karne par screen ke andar aa jaye */
+        left: 30px !important; /* Open class lagne par samne aaye */
     }
     .gemini-sidebar.collapsed .nav-text {
-        display: inline-block !important; /* Mobile toggle par content show ho */
+        display: block !important;
         opacity: 1;
     }
 }
