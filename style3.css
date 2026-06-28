@@ -27,13 +27,13 @@ body.page-ready {
 }
 
 /* ==========================================================================
-   2. PREMIUM GLASSMORPHISM SIDEBAR (FIXED VIEWPORT)
+   2. PREMIUM GLASSMORPHISM SIDEBAR (FIXED VIEWPORT) - FIXED LOGIC
    ========================================================================== */
 .gemini-sidebar {
     position: fixed !important; 
     top: 30px !important;
     left: 30px !important;
-    width: 240px; 
+    width: 240px; /* Full expanded width */
     height: calc(100vh - 60px) !important; 
     z-index: 9999 !important;
     
@@ -49,12 +49,14 @@ body.page-ready {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
+    /* Smooth transitions for width */
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), left 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
+/* Jab sidebar collapsed ho */
 .gemini-sidebar.collapsed {
     width: 68px !important; 
 }
@@ -77,6 +79,7 @@ body.page-ready {
     justify-content: center;
     transition: background 0.2s;
     margin-bottom: 20px;
+    flex-shrink: 0; /* Button responsive hone par pichke na */
 }
 
 .sidebar-toggle-trigger:hover {
@@ -123,18 +126,52 @@ body.page-ready {
     backdrop-filter: blur(5px);
 }
 
+/* Visibility Control for Text Elements */
 .gemini-sidebar .nav-text {
     opacity: 1;
     transition: opacity 0.2s ease;
-    display: inline-block;
 }
 
-.gemini-sidebar.collapsed .nav-text {
+/* Collapsed state me items smoothly disappear honge */
+.gemini-sidebar.collapsed .nav-text,
+.gemini-sidebar.collapsed .sidebar-bottom-user .user-info-text,
+.gemini-sidebar.collapsed .sidebar-bottom-user .arrow-icon {
     opacity: 0;
     pointer-events: none;
-    display: none; 
+    display: none !important; 
 }
 
+/* Mobile Devices Overlay Control */
+.sidebar-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile responsive fixes update */
+@media (max-width: 768px) {
+    .gemini-sidebar {
+        /* Mobile par display: none !important ki jagah screen se baahar shift karein */
+        left: -260px !important; 
+        width: 240px !important;
+    }
+    .gemini-sidebar.open {
+        left: 30px !important; /* Click karne par screen ke andar aa jaye */
+    }
+    .gemini-sidebar.collapsed .nav-text {
+        display: inline-block !important; /* Mobile toggle par content show ho */
+        opacity: 1;
+    }
+}
 /* Page Transition Overlay */
 .page-transition-overlay.fade-out {
     opacity: 0;
