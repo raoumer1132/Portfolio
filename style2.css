@@ -15,50 +15,54 @@ body {
     display: flex;
     justify-content: center;
     overflow-x: hidden;
+    position: relative;
+    
+    /* Smooth entry animation without breaking fixed items */
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-/* --- PREMIUM GLASSMORPHISM SIDEBAR BASE --- */
+
+body.page-ready {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   2. PREMIUM GLASSMORPHISM SIDEBAR (FIXED VIEWPORT)
+   ========================================================================== */
 .gemini-sidebar {
     position: fixed !important; 
     top: 30px !important;
     left: 30px !important;
     width: 240px; 
-    /* Viewport height minus spacing taake hamesha screen par chipka rahe */
     height: calc(100vh - 60px) !important; 
-    z-index: 9999 !important; /* Har element ke upar rahega */
+    z-index: 9999 !important;
+    
+    /* Glassmorphism styling */
     background: rgba(255, 255, 255, 0.03) !important; 
     backdrop-filter: blur(20px) saturate(160%) !important; 
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.08) !important; 
     border-radius: 24px !important; 
     padding: 20px 12px;
+    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Agar sidebar ke options zyada hon toh sirf sidebar ke andar scroll chale, poora widget upar na jaye */
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* Base Body settings match karne ke liye fixed viewport flow adjust karein */
-body {
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-}
 .gemini-sidebar.collapsed {
-    width: 68px !important;
+    width: 68px !important; 
 }
+
 .gemini-sidebar::-webkit-scrollbar {
     display: none;
 }
 
-/* Jab sidebar collapsed ho toh width choti ho jaye */
-.gemini-sidebar.collapsed {
-    width: 68px !important; 
-}
 .sidebar-toggle-trigger {
     background: transparent;
     border: none;
@@ -74,6 +78,7 @@ body {
     transition: background 0.2s;
     margin-bottom: 20px;
 }
+
 .sidebar-toggle-trigger:hover {
     background-color: rgba(255, 255, 255, 0.08);
 }
@@ -130,26 +135,13 @@ body {
     display: none; 
 }
 
-
-/* Jab page load ho jaye toh overlay gayab karne ke liye class */
+/* Page Transition Overlay */
 .page-transition-overlay.fade-out {
     opacity: 0;
 }
 
-/* Pure body content par halka sa scale aur fade animation lagane ke liye class */
-body {
-    opacity: 0;
-    transform: scale(0.99);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body.page-ready {
-    opacity: 1;
-    transform: scale(1);
-}
-
 /* ==========================================================================
-   2. TOP BAR FLOATING NAVBAR MENU & TOOLTIPS
+   3. TOP BAR FLOATING NAVBAR MENU & TOOLTIPS
    ========================================================================== */
 .nav {
     position: absolute;
@@ -179,7 +171,6 @@ body.page-ready {
 }
 
 .nav a:hover, 
-.nav a.folder-icon:hover,
 .nav a.active-nav {
     color: #ffffff;
 }
@@ -220,34 +211,34 @@ body.page-ready {
     transform: translateX(-50%) translateY(0);
 }
 
-/* --- GRID SYSTEM SYSTEM WORKBENCH --- */
+/* ==========================================================================
+   4. GRID SYSTEM WORKBENCH Layout
+   ========================================================================== */
 .main-portfolio-layout {
     display: grid;
-    grid-template-columns: 320px minmax(0, 1fr); /* Sirf Left profile aur Right content column */
+    grid-template-columns: 320px minmax(0, 1fr);
     gap: 50px;
     max-width: 1400px;
-    width: auto;                  
+    width: 100%;                  
     margin-right: 40px;           
     margin-bottom: 0;
-    
-    /* Jab sidebar OPEN ho (Default state), toh left se itni jagah chorega */
     margin-left: 300px;           
-    padding: 120px 0px 60px 0px;  
+    padding: 120px 20px 60px 20px;  
     align-items: start;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 3. DYNAMIC MARGIN (Jab sidebar CLOSE/COLLAPSED ho toh content khud ba khud left ho jaye) */
+/* Shift content gracefully when sidebar collapses */
 body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
-    margin-left: 120px; /* Content upar nahi jayega, balki tameez se left shift ho jayega */
+    margin-left: 120px;
 }
 
-/* Left column wala profile card apni jagah browser screen par sticky rahega */
 .left-column {
     position: sticky;
     top: 120px; 
     width: 100%;
 }
+
 .right-column {
     display: flex;
     flex-direction: column;
@@ -255,8 +246,9 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     width: 100%;
     min-width: 0;                 
 }
+
 /* ==========================================================================
-   4. PROFILE CARD STRUCTURING
+   5. PROFILE CARD STRUCTURING
    ========================================================================== */
 .profile-card {
     background-color: #ffffff;
@@ -351,43 +343,47 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 }
 
 /* ==========================================================================
-   5. PROJECTS PAGE EXCLUSIVE STYLES
+   6. PROJECTS & EXPERIENCE HEADING & TYPOGRAPHY
    ========================================================================== */
-.projects-main-heading {
+.projects-main-heading, .experience-main-heading, .contact-heading {
     line-height: 0.95;
-    margin-bottom: 35px;
+    margin-bottom: 45px;
 }
 
-.projects-main-heading h2 {
+.projects-main-heading h2, .experience-main-heading h2, .contact-heading h2 {
     font-size: 5.5rem;
     font-weight: 900;
     margin: 0;
     letter-spacing: -3px;
 }
 
-.heading-light {
+.heading-light, .contact-light {
     color: #ffffff;
 }
 
-.heading-dark {
+.heading-dark, .contact-dark {
     color: #1a1717;
 }
 
-.projects-vertical-list {
+/* ==========================================================================
+   7. LIST ROWS (PROJECTS & EXPERIENCE)
+   ========================================================================== */
+.projects-vertical-list, .experience-vertical-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 80px;
+    gap: 15px;
+    margin-bottom: 60px;
 }
 
-.project-list-row {
+.project-list-row, .experience-list-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-    padding: 20px 0;
+    padding: 25px 0;
     cursor: pointer;
     position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.3s ease;
 }
 
 .project-thumb-box {
@@ -411,15 +407,6 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     border-radius: 12px;
 }
 
-.mock-frame-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.3) 100%);
-}
-
 .project-list-row:hover .project-thumb-box {
     transform: scale(1.05) rotate(-2deg);
 }
@@ -429,53 +416,13 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     flex-grow: 1;
 }
 
-.project-info-box h3 {
+.project-info-box h3, .experience-info-box h3 {
     font-size: 1.8rem;
     color: #ffffff;
     margin: 0 0 4px 0;
     font-weight: 700;
     letter-spacing: -0.5px;
     transition: color 0.3s ease;
-}
-
-.project-info-box p {
-    font-size: 0.95rem;
-    color: #666666;
-    margin: 0;
-    font-weight: 500;
-}
-
-/* ==========================================================================
-   6. EXPERIENCE PAGE EXCLUSIVE STYLES
-   ========================================================================== */
-.experience-main-heading {
-    line-height: 0.95;
-    margin-bottom: 45px;
-}
-
-.experience-main-heading h2 {
-    font-size: 5.5rem;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -3px;
-}
-
-.experience-vertical-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 60px;
-}
-
-.experience-list-row {
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-    padding: 25px 0;
-    cursor: pointer;
-    position: relative;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    transition: all 0.3s ease;
 }
 
 .experience-info-box {
@@ -490,15 +437,6 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     align-items: center;
     width: 100%;
     margin-bottom: 12px;
-}
-
-.experience-info-box h3 {
-    font-size: 1.8rem;
-    color: #ffffff;
-    margin: 0;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    transition: color 0.3s ease;
 }
 
 .job-description {
@@ -518,9 +456,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     letter-spacing: 0.5px;
 }
 
-/* Diagonal Arrows Handles (Common for Rows) */
-.project-diagonal-arrow,
-.experience-diagonal-arrow {
+.project-diagonal-arrow, .experience-diagonal-arrow {
     color: #e65f2b;
     font-size: 1.1rem;
     opacity: 0.4;
@@ -540,31 +476,11 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 }
 
 /* ==========================================================================
-   7. CONTACT FORM STYLING
+   8. CONTACT FORM STYLING
    ========================================================================== */
 .contact-section {
     width: 100%;
     margin-top: 40px;
-}
-
-.contact-heading {
-    line-height: 0.95;
-    margin-bottom: 40px;
-}
-
-.contact-heading h2 {
-    font-size: 5rem;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -2px;
-}
-
-.contact-light {
-    color: #ffffff;
-}
-
-.contact-dark {
-    color: #1a1717;
 }
 
 .contact-form {
@@ -611,6 +527,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 
 .form-group textarea {
     resize: none;
+    height: 150px;
 }
 
 .submit-btn {
@@ -644,7 +561,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 }
 
 /* ==========================================================================
-   8. FLOATING BANNER OR STICKY RIGHT BADGES
+   9. STICKY RIGHT BADGES
    ========================================================================== */
 .floating-badge-container {
     position: fixed;
@@ -683,57 +600,38 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     color: #000000;
 }
 
-.badge-framer {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 8px 14px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.framer-logo-svg {
-    width: 14px;
-    height: 14px;
-}
-
 /* ==========================================================================
-   9. FULLY RESPONSIVE SCREEN ADJUSTMENTS (BREAKPOINTS)
+   10. RESPONSIVE MEDIA QUERIES
    ========================================================================== */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
     .main-portfolio-layout {
-        flex-direction: column;
-        margin-top: 100px;
+        grid-template-columns: 1fr;
+        margin-left: 100px !important;
+        margin-right: 20px;
+        padding-top: 140px;
     }
     .left-column {
-        width: 100%;
         position: relative;
         top: 0;
-    }
-    .right-column {
-        width: 100%;
-    }
-    .projects-main-heading h2, 
-    .experience-main-heading h2, 
-    .contact-heading h2 {
-        font-size: 4rem;
-        letter-spacing: -1.5px;
-    }
-    .floating-badge-container {
-        display: none;
+        max-width: 450px;
+        margin: 0 auto;
     }
 }
 
 @media (max-width: 768px) {
-    .experience-info-box h3 {
-        font-size: 1.5rem;
+    .main-portfolio-layout {
+        margin-left: 20px !important;
+        padding-top: 120px;
     }
-    .job-description {
-        max-width: 100%;
+    .gemini-sidebar {
+        display: none !important; /* Hide custom sidebar on mobile layout */
+    }
+    .projects-main-heading h2, .experience-main-heading h2, .contact-heading h2 {
+        font-size: 3.5rem;
+        letter-spacing: -1.5px;
+    }
+    .floating-badge-container {
+        display: none;
     }
 }
 
@@ -754,125 +652,5 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
         position: absolute;
         right: 0;
         top: 20px;
-    }
-    .row-header-flex h3 {
-        font-size: 1.4rem;
-    }
-}
-/* ==========================================================================
-   CONTACT FORM BLOCK STYLES
-   ========================================================================== */
-.contact-section {
-    width: 100%;
-    margin-top: 40px;
-}
-
-.contact-heading {
-    line-height: 0.95;
-    margin-bottom: 40px;
-}
-
-.contact-heading h2 {
-    font-size: 5rem;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -2px;
-}
-
-.contact-light {
-    color: #ffffff;
-}
-
-.contact-dark {
-    color: #1a1717; /* Text overlay background blend effect */
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.form-row {
-    display: flex;
-    gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-}
-
-.form-group label {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #888888;
-    font-weight: 600;
-}
-
-.form-group input, 
-.form-group select, 
-.form-group textarea {
-    background-color: #151212;
-    border: none;
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: #ffffff;
-    font-size: 1rem;
-    outline: none;
-    width: 100%;
-}
-
-/* Custom styles for form selection dropdown box */
-.form-group select {
-    appearance: none;
-    cursor: pointer;
-}
-
-.form-group textarea {
-    resize: none;
-}
-
-.submit-btn {
-    background-color: #e65f2b;
-    color: #ffffff;
-    border: none;
-    padding: 16px;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: background-color 0.3s ease;
-}
-
-.submit-btn:hover {
-    background-color: #cc4e1f;
-}
-
-.footer-credits {
-    text-align: center;
-    margin-top: 80px;
-    margin-bottom: 40px;
-    font-size: 0.9rem;
-    color: #444444;
-}
-
-.credit-link {
-    color: #666666;
-    font-weight: 600;
-}
-
-/* Responsive adjustment for contact form rows */
-@media (max-width: 600px) {
-    .contact-heading h2 {
-        font-size: 3.5rem;
-    }
-    .form-row {
-        flex-direction: column;
-        gap: 25px;
     }
 }
