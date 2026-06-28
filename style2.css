@@ -18,12 +18,13 @@ body {
 }
 /* --- PREMIUM GLASSMORPHISM SIDEBAR BASE --- */
 .gemini-sidebar {
-    position: fixed !important;
+    position: fixed !important; 
     top: 30px !important;
     left: 30px !important;
     width: 240px; 
-    height: calc(100vh - 60px) !important;
-    z-index: 9999 !important; /* Har cheez ke upar rahega */
+    /* Viewport height minus spacing taake hamesha screen par chipka rahe */
+    height: calc(100vh - 60px) !important; 
+    z-index: 9999 !important; /* Har element ke upar rahega */
     background: rgba(255, 255, 255, 0.03) !important; 
     backdrop-filter: blur(20px) saturate(160%) !important; 
     -webkit-backdrop-filter: blur(20px) saturate(160%);
@@ -36,9 +37,16 @@ body {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Gemini style internal scrolling agar content bara ho */
+    /* Agar sidebar ke options zyada hon toh sirf sidebar ke andar scroll chale, poora widget upar na jaye */
     overflow-y: auto;
-    scrollbar-width: none;
+    overflow-x: hidden;
+}
+
+/* Base Body settings match karne ke liye fixed viewport flow adjust karein */
+body {
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
 }
 .gemini-sidebar.collapsed {
     width: 68px !important;
