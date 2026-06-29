@@ -1,24 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // ==========================================================================
-    // A: PREMIUM PAGE TRANSITION MECHANISM (STABLE VERSION)
+    // A: STABLE & FIXED PREMIUM PAGE TRANSITION MECHANISM
     // ==========================================================================
     const overlay = document.querySelector(".page-transition-overlay");
     
-    // Page load hote hi opacity reset karne ka safe mechanism
-    setTimeout(() => {
-        if (overlay) overlay.classList.add("fade-out");
-        document.body.classList.add("page-ready");
-        document.body.style.opacity = "1"; // Explicitly force visibility
-    }, 100);
+    // Force reset body visibility immediately on ready state trigger
+    document.body.style.opacity = "1";
+    document.body.classList.add("page-ready");
+    if (overlay) overlay.classList.add("fade-out");
 
-    // Click handler for smooth transitions
+    // Click handler for links with explicit safety escape strings
     document.querySelectorAll("a").forEach(link => {
         const href = link.getAttribute("href");
         if (!href) return;
 
-        // Skip transitions for JavaScript links, hashes, or sidebar triggers
-        if (href === "#" || href.startsWith("#") || link.closest(".sidebar-toggle-trigger")) {
+        // Bypass transition loops on local anchors or code triggers
+        if (href === "#" || href.startsWith("#") || link.closest(".sidebar-toggle-trigger") || link.closest(".sidebar-links")) {
             return;
         }
 
@@ -35,32 +33,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 setTimeout(() => {
                     window.location.href = targetUrl;
-                }, 300);
+                }, 250);
             });
         }
     });
 
-    // Fallback: Agar kisi wajah se back press ya slow loading par page stuck ho jaye
+    // Pageshow dynamic cache reset protection
     window.addEventListener("pageshow", (event) => {
-        if (event.persisted) {
-            document.body.style.opacity = "1";
-            document.body.classList.add("page-ready");
-        }
+        document.body.style.opacity = "1";
+        document.body.classList.add("page-ready");
+        if (overlay) overlay.classList.add("fade-out");
     });
 
     // ==========================================================================
-    // B: SIDEBAR TOGGLE MECHANISM (FIXED WITH MULTI-CLASS & OVERLAY SUPPORT)
+    // B: SIDEBAR TOGGLE MECHANISM
     // ==========================================================================
     const sidebarToggleBtn = document.querySelector(".sidebar-toggle-trigger");
     const geminiSidebar = document.querySelector(".gemini-sidebar");
-    const sidebarOverlay = document.getElementById("sidebarOverlay") || document.querySelector(".sidebar-overlay");
+    const sidebarOverlay = document.querySelector(".sidebar-overlay");
 
     if (sidebarToggleBtn && geminiSidebar) {
         sidebarToggleBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
             
-            // Dono classes (open aur open-sidebar) ko toggle kar rahe hain taake CSS crash na ho
             geminiSidebar.classList.toggle("open-sidebar");
             geminiSidebar.classList.toggle("open");
 
@@ -70,10 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Overlay par click karne se sidebar close karne ka function
     if (sidebarOverlay && geminiSidebar) {
         sidebarOverlay.addEventListener("click", () => {
-            geminiSidebar.classList.remove("open-sidebar");
+            geminiSidebar.remove("open-sidebar");
             geminiSidebar.classList.remove("open");
             sidebarOverlay.classList.remove("show");
         });
