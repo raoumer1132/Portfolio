@@ -64,30 +64,6 @@ body {
     position: fixed;
     top: 20px;
     left: 20px;
-    width: 70px; /* Default slim compact state view */
-    height: calc(100vh - 40px);
-    background: rgba(21, 18, 18, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px 0;
-    z-index: 2000;
-    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
-    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-}
-
-/* ==========================================================================
-   SIDEBAR ARCHITECTURE - COORDINTED WITH HTML IDs & CLASSES
-   ========================================================================== */
-.gemini-sidebar {
-    position: fixed;
-    top: 20px;
-    left: 20px;
     width: 70px; /* Slim state default view (First Pic Look) */
     height: calc(100vh - 40px);
     background: rgba(21, 18, 18, 0.7);
@@ -209,6 +185,7 @@ body {
     opacity: 1;
     pointer-events: auto;
 }
+
 /* ==========================================================================
    4. LAYOUT ALIGNMENTS GRID VIEWPORT BLOCKS
    ========================================================================== */
@@ -350,3 +327,108 @@ body {
     opacity: 1;
 }
 .page-transition-overlay.fade-out { opacity: 0; }
+
+/* ==========================================================================
+   6. CONTACT SECTION & PREMIUM FORM DESIGN (CRITICAL FIX FOR SCREENSHOT 930)
+   ========================================================================== */
+.contact-section {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.contact-heading h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 25px;
+}
+
+.contact-heading .heading-light { color: #ffffff; }
+.contact-heading .heading-dark { color: #222222; }
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    background: #090808;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 24px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .form-row { 
+        grid-template-columns: 1fr; 
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: #8c8c8c;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    background: #110f0f;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 16px;
+    color: #ffffff;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #e65f2b; /* Premium Orange Focus Border */
+}
+
+.form-group textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.submit-btn {
+    background-color: #e65f2b;
+    color: #ffffff;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background 0.2s ease;
+}
+
+.submit-btn:hover {
+    background-color: #cf5222;
+}
