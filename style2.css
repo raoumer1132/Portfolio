@@ -16,14 +16,23 @@ body {
     justify-content: center;
     overflow-x: hidden;
     position: relative;
-    
-    /* Smooth entry animation without breaking fixed items */
-    opacity: 0;
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-body.page-ready {
+/* Page Transition Overlay - Safe and non-blocking */
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0c0a0a;
+    z-index: 99999;
+    pointer-events: none;
     opacity: 1;
+    transition: opacity 0.4s ease;
+}
+.page-transition-overlay.fade-out {
+    opacity: 0;
 }
 
 /* ==========================================================================
@@ -33,30 +42,27 @@ body.page-ready {
     position: fixed !important; 
     top: 30px !important;
     left: 30px !important;
-    width: 240px; 
+    width: 68px; /* Default Collapsed State */
     height: calc(100vh - 60px) !important; 
     z-index: 9999 !important;
-    
-    /* Glassmorphism styling */
     background: rgba(255, 255, 255, 0.03) !important; 
     backdrop-filter: blur(20px) saturate(160%) !important; 
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.08) !important; 
     border-radius: 24px !important; 
     padding: 20px 12px;
-    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-.gemini-sidebar.collapsed {
-    width: 68px !important; 
+/* Active Expanded State Class */
+.gemini-sidebar.sidebar-expanded {
+    width: 240px !important;
 }
 
 .gemini-sidebar::-webkit-scrollbar {
@@ -77,6 +83,7 @@ body.page-ready {
     justify-content: center;
     transition: background 0.2s;
     margin-bottom: 20px;
+    flex-shrink: 0;
 }
 
 .sidebar-toggle-trigger:hover {
@@ -123,21 +130,45 @@ body.page-ready {
     backdrop-filter: blur(5px);
 }
 
+/* Standard Text Visibility Rules */
 .gemini-sidebar .nav-text {
-    opacity: 1;
-    transition: opacity 0.2s ease;
-    display: inline-block;
-}
-
-.gemini-sidebar.collapsed .nav-text {
     opacity: 0;
     pointer-events: none;
     display: none; 
+    transition: opacity 0.2s ease;
 }
 
-/* Page Transition Overlay */
-.page-transition-overlay.fade-out {
+.gemini-sidebar.sidebar-expanded .nav-text {
+    opacity: 1;
+    pointer-events: auto;
+    display: inline-block;
+}
+
+.sidebar-bottom-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 6px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    width: 100%;
+    overflow: hidden;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    z-index: 9998;
     opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.sidebar-overlay.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* ==========================================================================
@@ -222,15 +253,10 @@ body.page-ready {
     width: 100%;                  
     margin-right: 40px;           
     margin-bottom: 0;
-    margin-left: 300px;           
+    margin-left: 120px; /* Matched with collapsed sidebar fallback */           
     padding: 120px 20px 60px 20px;  
     align-items: start;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Shift content gracefully when sidebar collapses */
-body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
-    margin-left: 120px;
 }
 
 .left-column {
@@ -345,12 +371,12 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 /* ==========================================================================
    6. PROJECTS & EXPERIENCE HEADING & TYPOGRAPHY
    ========================================================================== */
-.projects-main-heading, .experience-main-heading, .contact-heading {
+.experience-main-heading, .contact-heading {
     line-height: 0.95;
     margin-bottom: 45px;
 }
 
-.projects-main-heading h2, .experience-main-heading h2, .contact-heading h2 {
+.experience-main-heading h2, .contact-heading h2 {
     font-size: 5.5rem;
     font-weight: 900;
     margin: 0;
@@ -366,16 +392,16 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 }
 
 /* ==========================================================================
-   7. LIST ROWS (PROJECTS & EXPERIENCE)
+   7. LIST ROWS (EXPERIENCE)
    ========================================================================== */
-.projects-vertical-list, .experience-vertical-list {
+.experience-vertical-list {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-bottom: 60px;
 }
 
-.project-list-row, .experience-list-row {
+.experience-list-row {
     display: flex;
     align-items: flex-start;
     width: 100%;
@@ -384,45 +410,6 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     transition: all 0.3s ease;
-}
-
-.project-thumb-box {
-    width: 110px;
-    height: 110px;
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.proj-inner-img {
-    width: 88%;
-    height: 88%;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.project-list-row:hover .project-thumb-box {
-    transform: scale(1.05) rotate(-2deg);
-}
-
-.project-info-box {
-    margin-left: 25px;
-    flex-grow: 1;
-}
-
-.project-info-box h3, .experience-info-box h3 {
-    font-size: 1.8rem;
-    color: #ffffff;
-    margin: 0 0 4px 0;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    transition: color 0.3s ease;
 }
 
 .experience-info-box {
@@ -437,6 +424,15 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     align-items: center;
     width: 100%;
     margin-bottom: 12px;
+}
+
+.experience-info-box h3 {
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin: 0 0 4px 0;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    transition: color 0.3s ease;
 }
 
 .job-description {
@@ -456,7 +452,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     letter-spacing: 0.5px;
 }
 
-.project-diagonal-arrow, .experience-diagonal-arrow {
+.experience-diagonal-arrow {
     color: #e65f2b;
     font-size: 1.1rem;
     opacity: 0.4;
@@ -464,13 +460,11 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     transition: all 0.3s ease;
 }
 
-.project-list-row:hover .project-diagonal-arrow,
 .experience-list-row:hover .experience-diagonal-arrow {
     opacity: 1;
     transform: rotate(45deg) translate(4px, -4px);
 }
 
-.project-list-row:hover .project-info-box h3,
 .experience-list-row:hover .experience-info-box h3 {
     color: #e65f2b;
 }
@@ -561,47 +555,7 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 }
 
 /* ==========================================================================
-   9. STICKY RIGHT BADGES
-   ========================================================================== */
-.floating-badge-container {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 2000;
-    align-items: flex-end;
-}
-
-.badge-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease;
-}
-
-.badge-btn:hover {
-    transform: translateY(-2px);
-}
-
-.orange-btn {
-    background-color: #e65f2b;
-    color: #ffffff;
-}
-
-.lime-btn {
-    background-color: #a3e635;
-    color: #000000;
-}
-
-/* ==========================================================================
-   10. RESPONSIVE MEDIA QUERIES
+   9. RESPONSIVE MEDIA QUERIES
    ========================================================================== */
 @media (max-width: 1024px) {
     .main-portfolio-layout {
@@ -624,14 +578,11 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
         padding-top: 120px;
     }
     .gemini-sidebar {
-        display: none !important; /* Hide custom sidebar on mobile layout */
+        display: none !important;
     }
-    .projects-main-heading h2, .experience-main-heading h2, .contact-heading h2 {
+    .experience-main-heading h2, .contact-heading h2 {
         font-size: 3.5rem;
         letter-spacing: -1.5px;
-    }
-    .floating-badge-container {
-        display: none;
     }
 }
 
@@ -639,18 +590,5 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     .form-row {
         flex-direction: column;
         gap: 25px;
-    }
-    .project-list-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-    .project-info-box {
-        margin-left: 0;
-    }
-    .project-diagonal-arrow {
-        position: absolute;
-        right: 0;
-        top: 20px;
     }
 }
