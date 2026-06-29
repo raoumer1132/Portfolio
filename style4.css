@@ -219,15 +219,25 @@ body.page-ready {
 }
 
 /* ==========================================================================
-   3. COLUMN STRUCTURING (GRID ARCHITECTURE)
+   4. LAYOUT ALIGNMENTS GRID VIEWPORT BLOCKS
    ========================================================================== */
 .main-portfolio-layout {
-    display: flex;
     width: 100%;
-    max-width: 1200px;
-    margin-top: 140px;
-    padding: 0 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 140px 40px 60px 130px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
     gap: 50px;
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .main-portfolio-layout {
+        grid-template-columns: 1fr;
+        padding-left: 40px;
+        padding-top: 120px;
+    }
 }
 
 .left-column {
