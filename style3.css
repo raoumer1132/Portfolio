@@ -81,35 +81,70 @@ body {
     overflow: hidden;
 }
 
-/* Expanded class state rules managed via JS clicks */
+/* ==========================================================================
+   SIDEBAR ARCHITECTURE - COORDINTED WITH HTML IDs & CLASSES
+   ========================================================================== */
+.gemini-sidebar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 70px; /* Slim state default view (First Pic Look) */
+    height: calc(100vh - 40px);
+    background: rgba(21, 18, 18, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0;
+    z-index: 2000;
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+/* JS is class ko trigger karega expand karne ke liye */
 .gemini-sidebar.sidebar-expanded {
-    width: 260px !important;
+    width: 280px !important; /* Premium wide size open panel */
     align-items: flex-start;
     padding: 25px 20px;
 }
 
-/* Top Menu Burger Custom Handler Icon */
+/* Burger Button Style Contextual Rules */
+.sidebar-top {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.gemini-sidebar.sidebar-expanded .sidebar-top {
+    justify-content: flex-end; /* Open state me right side shift ho jaye */
+}
+
 .sidebar-toggle-trigger {
     background: none;
     border: none;
     color: #ffffff;
-    font-size: 1.25rem;
-    margin-bottom: 40px;
+    font-size: 1.3rem;
     cursor: pointer;
-    transition: transform 0.2s;
     outline: none;
+    transition: transform 0.2s;
+    padding: 10px;
 }
 
-.gemini-sidebar.sidebar-expanded .sidebar-toggle-trigger {
-    align-self: flex-end;
+.sidebar-toggle-trigger:hover {
+    transform: scale(1.1);
 }
 
-/* List Items Structures Rules inside sidebar links list */
+/* Icons & Links Layout Controllers */
 .sidebar-links {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
     width: 100%;
 }
 
@@ -125,7 +160,7 @@ body {
     height: 44px;
     display: flex;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 12px;
     border-radius: 12px;
     transition: all 0.25s ease;
     white-space: nowrap;
@@ -136,19 +171,18 @@ body {
     text-align: center;
 }
 
-/* Hidden elements system configuration state rules */
-.sidebar-links li a span,
-.sidebar-links .project-group-title,
-.sidebar-links li .project-dots {
-    display: none;
-    font-size: 0.95rem;
+/* Text elements setting - Default states hidden */
+.nav-text {
+    opacity: 0;
+    visibility: hidden;
     margin-left: 15px;
-    color: #8c8c8c;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-/* Make text labels visible smoothly when sidebar expands */
-.gemini-sidebar.sidebar-expanded .sidebar-links li a span {
-    display: inline-block;
+/* Expand hone par labels text show honge */
+.gemini-sidebar.sidebar-expanded .nav-text {
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .sidebar-links li a:hover,
@@ -157,29 +191,7 @@ body {
     color: #ffffff;
 }
 
-/* Footer image element bounds layout controller layer */
-.sidebar-profile-footer {
-    margin-top: auto;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.2s;
-}
-
-.gemini-sidebar.sidebar-expanded .sidebar-profile-footer {
-    width: 44px;
-    height: 44px;
-}
-
-.sidebar-profile-footer img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Full backdrop shading overlay structure mask layer */
+/* Overlay dark layer system layout */
 .sidebar-overlay {
     position: fixed;
     top: 0;
@@ -197,7 +209,6 @@ body {
     opacity: 1;
     pointer-events: auto;
 }
-
 /* ==========================================================================
    4. LAYOUT ALIGNMENTS GRID VIEWPORT BLOCKS
    ========================================================================== */
