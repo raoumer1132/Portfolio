@@ -16,45 +16,51 @@ body {
 }
 
 /* ==========================================================================
-   2. NAVBAR DESIGN - PREMIUM TRANSITIONS
+   2. NAVBAR DESIGN - MATCHED EXACTLY WITH INDEX.HTML (WIDE SIZE)
    ========================================================================== */
 .nav {
     position: fixed;
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(26, 26, 26, 0.45);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(21, 18, 18, 0.85) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
-    gap: 32px;
+    gap: 25px;
     justify-content: center;
     align-items: center;
-    padding: 14px 32px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    padding: 12px 30px !important;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav a {
-    color: #707072;
-    font-size: 1.1rem;
+    color: #666666 !important;
+    font-size: 0.9rem !important;
     text-decoration: none;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px; /* Icon aur text ke darmiyan spacing */
     transition: color 0.25s ease;
+    font-weight: 500;
+}
+
+/* Text elements visible internally like Index.html */
+.nav a .tooltip-text {
+    display: inline-block !important;
+    position: relative !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: inherit;
+    font-size: 0.9rem;
 }
 
 .nav a:hover, 
 .nav a.active-nav {
     color: #ffffff !important;
-}
-
-.tooltip-text {
-    display: none;
 }
 
 /* ==========================================================================
@@ -316,7 +322,7 @@ body {
 .page-transition-overlay.fade-out { opacity: 0; }
 
 /* ==========================================================================
-   6. PREMIUM CONTACT FORM STYLING
+   6. PREMIUM CONTACT FORM FIXES (DARK STYLE)
    ========================================================================== */
 .contact-section {
     width: 100%;
@@ -335,7 +341,7 @@ body {
     flex-direction: column;
     gap: 24px;
     width: 100%;
-    background: #090808;
+    background: #090808 !important; /* Forces dark layout background */
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 40px;
     border-radius: 24px;
@@ -361,21 +367,22 @@ body {
 
 .form-group label {
     font-size: 0.8rem;
-    color: #8c8c8c;
+    color: #8c8c8c !important;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-align: left;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-    background: #110f0f;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 16px;
-    color: #ffffff;
-    border-radius: 14px;
-    font-size: 0.95rem;
+    background: #110f0f !important; /* Overrides default browser white background */
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 16px !important;
+    color: #ffffff !important;
+    border-radius: 14px !important;
+    font-size: 0.95rem !important;
     width: 100%;
     outline: none;
     transition: all 0.2s ease;
@@ -384,8 +391,8 @@ body {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    border-color: rgba(255, 255, 255, 0.3);
-    background: #161414;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    background: #161414 !important;
 }
 
 .form-group textarea {
@@ -394,8 +401,8 @@ body {
 }
 
 .submit-btn {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #ffffff !important;
+    color: #000000 !important;
     border: none;
     padding: 16px 40px;
     border-radius: 14px;
@@ -407,6 +414,6 @@ body {
 }
 
 .submit-btn:hover {
-    background-color: #e6e6e6;
+    background-color: #e6e6e6 !important;
     transform: translateY(-2px);
 }
