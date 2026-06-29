@@ -33,7 +33,7 @@ body.page-ready {
     position: fixed !important; 
     top: 30px !important;
     left: 30px !important;
-    width: 240px; /* Jab sidebar poora khula ho */
+    width: 68px !important; /* FIX: Default width ko chota rakha hai taake pehle se khula na dikhe */
     height: calc(100vh - 60px) !important; 
     z-index: 9999 !important;
     background: rgba(255, 255, 255, 0.03) !important; 
@@ -53,9 +53,23 @@ body.page-ready {
     overflow-x: hidden;
 }
 
-/* --- Jab button click ho aur collapsed class lag jaye --- */
-.gemini-sidebar.collapsed {
-    width: 68px !important; /* Sidebar patla ho jaye */
+/* FIX: Jab sidebar open ho (Active state) */
+.gemini-sidebar.open-sidebar {
+    width: 240px !important; 
+}
+
+/* FIX: Windows default scrollbar ko hide/sleek karne ke liye custom styling */
+.gemini-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.gemini-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.gemini-sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
 }
 
 .sidebar-toggle-trigger {
@@ -118,37 +132,45 @@ body.page-ready {
     color: #ffffff;
 }
 
-/* Text aur user details hide karne ke liye jab sidebar chota ho */
+/* FIX: Text aur sub-elements ko default mein hidden rakha hai */
 .gemini-sidebar .nav-text, 
 .gemini-sidebar .sidebar-section-title,
 .gemini-sidebar .user-info-text,
 .gemini-sidebar .arrow-icon {
-    opacity: 1;
+    opacity: 0;
+    display: none !important;
     transition: opacity 0.2s ease;
 }
 
-/* Jab sidebar collapsed ho toh text chupa do */
-.gemini-sidebar.collapsed .nav-text,
-.gemini-sidebar.collapsed .sidebar-section-title,
-.gemini-sidebar.collapsed .user-info-text,
-.gemini-sidebar.collapsed .arrow-icon {
-    opacity: 0;
-    display: none !important; /* Text bahr nahi nikalna chahiye */
+/* FIX: Jab sidebar open ho, tab hi saara text smooth show ho */
+.gemini-sidebar.open-sidebar .nav-text,
+.gemini-sidebar.open-sidebar .sidebar-section-title,
+.gemini-sidebar.open-sidebar .arrow-icon {
+    opacity: 1;
+    display: block !important;
+}
+
+.gemini-sidebar.open-sidebar .user-info-text {
+    opacity: 1;
+    display: flex !important;
+    flex-direction: column;
 }
 
 /* Mobile Screens Fix */
 @media (max-width: 768px) {
     .gemini-sidebar {
-        left: -260px !important; /* Screen se baahar rahe default me */
+        left: -260px !important; 
     }
-    .gemini-sidebar.open {
-        left: 30px !important; /* Open class lagne par samne aaye */
+    .gemini-sidebar.open-sidebar {
+        left: 30px !important; 
+        width: 240px !important;
     }
-    .gemini-sidebar.collapsed .nav-text {
+    .gemini-sidebar.open-sidebar .nav-text {
         display: block !important;
         opacity: 1;
     }
 }
+
 /* Page Transition Overlay */
 .page-transition-overlay.fade-out {
     opacity: 0;
@@ -237,14 +259,15 @@ body.page-ready {
     width: 100%;                  
     margin-right: 40px;           
     margin-bottom: 0;
-    margin-left: 300px;           
+    margin-left: 120px; /* FIX: Default left margin sidebar collapsed ke hisab se */          
     padding: 120px 20px 60px 20px;  
     align-items: start;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
-    margin-left: 120px;
+/* FIX: Jab sidebar khule toh content thoda right side slide ho jaye */
+body:has(.gemini-sidebar.open-sidebar) .main-portfolio-layout {
+    margin-left: 300px;
 }
 
 .left-column {
@@ -340,292 +363,4 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
 .profile-socials a {
     width: 38px;
     height: 38px;
-    border: 1px solid #dddddd;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #0c0a0a;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-.profile-socials a:hover {
-    background-color: #0c0a0a;
-    color: #ffffff;
-}
-
-/* ==========================================================================
-   6. TOOLS PAGE SPECIFIC STYLES
-   ========================================================================== */
-.tools-main-heading {
-    line-height: 0.95;
-    margin-bottom: 45px;
-}
-
-.tools-main-heading h2 {
-    font-size: 5.5rem;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -3px;
-}
-
-.heading-light {
-    color: #ffffff;
-}
-
-.heading-dark {
-    color: #1a1717;
-}
-
-.tools-grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-bottom: 60px;
-}
-
-.tool-card {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 12px;
-    border-radius: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.tool-card:hover {
-    background-color: rgba(255, 255, 255, 0.03);
-}
-
-.tool-thumb {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    overflow: hidden; 
-    background-color: #ffffff; 
-}
-
-.tool-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-}
-
-.tool-logo-box {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.bg-white { background-color: #ffffff; }
-.tool-icon-font { font-size: 1.8rem; }
-.black-text { color: #000000; }
-.yellow-text { color: #ffc107; }
-.colored-figma { color: #a259ff; }
-.bold-font { font-weight: 900; }
-
-.nextjs-logo-text {
-    color: #000000;
-    font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-}
-.nextjs-logo-text span {
-    font-size: 0.6rem;
-    font-weight: 500;
-}
-
-.tool-details {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.tool-details h3 {
-    font-size: 1.35rem;
-    color: #ffffff;
-    font-weight: 700;
-    margin: 0;
-    letter-spacing: -0.3px;
-}
-
-.tool-details p {
-    font-size: 0.9rem;
-    color: #666666;
-    margin: 0;
-    font-weight: 400;
-}
-
-/* ==========================================================================
-   7. CONTACT FORM BLOCK STYLES
-   ========================================================================== */
-.contact-section {
-    width: 100%;
-    margin-top: 60px;
-    margin-bottom: 80px;
-}
-
-.contact-heading {
-    line-height: 0.95;
-    margin-bottom: 40px;
-}
-
-.contact-heading h2 {
-    font-size: 5.5rem;
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: -3px;
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    width: 100%;
-}
-
-.form-row {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-    position: relative;
-}
-
-.form-group label {
-    font-size: 0.85rem;
-    text-transform: capitalize;
-    color: #888888;
-    font-weight: 500;
-}
-
-.form-group input, 
-.form-group select, 
-.form-group textarea {
-    background-color: #1e1b1b; 
-    border: 1px solid rgba(255, 255, 255, 0.02);
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: #ffffff;
-    font-size: 1rem;
-    outline: none;
-    width: 100%;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus, 
-.form-group select:focus, 
-.form-group textarea:focus {
-    border-color: #e65f2b;
-}
-
-.select-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.select-wrapper::after {
-    content: "\f107"; 
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666666;
-    pointer-events: none;
-}
-
-.form-group select {
-    appearance: none;
-    cursor: pointer;
-    padding-right: 45px;
-}
-
-.form-group textarea {
-    resize: none;
-    height: 150px;
-}
-
-.submit-btn {
-    background-color: #e65f2b;
-    color: #ffffff;
-    border: none;
-    padding: 18px;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-.submit-btn:hover {
-    background-color: #cc4e1f;
-}
-
-.submit-btn:active {
-    transform: scale(0.99);
-}
-
-/* ==========================================================================
-   8. MULTI-DEVICE RESPONSIVENESS ADJUSTMENTS (BREAKPOINTS)
-   ========================================================================== */
-@media (max-width: 1024px) {
-    .main-portfolio-layout {
-        grid-template-columns: 1fr;
-        margin-left: 100px !important;
-        margin-right: 20px;
-        padding-top: 140px;
-    }
-    .left-column {
-        position: relative;
-        top: 0;
-        max-width: 450px;
-        margin: 0 auto;
-    }
-}
-
-@media (max-width: 768px) {
-    .main-portfolio-layout {
-        margin-left: 20px !important;
-        padding-top: 120px;
-    }
-    .gemini-sidebar {
-        display: none !important; 
-    }
-    .tools-grid-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    .tools-main-heading h2, .contact-heading h2 {
-        font-size: 3.5rem;
-        letter-spacing: -1.5px;
-    }
-}
-
-@media (max-width: 600px) {
-    .form-row {
-        flex-direction: column;
-        gap: 25px;
-    }
-}
+    border: 1px solid #
