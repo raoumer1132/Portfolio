@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. GLOBAL ARCHITECTURE & LAYOUT RESET
+   1. GLOBAL RESET & BASE STYLES
    ========================================================================== */
 * {
     margin: 0;
@@ -16,162 +16,150 @@ body {
 }
 
 /* ==========================================================================
-   2. NAVBAR DESIGN - EXACT MATCHING THIRD PIC (SCREENSHOT 895)
+   2. TOP NAV CAPSULE - EXACT MATCH TO PREVIOUS PAGES (FIRST PIC)
    ========================================================================== */
 .nav {
     position: fixed;
-    top: 25px; /* Perfect top floating clearance */
+    top: 25px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(26, 26, 26, 0.45); /* Premium glassmorphism translucent background */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(21, 18, 18, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
-    gap: 32px; /* Perfect wide elite gap like third pic */
+    gap: 28px;
     justify-content: center;
     align-items: center;
-    padding: 14px 32px; /* Premium box height and horizontal stretch padding */
-    border-radius: 20px; /* Precise luxury curve */
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    padding: 12px 28px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav a {
-    color: #707072; /* Elegant dark grey non-active state */
-    font-size: 1.1rem; /* Perfectly matched bold size */
+    color: #555555;
+    font-size: 1rem;
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.25s ease, transform 0.2s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .nav a:hover, 
 .nav a.active-nav {
-    color: #ffffff !important; /* Crystal white visibility state */
-    transform: scale(1.05);
+    color: #ffffff !important;
 }
 
-/* Tooltip standard settings overlay hidden */
-.tooltip-text {
+/* Hide extra text labels in navigation capsule if they overlap */
+.nav a span {
     display: none;
 }
 
 /* ==========================================================================
-   3. SIDEBAR STYLING & COLLAPSIBILITY (PRECISE SLIDING DRAWER)
+   3. SLIM VERTICAL SIDEBAR - EXACT MATCH TO FIRST PIC / EXPERIENCE
    ========================================================================== */
 .gemini-sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: 100vh;
-    background-color: #111111;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    top: 20px;
+    left: 20px;
+    width: 70px;
+    height: calc(100vh - 40px);
+    background: rgba(21, 18, 18, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
-    z-index: 2000; /* Sidebar opens OVER the full page content layer */
-    
-    /* Perfect default off-canvas position hidden state */
-    transform: translateX(-100%); 
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    overflow-y: auto;
-    -ms-overflow-style: none;  
-    scrollbar-width: none;  
-}
-
-.gemini-sidebar::-webkit-scrollbar {
-    display: none;
-}
-
-/* Triggered selector added by JavaScript click */
-.gemini-sidebar.open-sidebar {
-    transform: translateX(0) !important;
-}
-
-/* Universal Top Left Fixed Burger Button Style (Screenshot 926 look) */
-.sidebar-toggle-trigger {
-    position: fixed;
-    top: 25px;
-    left: 25px;
-    background: rgba(26, 26, 26, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #ffffff;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
+    padding: 25px 0;
+    z-index: 1050;
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Top Burger Menu Icon Inside Sidebar */
+.sidebar-toggle-trigger {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.25rem;
+    margin-bottom: 40px;
     cursor: pointer;
-    z-index: 1500; /* Stays visible to open/close */
-    backdrop-filter: blur(10px);
-    transition: all 0.2s ease;
+    transition: transform 0.2s;
 }
 
 .sidebar-toggle-trigger:hover {
-    background: #222222;
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
-/* Sidebar Internal Design Structure Links */
+/* Sidebar Icons List Alignment */
 .sidebar-links {
     list-style: none;
-    padding: 80px 20px 20px 20px; /* Spacer below floating burger */
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 25px;
+    align-items: center;
+    width: 100%;
+}
+
+.sidebar-links li {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .sidebar-links li a {
+    color: #777777;
+    font-size: 1.2rem;
+    text-decoration: none;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 14px 18px;
-    color: #888888;
-    text-decoration: none;
-    font-size: 0.95rem;
+    justify-content: center;
     border-radius: 12px;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .sidebar-links li a:hover,
 .sidebar-links li a.active {
-    background-color: #222222;
+    background-color: rgba(255, 255, 255, 0.08);
     color: #ffffff;
 }
 
-/* Sidebar Dark Dimming Overlay Backdrop Mask */
-.sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1800;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+/* Hide text descriptions next to icons to keep it slim like first pic */
+.sidebar-links li a span,
+.sidebar-links .project-group-title,
+.sidebar-links li .project-dots {
+    display: none;
 }
 
-.sidebar-overlay.show {
-    opacity: 1 !important;
-    pointer-events: auto !important;
+/* Bottom User Profile Inside Sidebar */
+.sidebar-profile-footer {
+    margin-top: auto;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-profile-footer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* ==========================================================================
-   4. TWO-COLUMN PORTFOLIO CONTENT GRID LAYOUT
+   4. MAIN CONTENT LAYOUT ALIGNMENT
    ========================================================================== */
 .main-portfolio-layout {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 150px 20px 60px 20px; /* Clean structured content container padding */
+    padding: 140px 40px 60px 130px; /* Left padding provides breathing room next to fixed sidebar */
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 50px;
@@ -181,13 +169,13 @@ body {
 @media (max-width: 1024px) {
     .main-portfolio-layout {
         grid-template-columns: 1fr;
+        padding-left: 40px;
         padding-top: 120px;
-        gap: 30px;
     }
 }
 
 /* ==========================================================================
-   5. PROFILE LAYOUT CARDS BLOCK SETTINGS
+   5. PROFILE LAYOUT CARDS
    ========================================================================== */
 .profile-card {
     background-color: #ffffff;
@@ -195,6 +183,7 @@ body {
     border-radius: 30px;
     padding: 40px 24px;
     text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
 .image-container {
@@ -236,12 +225,12 @@ body {
 }
 
 /* ==========================================================================
-   6. PREMIUM TOOLS GRID CONTAINERS ALIGNMENT
+   6. PREMIUM TOOLS GRID CONTAINERS
    ========================================================================== */
 .right-column {
     display: flex;
     flex-direction: column;
-    gap: 45px;
+    gap: 40px;
 }
 
 .tools-main-heading h2 {
@@ -249,10 +238,11 @@ body {
     font-weight: 900;
     line-height: 1;
     letter-spacing: -1px;
+    margin-bottom: 10px;
 }
 
 .tools-main-heading .heading-light { color: #ffffff; }
-.tools-main-heading .heading-dark { color: #333333; }
+.tools-main-heading .heading-dark { color: #222222; }
 
 .tools-grid-container {
     display: grid;
@@ -265,18 +255,13 @@ body {
 }
 
 .tool-card {
-    background-color: #0c0c0c;
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    background-color: #090808;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     padding: 24px;
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: border-color 0.2s ease;
-}
-
-.tool-card:hover {
-    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .tool-thumb {
@@ -305,7 +290,7 @@ body {
 }
 
 /* ==========================================================================
-   7. PREMIUM CONTACT FORM SETUP
+   7. CONTACT FORM STYLING
    ========================================================================== */
 .contact-section { width: 100%; }
 
@@ -319,8 +304,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background: #0c0c0c;
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: #090808;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 35px;
     border-radius: 24px;
 }
@@ -349,8 +334,8 @@ body {
 .form-group input,
 .form-group textarea,
 .form-group select {
-    background: #141414;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: #110f0f;
+    border: 1px solid rgba(255, 255, 255, 0.07);
     padding: 16px;
     color: #ffffff;
     border-radius: 12px;
@@ -364,4 +349,25 @@ body {
     color: #ffffff;
     border: none;
     padding: 16px 38px;
-    border-radius: 12px
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.submit-btn:hover { background-color: #cf5222; }
+
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 9999;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+.page-transition-overlay.fade-out { opacity: 0; }
