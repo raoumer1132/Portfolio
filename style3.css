@@ -17,7 +17,7 @@ body {
 }
 
 /* ==========================================================================
-   2. GEMINI SIDEBAR SYSTEM
+   2. GEMINI SIDEBAR SYSTEM (FIXED FOR OPEN/CLOSE)
    ========================================================================== */
 .gemini-sidebar {
     position: fixed;
@@ -30,7 +30,7 @@ body {
     display: flex;
     flex-direction: column;
     z-index: 999;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, width 0.3s ease;
 }
 
 .sidebar-toggle-trigger {
@@ -87,43 +87,48 @@ body {
     z-index: 998;
 }
 
-/* Responsive Sidebar for smaller screens */
+/* JS Classes Handles (Dono types ke class triggers ka fallback support) */
+.gemini-sidebar.open,
+.gemini-sidebar.open-sidebar {
+    transform: translateX(0) !important;
+}
+
+.sidebar-overlay.show {
+    display: block !important;
+}
+
+/* Responsive Sidebar Mobile Breakpoint Toggle handling */
 @media (max-width: 1024px) {
     .gemini-sidebar {
         transform: translateX(-100%);
     }
-    .gemini-sidebar.open {
-        transform: translateX(0);
-    }
-    .sidebar-overlay.show {
-        display: block;
-    }
 }
 
-
-
 /* ==========================================================================
-   3. TOP BAR FLOATING NAVBAR MENU & TOOLTIPS
+   3. TOP BAR FLOATING NAVBAR MENU & TOOLTIPS (FIXED SIZE)
    ========================================================================== */
 .nav {
-    position: absolute;
+    position: fixed;               /* Fixed layout taake list positions break na hon */
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
-    background: #151212;
+    background: rgba(21, 18, 18, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
-    gap: 40px;
+    gap: 25px !important;           /* Space compressed to match other pages */
     justify-content: center;
     align-items: center;
-    padding: 16px 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,.5);
+    padding: 10px 24px !important;   /* Narrow structural padding applied */
+    border-radius: 30px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
 
 .nav a {
     color: #666666;
-    font-size: 1.3rem;
+    font-size: 0.95rem !important;   /* Standardized compact text layer */
     text-decoration: none;
     position: relative;
     display: inline-flex;
@@ -177,13 +182,14 @@ body {
    4. TWO-COLUMN PORTFOLIO GRID LAYOUT
    ========================================================================== */
 .main-portfolio-layout {
-    margin-left: 260px; /* Sidebar offset */
+    margin-left: 260px; 
     width: calc(100% - 260px);
     padding: 120px 40px 60px 40px;
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 40px;
     align-items: start;
+    transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
 @media (max-width: 1024px) {
@@ -406,7 +412,6 @@ body {
     box-sizing: border-box !important;
 }
 
-/* First Row Grid: Name & Email split into 2 equal columns */
 .form-row {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
@@ -414,7 +419,6 @@ body {
     width: 100% !important;
 }
 
-/* Mobile responsive screen build for contact grid rows */
 @media (max-width: 768px) {
     .form-row { 
         grid-template-columns: 1fr !important; 
@@ -437,7 +441,6 @@ body {
     letter-spacing: 0.5px !important;
 }
 
-/* Standardized browser native text inputs & select panels */
 .form-group input,
 .form-group textarea,
 .form-group select {
@@ -447,7 +450,7 @@ body {
     color: #ffffff !important;
     border-radius: 12px !important;
     font-size: 0.95rem !important;
-    width: 100% !important;               /* Force input boxes to stretch across container */
+    width: 100% !important;
     box-sizing: border-box !important;
     outline: none !important;
     transition: border-color 0.3s ease;
@@ -456,7 +459,7 @@ body {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    border-color: #e65f2b !important;    /* Premium Orange Glow focus */
+    border-color: #e65f2b !important;
 }
 
 .form-group textarea { 
@@ -464,7 +467,6 @@ body {
     resize: vertical !important;
 }
 
-/* Submit Action Button Block Styles */
 .submit-btn {
     background-color: #e65f2b !important;
     color: #ffffff !important;
@@ -474,7 +476,7 @@ body {
     font-size: 1rem !important;
     font-weight: 600 !important;
     cursor: pointer !important;
-    align-self: flex-start !important;     /* Keep button aligned left */
+    align-self: flex-start !important;
     width: auto !important;
     margin-top: 10px !important;
     transition: background 0.2s ease !important;
