@@ -1,29 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // ==========================================================================
-    // A: STABLE & FIXED PREMIUM PAGE TRANSITION MECHANISM
+    // A: STABLE & CRASH-PROOF PAGE TRANSITION MECHANISM
     // ==========================================================================
     const overlay = document.querySelector(".page-transition-overlay");
     
-    // Force reset body visibility immediately on ready state trigger
+    // Force visibility state safety resets immediately
     document.body.style.opacity = "1";
     document.body.classList.add("page-ready");
-    if (overlay) overlay.classList.add("fade-out");
+    if (overlay) {
+        overlay.classList.add("fade-out");
+    }
 
-    // Click handler for links with explicit safety escape strings
+    // Smooth page navigation click filtering selector
     document.querySelectorAll("a").forEach(link => {
         const href = link.getAttribute("href");
         if (!href) return;
 
-        // Bypass transition loops on local anchors or code triggers
-        if (href === "#" || href.startsWith("#") || link.closest(".sidebar-toggle-trigger") || link.closest(".sidebar-links")) {
-            return;
-        }
-
+        // Bypass transition conditions for external social logic and sidebar loops
+        const isAnchor = href === "#" || href.startsWith("#");
+        const isSidebarChild = link.closest(".gemini-sidebar");
         const isBlank = link.getAttribute("target") === "_blank";
         const isExternal = href.startsWith("http://") || href.startsWith("https://");
-        
-        if (!isBlank && !isExternal) {
+
+        if (!isAnchor && !isSidebarChild && !isBlank && !isExternal) {
             link.addEventListener("click", function(e) {
                 e.preventDefault();
                 const targetUrl = this.href;
@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Pageshow dynamic cache reset protection
     window.addEventListener("pageshow", (event) => {
         document.body.style.opacity = "1";
         document.body.classList.add("page-ready");
@@ -46,17 +45,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================================================
-    // B: SIDEBAR TOGGLE MECHANISM
+    // B: SIDEBAR TOGGLE MECHANISM (ISOLATED EXECUTION)
     // ==========================================================================
     const sidebarToggleBtn = document.querySelector(".sidebar-toggle-trigger");
     const geminiSidebar = document.querySelector(".gemini-sidebar");
-    const sidebarOverlay = document.querySelector(".sidebar-overlay");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
 
     if (sidebarToggleBtn && geminiSidebar) {
         sidebarToggleBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
             
+            // Toggle both standard selectors smoothly
             geminiSidebar.classList.toggle("open-sidebar");
             geminiSidebar.classList.toggle("open");
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (sidebarOverlay && geminiSidebar) {
         sidebarOverlay.addEventListener("click", () => {
-            geminiSidebar.remove("open-sidebar");
+            geminiSidebar.classList.remove("open-sidebar");
             geminiSidebar.classList.remove("open");
             sidebarOverlay.classList.remove("show");
         });
