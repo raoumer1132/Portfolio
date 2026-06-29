@@ -100,41 +100,35 @@ body {
     }
 }
 
+
 /* ==========================================================================
-   3. FLOATING NAVIGATION MENU (FIXED TO MATCH OTHER PAGES)
+   3. TOP BAR FLOATING NAVBAR MENU & TOOLTIPS
    ========================================================================== */
 .nav {
-    position: fixed;
+    position: absolute;
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(21, 18, 18, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #151212;
     display: flex;
-    gap: 25px !important;              /* Baaki pages jesa perfect custom gap */
+    gap: 40px;
     justify-content: center;
     align-items: center;
-    padding: 10px 24px !important;      /* Padding reduced to make it compact */
-    border-radius: 30px !important;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 16px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.5);
     z-index: 1000;
 }
 
 .nav a {
     color: #666666;
-    font-size: 0.95rem !important;      /* Chota text size baaki pages jesa */
+    font-size: 1.3rem;
     text-decoration: none;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 4px !important;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     transition: color 0.3s ease;
-}
-
-.nav a i {
-    font-size: 1.1rem !important;
 }
 
 .nav a:hover, 
@@ -142,9 +136,40 @@ body {
     color: #ffffff;
 }
 
-.nav .tooltip-text {
-    font-size: 0.75rem !important;
-    font-weight: 500 !important;
+.tooltip-text {
+    position: absolute;
+    top: 145%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background-color: #151212;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #151212 transparent;
+}
+
+.nav a:hover .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* ==========================================================================
