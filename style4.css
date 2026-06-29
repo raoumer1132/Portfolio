@@ -15,10 +15,35 @@ body {
     display: flex;
     justify-content: center;
     overflow-x: hidden;
+    opacity: 0;
+    transform: scale(0.99);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.page-ready {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Page Transition Overlay */
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0c0a0a;
+    z-index: 99999;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+.page-transition-overlay.fade-out {
+    opacity: 0;
 }
 
 /* ==========================================================================
-   3. PERFECT SLIM TO WIDE SIDEBAR TOGGLE
+   2. PERFECT SLIM TO WIDE SIDEBAR SYSTEM
    ========================================================================== */
 .gemini-sidebar {
     position: fixed;
@@ -130,25 +155,8 @@ body {
     pointer-events: auto;
 }
 
-/* Jab page load ho jaye toh overlay gayab karne ke liye class */
-.page-transition-overlay.fade-out {
-    opacity: 0;
-}
-
-/* Pure body content par halka sa scale aur fade animation lagane ke liye class */
-body {
-    opacity: 0;
-    transform: scale(0.99);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body.page-ready {
-    opacity: 1;
-    transform: scale(1);
-}
-
 /* ==========================================================================
-   2. TOP BAR FLOATING NAVIGATION MENU
+   3. TOP BAR FLOATING NAVIGATION MENU
    ========================================================================== */
 .nav {
     position: fixed;
@@ -219,7 +227,7 @@ body.page-ready {
 }
 
 /* ==========================================================================
-   4. LAYOUT ALIGNMENTS GRID VIEWPORT BLOCKS
+   4. LAYOUT GRID SYSTEM
    ========================================================================== */
 .main-portfolio-layout {
     width: 100%;
@@ -230,14 +238,6 @@ body.page-ready {
     grid-template-columns: 320px 1fr;
     gap: 50px;
     align-items: start;
-}
-
-@media (max-width: 1024px) {
-    .main-portfolio-layout {
-        grid-template-columns: 1fr;
-        padding-left: 40px;
-        padding-top: 120px;
-    }
 }
 
 .left-column {
@@ -255,7 +255,7 @@ body.page-ready {
 }
 
 /* ==========================================================================
-   4. LEFT COLUMN: PROFILE CARD DESIGN
+   5. PROFILE CARD DESIGN
    ========================================================================== */
 .profile-card {
     background-color: #ffffff;
@@ -353,7 +353,7 @@ body.page-ready {
 .heading-dark { color: #1a1717; }
 
 /* ==========================================================================
-   5. THOUGHTS / BLOG PAGE SPECIFIC STYLES
+   6. THOUGHTS / BLOG CARDS STYLING
    ========================================================================== */
 .blog-main-heading {
     line-height: 0.95;
@@ -370,181 +370,28 @@ body.page-ready {
 .blog-posts-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 100%;
-}
-
-.blog-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 30px 0px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.blog-card:hover {
-    border-bottom-color: rgba(255, 255, 255, 0.2);
-}
-
-.blog-card-content {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 85%;
-}
-
-.blog-title {
-    font-size: 1.8rem;
-    color: #ffffff;
-    font-weight: 700;
-    line-height: 1.3;
-    transition: color 0.3s ease;
-}
-
-.blog-card:hover .blog-title {
-    color: #e65f2b;
-}
-
-.blog-description {
-    font-size: 1.05rem;
-    color: #888888;
-    line-height: 1.6;
-}
-
-.blog-meta {
-    display: flex;
-    gap: 25px;
-    font-size: 0.9rem;
-    color: #555555;
-}
-
-.blog-arrow-box {
-    color: #e65f2b; 
-    font-size: 1.2rem;
-    padding-top: 8px;
-    transition: transform 0.3s ease;
-}
-
-.blog-card:hover .blog-arrow-box {
-    transform: translate(3px, -3px);
-}
-
-/* ==========================================================================
-   6. FLOATING ACTION BADGES DESIGN (BOTTOM RIGHT PANEL)
-   ========================================================================== */
-.floating-action-badges {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-end;
-    z-index: 2000;
-}
-
-.badge-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.badge-btn:hover {
-    transform: translateY(-2px);
-    opacity: 0.95;
-}
-
-.orange-badge {
-    background-color: #e65f2b;
-    color: #ffffff;
-}
-
-.lime-badge {
-    background-color: #a3e635;
-    color: #000000;
-}
-
-.framer-brand-badge {
-    background-color: #ffffff;
-    color: #000000;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-/* ==========================================================================
-   7. RESPONSIVE DESIGN BREAKPOINTS
-   ========================================================================== */
-@media (max-width: 992px) {
-    .main-portfolio-layout {
-        flex-direction: column;
-        margin-top: 100px;
-    }
-    .left-column {
-        width: 100%;
-        position: relative;
-        top: 0;
-    }
-    .right-column {
-        width: 100%;
-    }
-    .blog-main-heading h2 {
-        font-size: 4rem;
-        letter-spacing: -1.5px;
-    }
-}
-
-@media (max-width: 768px) {
-    .blog-title {
-        font-size: 1.4rem;
-    }
-    .floating-action-badges {
-        position: relative;
-        bottom: 0;
-        right: 0;
-        margin: 40px auto 20px auto;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-}
-/* ==========================================================================
-   THOUGHTS / BLOG CARDS STYLING
-   ========================================================================== */
-.blog-posts-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px; /* Cards ke darmiyan spacing */
+    gap: 8px; 
     width: 100%;
     margin-bottom: 60px;
 }
 
-/* Default Card State (Divider Line Ke Sath) */
 .blog-card {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 35px 30px;
     border: 1px solid transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04); /* Divider line */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04); 
     border-radius: 0px;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hover aur Active Box State (Screenshot 787 ke mutabiq Dark Container Effect) */
 .blog-card:hover, 
 .blog-card.active-blog-box {
     border: 1px solid rgba(255, 255, 255, 0.02);
-    border-radius: 24px; /* Corners rounded ho jayenge */
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 24px; 
     padding: 35px 30px;
 }
 
@@ -561,18 +408,23 @@ body.page-ready {
     font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.3px;
+    transition: color 0.3s ease;
+}
+
+.blog-card:hover .blog-title {
+    color: #e65f2b;
 }
 
 .blog-description {
     font-size: 1.05rem;
-    color: #6e6b6b; /* Muted gray text */
+    color: #6e6b6b; 
     line-height: 1.55;
     font-weight: 400;
 }
 
 .blog-meta {
     display: flex;
-    justify-content: space-between; /* Date left par aur read-time right par */
+    justify-content: space-between; 
     width: 100%;
     font-size: 0.95rem;
     color: #555555;
@@ -580,20 +432,19 @@ body.page-ready {
     margin-top: 10px;
 }
 
-/* Diagonal Arrow Icon Box */
 .blog-arrow-box {
-    color: #e65f2b; /* Orange color arrow */
+    color: #e65f2b; 
     font-size: 1.3rem;
     transition: transform 0.3s ease;
 }
 
-/* Hover ya Active state par Arrow up-right shift hoga */
 .blog-card:hover .blog-arrow-box,
 .blog-card.active-blog-box .blog-arrow-box {
     transform: translate(4px, -4px);
 }
+
 /* ==========================================================================
-   8. CONTACT FORM & FOOTER DESIGN (SCREENSHOT 788)
+   7. CONTACT FORM & FOOTER DESIGN
    ========================================================================== */
 .contact-section {
     margin-top: 80px;
@@ -614,15 +465,9 @@ body.page-ready {
     letter-spacing: -3px;
 }
 
-.contact-light {
-    color: #ffffff;
-}
+.contact-light { color: #ffffff; }
+.contact-dark { color: #1a1717; }
 
-.contact-dark {
-    color: #1a1717; /* Dark muted gray tone behind */
-}
-
-/* Form Layout */
 .portfolio-form {
     display: flex;
     flex-direction: column;
@@ -652,11 +497,10 @@ body.page-ready {
     font-weight: 500;
 }
 
-/* Input Inputs & Textarea Universal Style */
 .form-group input,
 .form-group textarea,
 .form-group select {
-    background-color: #1b1919; /* Grayish dark input fields box tint */
+    background-color: #1b1919; 
     border: 1px solid rgba(255, 255, 255, 0.02);
     border-radius: 12px;
     color: #ffffff;
@@ -675,17 +519,16 @@ body.page-ready {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    border-color: #e65f2b; /* Subtle active border accent */
+    border-color: #e65f2b; 
 }
 
-/* Custom Styled Dropdown Dropdown Select Arrow */
 .select-wrapper {
     position: relative;
     width: 100%;
 }
 
 .select-wrapper::after {
-    content: "\f078"; /* FontAwesome Chevron Down */
+    content: "\f078"; 
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
     position: absolute;
@@ -698,16 +541,14 @@ body.page-ready {
 }
 
 .form-group select {
-    appearance: none; /* Default OS select dropdown arrow hides */
+    appearance: none; 
     cursor: pointer;
 }
 
-/* Disable text resizing on text box */
 .form-group textarea {
     resize: none;
 }
 
-/* Orange Flat Submit Button */
 .form-submit-btn {
     background-color: #e65f2b;
     color: #ffffff;
@@ -727,7 +568,6 @@ body.page-ready {
     transform: translateY(-1px);
 }
 
-/* Centered Bottom Small Text Footer */
 .site-footer {
     text-align: center;
     margin-top: 60px;
@@ -737,12 +577,39 @@ body.page-ready {
     font-weight: 500;
 }
 
-.footer-orange {
-    color: #e65f2b;
+.footer-orange { color: #e65f2b; }
+
+/* ==========================================================================
+   8. RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .main-portfolio-layout {
+        grid-template-columns: 1fr;
+        padding-left: 40px;
+        padding-top: 120px;
+    }
+    .left-column {
+        width: 100%;
+        position: relative;
+        top: 0;
+    }
 }
 
-/* Responsive adjustment for forms on mobile devices */
+@media (max-width: 992px) {
+    .blog-main-heading h2 {
+        font-size: 4rem;
+        letter-spacing: -1.5px;
+    }
+}
+
 @media (max-width: 768px) {
+    .main-portfolio-layout {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .blog-title {
+        font-size: 1.4rem;
+    }
     .form-row {
         flex-direction: column;
         gap: 24px;
