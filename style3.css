@@ -16,24 +16,22 @@ body {
     justify-content: center;
     overflow-x: hidden;
     position: relative;
-    
-    /* Clean entry animation without breaking fixed layouts */
-    opacity: 0;
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.page-ready {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 /* ==========================================================================
-   2. PREMIUM GLASSMORPHISM SIDEBAR (FIXED VIEWPORT)
+   2. PREMIUM GLASSMORPHISM SIDEBAR
    ========================================================================== */
 .gemini-sidebar {
     position: fixed !important; 
     top: 30px !important;
     left: 30px !important;
-    width: 68px !important; /* FIX: Default width ko chota rakha hai taake pehle se khula na dikhe */
+    width: 68px !important; 
     height: calc(100vh - 60px) !important; 
     z-index: 9999 !important;
     background: rgba(255, 255, 255, 0.03) !important; 
@@ -46,30 +44,22 @@ body.page-ready {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    
-    /* Smooth width change animation */
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s ease !important;
+    
+    /* FIX: Scrollbars completely hidden taake line nazar na aaye */
     overflow-y: auto;
     overflow-x: hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
-/* FIX: Jab sidebar open ho (Active state) */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.gemini-sidebar::-webkit-scrollbar {
+    display: none;
+}
+
 .gemini-sidebar.open-sidebar {
     width: 240px !important; 
-}
-
-/* FIX: Windows default scrollbar ko hide/sleek karne ke liye custom styling */
-.gemini-sidebar::-webkit-scrollbar {
-    width: 4px;
-}
-
-.gemini-sidebar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-}
-
-.gemini-sidebar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.25);
 }
 
 .sidebar-toggle-trigger {
@@ -132,17 +122,16 @@ body.page-ready {
     color: #ffffff;
 }
 
-/* FIX: Text aur sub-elements ko default mein hidden rakha hai */
+/* Texts hidden by default when collapsed */
 .gemini-sidebar .nav-text, 
 .gemini-sidebar .sidebar-section-title,
 .gemini-sidebar .user-info-text,
 .gemini-sidebar .arrow-icon {
     opacity: 0;
     display: none !important;
-    transition: opacity 0.2s ease;
 }
 
-/* FIX: Jab sidebar open ho, tab hi saara text smooth show ho */
+/* Texts show when sidebar is open */
 .gemini-sidebar.open-sidebar .nav-text,
 .gemini-sidebar.open-sidebar .sidebar-section-title,
 .gemini-sidebar.open-sidebar .arrow-icon {
@@ -156,31 +145,28 @@ body.page-ready {
     flex-direction: column;
 }
 
-/* Mobile Screens Fix */
-@media (max-width: 768px) {
-    .gemini-sidebar {
-        left: -260px !important; 
-    }
-    .gemini-sidebar.open-sidebar {
-        left: 30px !important; 
-        width: 240px !important;
-    }
-    .gemini-sidebar.open-sidebar .nav-text {
-        display: block !important;
-        opacity: 1;
-    }
+/* User avatar at the bottom of sidebar */
+.sidebar-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: auto;
 }
 
-/* Page Transition Overlay */
-.page-transition-overlay.fade-out {
-    opacity: 0;
+.sidebar-user-profile img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 /* ==========================================================================
    3. TOP BAR FLOATING NAVIGATION MENU
    ========================================================================== */
 .nav {
-    position: absolute;
+    position: fixed;
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
@@ -193,59 +179,18 @@ body.page-ready {
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0,0,0,.5);
     z-index: 1000;
-    transition: background 0.3s ease, backdrop-filter 0.3s ease, border 0.3s ease;
 }
 
 .nav a {
     color: #666666;
     font-size: 1.3rem;
     text-decoration: none;
-    position: relative;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
     transition: color 0.3s ease;
 }
 
 .nav a:hover, 
 .nav a.active-nav {
     color: #ffffff;
-}
-
-.tooltip-text {
-    position: absolute;
-    top: 145%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
-    background-color: #151212;
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 6px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease;
-}
-
-.tooltip-text::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #151212 transparent;
-}
-
-.nav a:hover .tooltip-text {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
 }
 
 /* ==========================================================================
@@ -258,14 +203,12 @@ body.page-ready {
     max-width: 1400px;
     width: 100%;                  
     margin-right: 40px;           
-    margin-bottom: 0;
-    margin-left: 120px; /* FIX: Default left margin sidebar collapsed ke hisab se */          
+    margin-left: 140px;          
     padding: 120px 20px 60px 20px;  
     align-items: start;
-    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: margin-left 0.3s ease;
 }
 
-/* FIX: Jab sidebar khule toh content thoda right side slide ho jaye */
 body:has(.gemini-sidebar.open-sidebar) .main-portfolio-layout {
     margin-left: 300px;
 }
@@ -293,7 +236,6 @@ body:has(.gemini-sidebar.open-sidebar) .main-portfolio-layout {
     padding: 40px 25px;
     text-align: center;
     color: #0c0a0a;
-    position: relative;
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
@@ -303,7 +245,6 @@ body:has(.gemini-sidebar.open-sidebar) .main-portfolio-layout {
     max-width: 220px;
     height: 270px;
     margin: 0 auto 25px auto;
-    overflow: visible;
 }
 
 .avatar-img {
@@ -311,8 +252,6 @@ body:has(.gemini-sidebar.open-sidebar) .main-portfolio-layout {
     height: 100%;
     object-fit: cover;
     border-radius: 24px;
-    background-color: #e65f2b;
-    display: block;
 }
 
 .dashed-circle {
@@ -341,7 +280,6 @@ body:has(.gemini-sidebar.open-sidebar) .main-portfolio-layout {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.1rem;
     margin: 0 auto 15px auto;
     color: white;
 }
@@ -351,7 +289,6 @@ body:has(.gemini-sidebar.open-sidebar) .main-portfolio-layout {
     color: #555555;
     line-height: 1.5;
     margin-bottom: 25px;
-    font-weight: 500;
 }
 
 .profile-socials {
@@ -363,4 +300,93 @@ body:has(.gemini-sidebar.open-sidebar) .main-portfolio-layout {
 .profile-socials a {
     width: 38px;
     height: 38px;
-    border: 1px solid #
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0c0a0a;
+    transition: all 0.3s ease;
+}
+
+.profile-socials a:hover {
+    background-color: #0c0a0a;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   6. TOOLS PAGE SPECIFIC STYLES (FIXED LOGOS ISSUE)
+   ========================================================================== */
+.tools-main-heading h2 {
+    font-size: 5.5rem;
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 0.95;
+    margin-bottom: 45px;
+}
+
+.heading-light { color: #ffffff; }
+.heading-dark { color: #1a1717; }
+
+.tools-grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+    width: 100%;
+}
+
+.tool-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.tool-card:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* FIX: Logo bounding box ko lock kiya hai */
+.tool-thumb, .tool-logo-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    background-color: #ffffff; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 12px; /* Logo padding */
+}
+
+/* FIX: Images ko container se baahir phelne se roka */
+.tool-thumb img, .tool-logo-box img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; 
+    display: block;
+}
+
+.tool-icon-font { font-size: 2rem; }
+.black-text { color: #000000; }
+.yellow-text { color: #ffc107; }
+.colored-figma { color: #a259ff; }
+
+.tool-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tool-details h3 {
+    font-size:
