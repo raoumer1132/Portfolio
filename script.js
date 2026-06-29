@@ -1,23 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // ==========================================================================
-    // A: SMOOTH PAGE TRANSITION PROTECTION SYSTEM
+    // 1. PAGE TRANSITION & VISIBILITY SAFETY RESETS
     // ==========================================================================
     const overlay = document.querySelector(".page-transition-overlay");
-    
-    // Dynamic immediate recovery loops forcing document state visibility
     document.body.style.opacity = "1";
     document.body.classList.add("page-ready");
     if (overlay) {
         overlay.classList.add("fade-out");
     }
 
-    // Capture explicit local relative link clicks safely
+    // Dynamic clean links handling logic
     document.querySelectorAll("a").forEach(link => {
         const href = link.getAttribute("href");
         if (!href) return;
 
-        // Condition rules ignoring click captures on anchors or external buttons
         const isAnchor = href === "#" || href.startsWith("#");
         const isSidebarChild = link.closest(".gemini-sidebar");
         const isBlank = link.getAttribute("target") === "_blank";
@@ -27,9 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             link.addEventListener("click", function(e) {
                 e.preventDefault();
                 const targetUrl = this.href;
-                
                 if (overlay) overlay.classList.remove("fade-out");
-                
                 setTimeout(() => {
                     window.location.href = targetUrl;
                 }, 250);
@@ -37,43 +32,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Window configuration loading protection cache reset
-    window.addEventListener("pageshow", (event) => {
+    window.addEventListener("pageshow", () => {
         document.body.style.opacity = "1";
-        document.body.classList.add("page-ready");
         if (overlay) overlay.classList.add("fade-out");
     });
 
     // ==========================================================================
-    // B: CLEAN OVERLAY FIXED TOGGLE INJECTION
+    // 2. PERFECT SIDEBAR TOGGLE USING INTERIOR TRIGGER BUTTON
     // ==========================================================================
-    // Creates a standalone perfect responsive burger on screen viewport if missing
-    if (!document.querySelector(".global-sidebar-trigger")) {
-        const burgerBtn = document.createElement("button");
-        burgerBtn.className = "global-sidebar-trigger";
-        burgerBtn.setAttribute("type", "button");
-        burgerBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
-        document.body.appendChild(burgerBtn);
-    }
-
+    const sidebarToggleBtn = document.querySelector(".sidebar-toggle-trigger");
     const geminiSidebar = document.querySelector(".gemini-sidebar");
     const sidebarOverlay = document.getElementById("sidebarOverlay");
-    const triggers = document.querySelectorAll(".sidebar-toggle-trigger, .global-sidebar-trigger");
 
-    triggers.forEach(trigger => {
-        trigger.addEventListener("click", (e) => {
+    if (sidebarToggleBtn && geminiSidebar) {
+        sidebarToggleBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            if (geminiSidebar) {
-                geminiSidebar.classList.toggle("open-sidebar");
-            }
+            
+            // Toggle active visual states smoothly
+            geminiSidebar.classList.toggle("open-sidebar");
+
             if (sidebarOverlay) {
                 sidebarOverlay.classList.toggle("show");
             }
         });
-    });
+    }
 
-    // Smoothly close active drawer when clicking out of the viewport panel
+    // Close when overlay panel backdrop mask layout is clicked
     if (sidebarOverlay) {
         sidebarOverlay.addEventListener("click", () => {
             if (geminiSidebar) geminiSidebar.classList.remove("open-sidebar");
