@@ -13,11 +13,11 @@ body {
     color: #ffffff;
     display: flex;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevent horizontal layout breakage */
 }
 
 /* ==========================================================================
-   2. GEMINI SIDEBAR SYSTEM (FIXED FOR OPEN/CLOSE)
+   2. GEMINI SIDEBAR SYSTEM (SCROLLBAR HIDDEN & OVERLAP FIXED)
    ========================================================================== */
 .gemini-sidebar {
     position: fixed;
@@ -30,7 +30,21 @@ body {
     display: flex;
     flex-direction: column;
     z-index: 999;
-    transition: transform 0.3s ease, width 0.3s ease;
+    transition: transform 0.3s ease;
+    overflow-y: auto; /* Scroll capability allowed internally */
+    
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    -webkit-overflow-scrolling: touch;
+}
+
+.gemini-sidebar::-webkit-scrollbar {
+    display: none; /* Safely removes that white scrollbar handle completely */
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.gemini-sidebar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .sidebar-toggle-trigger {
@@ -87,7 +101,6 @@ body {
     z-index: 998;
 }
 
-/* JS Classes Handles (Dono types ke class triggers ka fallback support) */
 .gemini-sidebar.open,
 .gemini-sidebar.open-sidebar {
     transform: translateX(0) !important;
@@ -97,7 +110,6 @@ body {
     display: block !important;
 }
 
-/* Responsive Sidebar Mobile Breakpoint Toggle handling */
 @media (max-width: 1024px) {
     .gemini-sidebar {
         transform: translateX(-100%);
@@ -105,30 +117,31 @@ body {
 }
 
 /* ==========================================================================
-   3. TOP BAR FLOATING NAVBAR MENU & TOOLTIPS (FIXED SIZE)
+   3. FLOATING NAVBAR MENU (CENTER ALIGNED & FIXED TO SCREEN VIEW)
    ========================================================================== */
 .nav {
-    position: fixed;               /* Fixed layout taake list positions break na hon */
+    position: fixed;
     top: 25px;
-    left: 50%;
+    left: calc(50% + 130px); /* Pushes center alignment away from left layout sidebar */
     transform: translateX(-50%);
     background: rgba(21, 18, 18, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     display: flex;
-    gap: 25px !important;           /* Space compressed to match other pages */
+    gap: 25px !important;
     justify-content: center;
     align-items: center;
-    padding: 10px 24px !important;   /* Narrow structural padding applied */
+    padding: 10px 24px !important;
     border-radius: 30px !important;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 1000;
+    transition: left 0.3s ease;
 }
 
 .nav a {
     color: #666666;
-    font-size: 0.95rem !important;   /* Standardized compact text layer */
+    font-size: 0.95rem !important;
     text-decoration: none;
     position: relative;
     display: inline-flex;
@@ -142,54 +155,23 @@ body {
     color: #ffffff;
 }
 
-.tooltip-text {
-    position: absolute;
-    top: 145%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
-    background-color: #151212;
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 6px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease;
-}
-
-.tooltip-text::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #151212 transparent;
-}
-
-.nav a:hover .tooltip-text {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
+@media (max-width: 1024px) {
+    .nav {
+        left: 50% !important; /* Normal fluid mobile responsive layout center override */
+    }
 }
 
 /* ==========================================================================
-   4. TWO-COLUMN PORTFOLIO GRID LAYOUT
+   4. TWO-COLUMN PORTFOLIO GRID LAYOUT (SAFE CONTENT VIEW MARGINS)
    ========================================================================== */
 .main-portfolio-layout {
     margin-left: 260px; 
     width: calc(100% - 260px);
-    padding: 120px 40px 60px 40px;
+    padding: 140px 40px 60px 40px;
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 40px;
     align-items: start;
-    transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
 @media (max-width: 1024px) {
@@ -206,7 +188,7 @@ body {
    ========================================================================== */
 .left-column {
     position: sticky;
-    top: 120px;
+    top: 140px;
 }
 
 @media (max-width: 1024px) {
@@ -256,43 +238,8 @@ body {
     margin-bottom: 15px;
 }
 
-.fire-badge {
-    background-color: #f7ede2;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 15px auto;
-    font-size: 1.2rem;
-}
-
-.profile-desc {
-    font-size: 0.9rem;
-    color: #555555;
-    line-height: 1.5;
-    margin-bottom: 25px;
-}
-
-.profile-socials {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.profile-socials a {
-    color: #000000;
-    font-size: 1.2rem;
-    transition: color 0.2s;
-}
-
-.profile-socials a:hover {
-    color: #e65f2b;
-}
-
 /* ==========================================================================
-   6. RIGHT COLUMN: PREMIUM TOOLS GRID
+   6. RIGHT COLUMN: PREMIUM TOOLS GRID (FLEX IMAGES BOUNDARY)
    ========================================================================== */
 .right-column {
     display: flex;
@@ -307,28 +254,13 @@ body {
     letter-spacing: -2px;
 }
 
-@media (max-width: 600px) {
-    .tools-main-heading h2 {
-        font-size: 3rem;
-    }
-}
-
-.heading-light {
-    color: #ffffff;
-}
-
-.heading-dark {
-    color: #161515;
-    -webkit-text-stroke: 1px rgba(255,255,255,0.15);
-}
-
 .tools-grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .tools-grid-container {
         grid-template-columns: 1fr;
     }
@@ -342,12 +274,6 @@ body {
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-.tool-card:hover {
-    border-color: rgba(255,255,255,0.15);
-    background-color: #111010;
 }
 
 .tool-thumb {
@@ -359,45 +285,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .tool-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.tool-details h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.tool-details p {
-    font-size: 0.9rem;
-    color: #8c8c8c;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Prevents oversized logic logos stretching out */
 }
 
 /* ==========================================================================
-   7. CONTACT SECTION & MODERN FULL-WIDTH FORM LAYOUT FIX
+   7. CONTACT SECTION & FULL CONTAINER INPUT FORM STYLING
    ========================================================================== */
 .contact-section {
     width: 100% !important;
     margin-top: 40px !important;
-}
-
-.contact-heading h2 {
-    font-size: 4.5rem;
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -2px;
-    margin-bottom: 30px;
-}
-
-@media (max-width: 600px) {
-    .contact-heading h2 {
-        font-size: 3rem;
-    }
 }
 
 .contact-form {
@@ -433,14 +335,6 @@ body {
     width: 100% !important;
 }
 
-.form-group label {
-    font-size: 0.85rem !important;
-    font-weight: 600 !important;
-    color: #8c8c8c !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-}
-
 .form-group input,
 .form-group textarea,
 .form-group select {
@@ -450,21 +344,9 @@ body {
     color: #ffffff !important;
     border-radius: 12px !important;
     font-size: 0.95rem !important;
-    width: 100% !important;
+    width: 100% !important;               /* Force input fields to stretch full row container width */
     box-sizing: border-box !important;
     outline: none !important;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: #e65f2b !important;
-}
-
-.form-group textarea { 
-    min-height: 120px !important; 
-    resize: vertical !important;
 }
 
 .submit-btn {
@@ -478,10 +360,4 @@ body {
     cursor: pointer !important;
     align-self: flex-start !important;
     width: auto !important;
-    margin-top: 10px !important;
-    transition: background 0.2s ease !important;
-}
-
-.submit-btn:hover { 
-    background-color: #cf4f1f !important; 
 }
