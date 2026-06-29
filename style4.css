@@ -252,8 +252,8 @@ body.page-ready {
     grid-template-columns: 320px 1fr;
     gap: 50px;
     align-items: start;
+    overflow: visible !important; /* Taake scroll block na ho */
 }
-
 .left-column {
    height: auto;
    position: relative; 
