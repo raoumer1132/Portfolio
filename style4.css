@@ -60,7 +60,7 @@ body.page-ready {
    2. PERFECT SLIM TO WIDE SIDEBAR SYSTEM
    ========================================================================== */
 .gemini-sidebar {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
     width: 70px;
@@ -277,7 +277,7 @@ body.page-ready {
     padding: 40px 25px;
     text-align: center;
     color: #0c0a0a;
-    position: relative;
+    position: fixed;
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
