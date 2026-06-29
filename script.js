@@ -1,75 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // ==========================================================================
-    // A: STABLE & CRASH-PROOF PAGE TRANSITION MECHANISM
-    // ==========================================================================
-    const overlay = document.querySelector(".page-transition-overlay");
-    
-    // Force visibility state safety resets immediately
+    // 1. Safe Page Readiness Triggers
     document.body.style.opacity = "1";
     document.body.classList.add("page-ready");
-    if (overlay) {
-        overlay.classList.add("fade-out");
+    const transitionOverlay = document.querySelector(".page-transition-overlay");
+    if (transitionOverlay) {
+        transitionOverlay.classList.add("fade-out");
     }
 
-    // Smooth page navigation click filtering selector
-    document.querySelectorAll("a").forEach(link => {
-        const href = link.getAttribute("href");
-        if (!href) return;
+    // 2. CREATE A STANDALONE FLOATING BUTTON IF NOT PRESENT IN BODY FOR EASY DESKTOP TOGGLE
+    if (!document.querySelector(".sidebar-toggle-trigger-fixed")) {
+        const fixedBtn = document.createElement("button");
+        fixedBtn.className = "sidebar-toggle-trigger-fixed";
+        fixedBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        document.body.appendChild(fixedBtn);
+    }
 
-        // Bypass transition conditions for external social logic and sidebar loops
-        const isAnchor = href === "#" || href.startsWith("#");
-        const isSidebarChild = link.closest(".gemini-sidebar");
-        const isBlank = link.getAttribute("target") === "_blank";
-        const isExternal = href.startsWith("http://") || href.startsWith("https://");
-
-        if (!isAnchor && !isSidebarChild && !isBlank && !isExternal) {
-            link.addEventListener("click", function(e) {
-                e.preventDefault();
-                const targetUrl = this.href;
-                
-                if (overlay) overlay.classList.remove("fade-out");
-                document.body.style.opacity = "0";
-                
-                setTimeout(() => {
-                    window.location.href = targetUrl;
-                }, 250);
-            });
-        }
-    });
-
-    window.addEventListener("pageshow", (event) => {
-        document.body.style.opacity = "1";
-        document.body.classList.add("page-ready");
-        if (overlay) overlay.classList.add("fade-out");
-    });
-
-    // ==========================================================================
-    // B: SIDEBAR TOGGLE MECHANISM (ISOLATED EXECUTION)
-    // ==========================================================================
-    const sidebarToggleBtn = document.querySelector(".sidebar-toggle-trigger");
+    // 3. TARGETING BOTH BUTTONS (Inside sidebar & Floating layout button)
     const geminiSidebar = document.querySelector(".gemini-sidebar");
     const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const toggleButtons = document.querySelectorAll(".sidebar-toggle-trigger, .sidebar-toggle-trigger-fixed");
 
-    if (sidebarToggleBtn && geminiSidebar) {
-        sidebarToggleBtn.addEventListener("click", (e) => {
+    toggleButtons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
-            // Toggle both standard selectors smoothly
-            geminiSidebar.classList.toggle("open-sidebar");
-            geminiSidebar.classList.toggle("open");
-
+            if (geminiSidebar) {
+                geminiSidebar.classList.toggle("open-sidebar");
+            }
             if (sidebarOverlay) {
                 sidebarOverlay.classList.toggle("show");
             }
         });
-    }
+    });
 
-    if (sidebarOverlay && geminiSidebar) {
+    // Close sidebar on overlay click
+    if (sidebarOverlay) {
         sidebarOverlay.addEventListener("click", () => {
-            geminiSidebar.classList.remove("open-sidebar");
-            geminiSidebar.classList.remove("open");
+            if (geminiSidebar) geminiSidebar.classList.remove("open-sidebar");
             sidebarOverlay.classList.remove("show");
         });
     }
