@@ -15,25 +15,10 @@ body {
     display: flex;
     justify-content: center;
     overflow-x: hidden;
-    opacity: 0;          /* <-- Is line ki wajah se page hide ho raha hai */
-    transform: scale(0.99);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-Naya Updated CSS Code (Iski jagah ye paste karein):
-
-CSS
-body {
-    background-color: #0c0a0a;
-    color: #ffffff;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    overflow-x: hidden;
-    /* Opacity 0 hata di ta ke page stuck na ho */
+    /* Smooth entry animation jo JS par depend nahi karti */
     animation: pageIntro 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Smooth entry animation jo JS par depend nahi karti */
 @keyframes pageIntro {
     from {
         opacity: 0;
@@ -50,7 +35,7 @@ body.page-ready {
     transform: scale(1);
 }
 
-/* Page Transition Overlay */
+/* Page Transition Overlay - Synchronized across all stylesheets */
 .page-transition-overlay {
     position: fixed;
     top: 0;
@@ -65,6 +50,10 @@ body.page-ready {
 }
 .page-transition-overlay.fade-out {
     opacity: 0;
+}
+.page-transition-overlay.fade-in {
+    opacity: 1;
+    pointer-events: all;
 }
 
 /* ==========================================================================
@@ -276,7 +265,7 @@ body.page-ready {
     flex-direction: column;
     gap: 60px; 
     width: 100%;
-    min-width: 0;                 
+    min-width: 0;                  
 }
 
 /* ==========================================================================
