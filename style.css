@@ -44,11 +44,6 @@ body {
 .gemini-sidebar::-webkit-scrollbar {
     display: none;
 }
-
-/* Jab sidebar collapsed ho toh width choti ho jaye */
-.gemini-sidebar.collapsed {
-    width: 68px !important; 
-}
 .sidebar-toggle-trigger {
     background: transparent;
     border: none;
