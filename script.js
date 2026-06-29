@@ -1,16 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // ==========================================================================
-    // 1. PAGE TRANSITION & VISIBILITY SAFETY RESETS
-    // ==========================================================================
+    // 1. PAGE TRANSITION AND CONTENT VISIBILITY INITIALIZATION
     const overlay = document.querySelector(".page-transition-overlay");
     document.body.style.opacity = "1";
-    document.body.classList.add("page-ready");
     if (overlay) {
         overlay.classList.add("fade-out");
     }
 
-    // Dynamic clean links handling logic
+    // Smooth page unloading intercept loops
     document.querySelectorAll("a").forEach(link => {
         const href = link.getAttribute("href");
         if (!href) return;
@@ -32,33 +29,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    window.addEventListener("pageshow", () => {
-        document.body.style.opacity = "1";
-        if (overlay) overlay.classList.add("fade-out");
-    });
-
-    // ==========================================================================
-    // 2. PERFECT SIDEBAR TOGGLE USING INTERIOR TRIGGER BUTTON
-    // ==========================================================================
-    const sidebarToggleBtn = document.querySelector(".sidebar-toggle-trigger");
+    // 2. SIDEBAR CLICK AND OVERLAY TOGGLE REGISTER
+    const sidebarBtn = document.querySelector(".sidebar-toggle-trigger");
     const geminiSidebar = document.querySelector(".gemini-sidebar");
     const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-    if (sidebarToggleBtn && geminiSidebar) {
-        sidebarToggleBtn.addEventListener("click", (e) => {
+    if (sidebarBtn && geminiSidebar) {
+        sidebarBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
             
-            // Toggle active visual states smoothly
+            // Toggle sidebar open state smoothly
             geminiSidebar.classList.toggle("open-sidebar");
-
+            
             if (sidebarOverlay) {
                 sidebarOverlay.classList.toggle("show");
             }
         });
     }
 
-    // Close when overlay panel backdrop mask layout is clicked
+    // Backdrop overlay dynamic click handler to close sidebar safely
     if (sidebarOverlay) {
         sidebarOverlay.addEventListener("click", () => {
             if (geminiSidebar) geminiSidebar.classList.remove("open-sidebar");
