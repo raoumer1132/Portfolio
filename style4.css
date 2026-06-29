@@ -255,6 +255,7 @@ body.page-ready {
 }
 
 .left-column {
+   height: auto;
    position: relative; 
     top: 0; 
     width: 100%;
