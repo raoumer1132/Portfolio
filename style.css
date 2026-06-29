@@ -429,16 +429,4 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     .stats-container, .projects-grid, .form-row { grid-template-columns: 1fr !important; display: flex; flex-direction: column; gap: 20px !important; }
     .tools-grid-box { grid-template-columns: 1fr !important; }
 }
-/* ==========================================================================
-   SIDEBAR PUSH LAYOUT EFFECT
-   ========================================================================== */
 
-/* Main layout par smooth transition lagayein taake jhatka na lage */
-.main-portfolio-layout {
-    transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Jab sidebar expanded ho, toh main layout right side par khisak jaye */
-.gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
-    padding-left: 320px !important; /* Space ko barha diya taake content aage ho jaye */
-}
