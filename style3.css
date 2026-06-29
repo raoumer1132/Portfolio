@@ -423,3 +423,16 @@ body {
     background-color: #e6e6e6 !important;
     transform: translateY(-2px);
 }
+/* ==========================================================================
+   SIDEBAR PUSH LAYOUT EFFECT
+   ========================================================================== */
+
+/* Main layout par smooth transition lagayein taake jhatka na lage */
+.main-portfolio-layout {
+    transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Jab sidebar expanded ho, toh main layout right side par khisak jaye */
+.gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+    padding-left: 320px !important; /* Space ko barha diya taake content aage ho jaye */
+}
