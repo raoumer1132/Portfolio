@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. GLOBAL RESET & BASE
+   1. CORE RESET & STRUCTURE
    ========================================================================== */
 * {
     margin: 0;
@@ -14,10 +14,16 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    display: block;
+}
+
+/* Page readiness layout handler */
+body.page-ready {
+    opacity: 1 !important;
 }
 
 /* ==========================================================================
-   2. FIXED FLOATING NAVBAR (PREVIOUS EXACT LUXURY LOOK)
+   2. RE-FIX FLOATING PREMIUM NAVBAR (EXACT PREVIOUS DESIGN)
    ========================================================================== */
 .nav {
     position: fixed;
@@ -36,12 +42,17 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 1000;
+    transition: all 0.3s ease;
 }
 
 .nav a {
     color: #666666;
     font-size: 0.95rem;
     text-decoration: none;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: color 0.3s ease;
 }
 
@@ -50,8 +61,13 @@ body {
     color: #ffffff;
 }
 
+/* Tooltip standard settings overlay */
+.tooltip-text {
+    display: none;
+}
+
 /* ==========================================================================
-   3. SIDEBAR SYSTEM (HIDDEN BY DEFAULT ON ALL SCREENS FOR TOGGLE)
+   3. SIDEBAR DRAWER MECHANISM (DOUBLE SCROLLBAR FIX & HIDDEN DEFAULT)
    ========================================================================== */
 .gemini-sidebar {
     position: fixed;
@@ -63,56 +79,74 @@ body {
     border-right: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
     flex-direction: column;
-    z-index: 1001; /* Above navbar when opened */
-    transform: translateX(-100%); /* Keeps hidden on both desktop & mobile initially */
+    z-index: 2000; /* Stays above navbar layers when opened */
+    transform: translateX(-100%); /* Completely hidden by default on all viewport widths */
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Disables inside visual scrollbar bugs */
+    overflow-y: auto;
     -ms-overflow-style: none;  
     scrollbar-width: none;  
 }
 
 .gemini-sidebar::-webkit-scrollbar {
-    display: none; /* Hide that annoying white scrollbar completely */
+    display: none; /* White scrollbar line completely erased */
 }
 
-/* Class that JS will add on click */
+/* JS Target Active Open classes */
 .gemini-sidebar.open-sidebar,
 .gemini-sidebar.open {
     transform: translateX(0) !important;
 }
 
-/* Toggle Trigger Button Styles */
+/* Toggle trigger button style inside the sidebar */
 .sidebar-toggle-trigger {
     background: none;
     border: none;
-    color: #ffffff;
-    font-size: 1.4rem;
-    padding: 25px 20px;
+    color: #8c8c8c;
+    font-size: 1.3rem;
+    padding: 20px 20px 10px 20px;
     cursor: pointer;
     align-self: flex-start;
-    z-index: 1002;
+    transition: color 0.2s;
 }
 
-/* Persistent Trigger Button on top-left of the screen when sidebar is closed */
-body > .sidebar-toggle-trigger-fixed {
+.sidebar-toggle-trigger:hover {
+    color: #ffffff;
+}
+
+/* 🌟 PERSISTENT TOGGLE ICON ON TOP-LEFT VIEWPORT */
+.global-sidebar-trigger {
     position: fixed;
-    top: 15px;
-    left: 20px;
+    top: 25px;
+    left: 25px;
     background: rgba(21, 18, 18, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: #ffffff;
-    padding: 12px 15px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     z-index: 999;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    transition: background 0.2s;
 }
 
+.global-sidebar-trigger:hover {
+    background: #1a1818;
+}
+
+/* Sidebar Inside Content Elements Links */
 .sidebar-links {
     list-style: none;
-    padding: 0 8px;
+    padding: 10px 12px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 }
 
 .sidebar-links li a {
@@ -123,6 +157,7 @@ body > .sidebar-toggle-trigger-fixed {
     color: #8c8c8c;
     text-decoration: none;
     font-size: 0.9rem;
+    font-weight: 500;
     border-radius: 8px;
     transition: all 0.2s ease;
 }
@@ -133,7 +168,7 @@ body > .sidebar-toggle-trigger-fixed {
     color: #ffffff;
 }
 
-/* Overlay Background dim */
+/* Dark Background Dim Overlay Settings */
 .sidebar-overlay {
     position: fixed;
     top: 0;
@@ -141,7 +176,7 @@ body > .sidebar-toggle-trigger-fixed {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
+    z-index: 1500;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -153,22 +188,38 @@ body > .sidebar-toggle-trigger-fixed {
 }
 
 /* ==========================================================================
-   4. LAYOUT MARGIN ADJUSTMENT
+   4. TWO-COLUMN GRID PORTFOLIO MAIN CONTAINER LAYOUT
    ========================================================================== */
 .main-portfolio-layout {
     width: 100%;
-    max-width: 1300px;
+    max-width: 1240px;
     margin: 0 auto;
     padding: 140px 20px 60px 20px;
     display: grid;
     grid-template-columns: 320px 1fr;
-    gap: 40px;
+    gap: 50px;
+    align-items: start;
 }
 
 @media (max-width: 1024px) {
     .main-portfolio-layout {
         grid-template-columns: 1fr;
-        padding-top: 100px;
+        padding-top: 110px;
+        gap: 30px;
+    }
+}
+
+/* ==========================================================================
+   5. PROFILE CARD LEFT SECTION BLOCK
+   ========================================================================== */
+.left-column {
+    position: sticky;
+    top: 140px;
+}
+
+@media (max-width: 1024px) {
+    .left-column {
+        position: static;
     }
 }
 
@@ -176,26 +227,242 @@ body > .sidebar-toggle-trigger-fixed {
     background-color: #ffffff;
     color: #000000;
     border-radius: 24px;
-    padding: 30px 24px;
+    padding: 36px 24px;
     text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
+
+.image-container {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 20px auto;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #000000;
+}
+
+.profile-desc {
+    font-size: 0.95rem;
+    color: #555555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.profile-socials {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.profile-socials a {
+    color: #000000;
+    font-size: 1.2rem;
+    transition: opacity 0.2s;
+}
+
+.profile-socials a:hover {
+    opacity: 0.7;
+}
+
+/* ==========================================================================
+   6. PREMIUM TOOLS CARDS GRID LAYOUT
+   ========================================================================== */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.tools-main-heading h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.tools-main-heading .heading-light { color: #ffffff; }
+.tools-main-heading .heading-dark { color: #333333; }
 
 .tools-grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    width: 100%;
 }
 
 @media (max-width: 768px) {
-    .tools-grid-container { grid-template-columns: 1fr; }
+    .tools-grid-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .tool-card {
     background-color: #090808;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
-    padding: 20px;
+    padding: 24px;
     display: flex;
     align-items: center;
     gap: 20px;
+    transition: border-color 0.2s ease;
+}
+
+.tool-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.tool-thumb {
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #110f0f;
+    flex-shrink: 0;
+}
+
+.tool-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Prevents logos from spreading across the container layout view */
+}
+
+.tool-details h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #ffffff;
+}
+
+.tool-details p {
+    font-size: 0.85rem;
+    color: #666666;
+}
+
+/* ==========================================================================
+   7. PREMIUM CONTACT FORM STRETCH LOOK
+   ========================================================================== */
+.contact-section {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.contact-heading h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 25px;
+}
+
+.contact-heading .heading-light { color: #ffffff; }
+.contact-heading .heading-dark { color: #333333; }
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    background: #090808;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 24px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .form-row { grid-template-columns: 1fr; }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: #8c8c8c;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    background: #110f0f;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 16px;
+    color: #ffffff;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.submit-btn {
+    background-color: #e65f2b;
+    color: #ffffff;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #cf5222;
+}
+
+/* Page Transition Overlay system styling layer */
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 9999;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+.page-transition-overlay.fade-out {
+    opacity: 0;
 }
