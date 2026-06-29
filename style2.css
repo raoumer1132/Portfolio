@@ -18,14 +18,14 @@ body {
     position: relative;
 }
 
-/* Page Transition Overlay - Safe and non-blocking */
+/* Page Transition Overlay - Optimized & Smooth */
 .page-transition-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #0c0a0a;
+    background-color: #0c0a0a; /* Pure black background matching index */
     z-index: 99999;
     pointer-events: none;
     opacity: 1;
@@ -33,6 +33,10 @@ body {
 }
 .page-transition-overlay.fade-out {
     opacity: 0;
+}
+.page-transition-overlay.fade-in {
+    opacity: 1;
+    pointer-events: all; /* Multi-clicks ko block karne ke liye */
 }
 
 /* ==========================================================================
