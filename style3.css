@@ -16,66 +16,67 @@ body {
 }
 
 /* ==========================================================================
-   2. NAVBAR COMPACT CLEAN PREMIUM DESIGN (YELLOW CIRCLE FIX)
+   2. NAVBAR DESIGN - EXACT MATCHING THIRD PIC (SCREENSHOT 895)
    ========================================================================== */
 .nav {
     position: fixed;
-    top: 20px;
+    top: 25px; /* Perfect top floating clearance */
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(21, 18, 18, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(26, 26, 26, 0.45); /* Premium glassmorphism translucent background */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
-    gap: 20px; /* Reduced gap from 25px to match previous precise standard spacing */
+    gap: 32px; /* Perfect wide elite gap like third pic */
     justify-content: center;
     align-items: center;
-    padding: 8px 18px; /* Compact padding box adjustment */
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 14px 32px; /* Premium box height and horizontal stretch padding */
+    border-radius: 20px; /* Precise luxury curve */
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
     z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav a {
-    color: #666666;
-    font-size: 0.88rem; /* Slightly smaller cleaner text scale font */
+    color: #707072; /* Elegant dark grey non-active state */
+    font-size: 1.1rem; /* Perfectly matched bold size */
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 8px;
-    transition: color 0.3s ease;
+    justify-content: center;
+    transition: color 0.25s ease, transform 0.2s ease;
 }
 
 .nav a:hover, 
-.nav a.active-nav,
-.nav a.tools-icon.active-nav {
-    color: #ffffff !important;
+.nav a.active-nav {
+    color: #ffffff !important; /* Crystal white visibility state */
+    transform: scale(1.05);
 }
 
+/* Tooltip standard settings overlay hidden */
 .tooltip-text {
-    font-size: 0.85rem;
-    font-weight: 500;
+    display: none;
 }
 
 /* ==========================================================================
-   3. SIDEBAR STYLING & COLLAPSIBILITY (RED CIRCLE FIX)
+   3. SIDEBAR STYLING & COLLAPSIBILITY (PRECISE SLIDING DRAWER)
    ========================================================================== */
 .gemini-sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 260px;
+    width: 280px;
     height: 100vh;
-    background-color: #090808;
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    background-color: #111111;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
-    z-index: 1100;
+    z-index: 2000; /* Sidebar opens OVER the full page content layer */
     
-    /* Default closed position state off-canvas styling layout */
-    transform: translateX(-205px); /* Only leaves the burger toggle panel visible on the left side edge */
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Perfect default off-canvas position hidden state */
+    transform: translateX(-100%); 
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     
     overflow-y: auto;
     -ms-overflow-style: none;  
@@ -86,87 +87,102 @@ body {
     display: none;
 }
 
-/* Triggered selector injection when the burger handler is pressed */
+/* Triggered selector added by JavaScript click */
 .gemini-sidebar.open-sidebar {
     transform: translateX(0) !important;
 }
 
-/* Sidebar Internal Header Button Trigger Alignment */
+/* Universal Top Left Fixed Burger Button Style (Screenshot 926 look) */
 .sidebar-toggle-trigger {
-    background: none;
-    border: none;
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    background: rgba(26, 26, 26, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     color: #ffffff;
-    font-size: 1.25rem;
-    padding: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
     cursor: pointer;
-    align-self: flex-end; /* Keeps burger dynamic handle on right column corner bounds inside layout */
-    transition: color 0.2s;
+    z-index: 1500; /* Stays visible to open/close */
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
 }
 
+.sidebar-toggle-trigger:hover {
+    background: #222222;
+    transform: scale(1.05);
+}
+
+/* Sidebar Internal Design Structure Links */
 .sidebar-links {
     list-style: none;
-    padding: 10px 12px;
+    padding: 80px 20px 20px 20px; /* Spacer below floating burger */
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 .sidebar-links li a {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px;
-    color: #8c8c8c;
+    gap: 14px;
+    padding: 14px 18px;
+    color: #888888;
     text-decoration: none;
-    font-size: 0.9rem;
-    border-radius: 8px;
+    font-size: 0.95rem;
+    border-radius: 12px;
     transition: all 0.2s ease;
 }
 
 .sidebar-links li a:hover,
 .sidebar-links li a.active {
-    background-color: #1a1818;
+    background-color: #222222;
     color: #ffffff;
 }
 
-/* Sidebar Dark Blurring Screen Overlay */
+/* Sidebar Dark Dimming Overlay Backdrop Mask */
 .sidebar-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1050;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1800;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
 
 .sidebar-overlay.show {
-    opacity: 1;
-    pointer-events: auto;
+    opacity: 1 !important;
+    pointer-events: auto !important;
 }
 
 /* ==========================================================================
-   4. CORE RESPONSIVE APPLICATION GRID DISPLAY LAYOUT
+   4. TWO-COLUMN PORTFOLIO CONTENT GRID LAYOUT
    ========================================================================== */
 .main-portfolio-layout {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 120px 20px 60px 80px; /* Left indent spacer allows clean view beside sidebar hook edge */
+    padding: 150px 20px 60px 20px; /* Clean structured content container padding */
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 40px;
+    grid-template-columns: 320px 1fr;
+    gap: 50px;
     align-items: start;
 }
 
 @media (max-width: 1024px) {
     .main-portfolio-layout {
         grid-template-columns: 1fr;
-        padding-left: 20px;
-        padding-top: 100px;
+        padding-top: 120px;
+        gap: 30px;
     }
 }
 
@@ -176,72 +192,72 @@ body {
 .profile-card {
     background-color: #ffffff;
     color: #000000;
-    border-radius: 24px;
-    padding: 30px 20px;
+    border-radius: 30px;
+    padding: 40px 24px;
     text-align: center;
-    position: relative;
 }
 
 .image-container {
     position: relative;
-    width: 140px;
-    height: 140px;
-    margin: 0 auto 15px auto;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px auto;
 }
 
 .avatar-img {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 24px;
     object-fit: cover;
 }
 
 .profile-name {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .profile-desc {
-    font-size: 0.88rem;
-    color: #555555;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    color: #444444;
+    line-height: 1.5;
 }
 
 .profile-socials {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    margin-top: 15px;
+    gap: 14px;
+    margin-top: 20px;
 }
 
 .profile-socials a {
     color: #000000;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
 }
 
 /* ==========================================================================
-   6. CARDS CONTAINER GRID ALIGNMENT
+   6. PREMIUM TOOLS GRID CONTAINERS ALIGNMENT
    ========================================================================== */
 .right-column {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 45px;
 }
 
 .tools-main-heading h2 {
-    font-size: 3rem;
-    font-weight: 800;
+    font-size: 3.5rem;
+    font-weight: 900;
     line-height: 1;
+    letter-spacing: -1px;
 }
 
 .tools-main-heading .heading-light { color: #ffffff; }
-.tools-main-heading .heading-dark { color: #222222; }
+.tools-main-heading .heading-dark { color: #333333; }
 
 .tools-grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 20px;
 }
 
 @media (max-width: 768px) {
@@ -249,19 +265,24 @@ body {
 }
 
 .tool-card {
-    background-color: #090808;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 14px;
-    padding: 20px;
+    background-color: #0c0c0c;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 24px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
+    transition: border-color 0.2s ease;
+}
+
+.tool-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .tool-thumb {
-    width: 48px;
-    height: 48px;
-    border-radius: 10px;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
     overflow: hidden;
     flex-shrink: 0;
 }
@@ -273,42 +294,41 @@ body {
 }
 
 .tool-details h3 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #ffffff;
 }
 
 .tool-details p {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #666666;
 }
 
 /* ==========================================================================
-   7. PREMIUM DESIGN FORMS BLOCK SETUP
+   7. PREMIUM CONTACT FORM SETUP
    ========================================================================== */
 .contact-section { width: 100%; }
 
 .contact-heading h2 {
-    font-size: 3rem;
-    font-weight: 800;
-    line-height: 1;
-    margin-bottom: 20px;
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 25px;
 }
 
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    background: #090808;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 30px;
-    border-radius: 20px;
+    gap: 20px;
+    background: #0c0c0c;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 35px;
+    border-radius: 24px;
 }
 
 .form-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 20px;
 }
 
 @media (max-width: 768px) {
@@ -318,23 +338,23 @@ body {
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .form-group label {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #8c8c8c;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-    background: #110f0f;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 14px;
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 16px;
     color: #ffffff;
-    border-radius: 10px;
-    font-size: 0.9rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
     width: 100%;
     outline: none;
 }
@@ -343,26 +363,5 @@ body {
     background-color: #e65f2b;
     color: #ffffff;
     border: none;
-    padding: 14px 35px;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.submit-btn:hover { background-color: #cf5222; }
-
-.page-transition-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000000;
-    z-index: 9999;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    opacity: 1;
-}
-.page-transition-overlay.fade-out { opacity: 0; }
+    padding: 16px 38px;
+    border-radius: 12px
