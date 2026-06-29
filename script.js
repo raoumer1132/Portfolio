@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebarToggleBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            geminiSidebar.classList.toggle("sidebar-expanded");
+            
+            // FIXED: 'sidebar-expanded' ki jagah aapki CSS ke mutabiq 'collapsed' use kiya hai
+            geminiSidebar.classList.toggle("collapsed");
             
             if (sidebarOverlay) {
                 sidebarOverlay.classList.toggle("show");
@@ -34,13 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 3. CLOSE SIDEBAR WHEN CLICKING OUTSIDE
     document.addEventListener("click", (e) => {
-        if (geminiSidebar && geminiSidebar.classList.contains("sidebar-expanded")) {
+        // FIXED: 'sidebar-expanded' ki jagah check kiya ke jab sidebar 'collapsed' NA HO (yani open ho)
+        if (geminiSidebar && !geminiSidebar.classList.contains("collapsed")) {
             // Check agar click sidebar par ya toggle button par nahi hua
             const clickedInsideSidebar = geminiSidebar.contains(e.target);
             const clickedToggleButton = sidebarToggleBtn && sidebarToggleBtn.contains(e.target);
 
             if (!clickedInsideSidebar && !clickedToggleButton) {
-                geminiSidebar.classList.remove("sidebar-expanded");
+                geminiSidebar.classList.add("collapsed"); // Hide sidebar
                 if (sidebarOverlay) {
                     sidebarOverlay.classList.remove("show");
                 }
@@ -51,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 4. OVERLAY CLICK TO CLOSE SIDEBAR
     if (sidebarOverlay) {
         sidebarOverlay.addEventListener("click", () => {
-            if (geminiSidebar) geminiSidebar.classList.remove("sidebar-expanded");
+            if (geminiSidebar) geminiSidebar.classList.add("collapsed"); // Hide sidebar
             sidebarOverlay.classList.remove("show");
         });
     }
