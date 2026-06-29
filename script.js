@@ -17,11 +17,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const href = link.getAttribute("href");
         if (!href) return;
 
-        const isAnchor = href.startsWith("#");
+        // Skip transitions for JavaScript links, hashes, or sidebar triggers
+        if (href === "#" || href.startsWith("#") || link.closest(".sidebar-toggle-trigger")) {
+            return;
+        }
+
         const isBlank = link.getAttribute("target") === "_blank";
         const isExternal = href.startsWith("http://") || href.startsWith("https://");
         
-        if (!isAnchor && !isBlank && !isExternal) {
+        if (!isBlank && !isExternal) {
             link.addEventListener("click", function(e) {
                 e.preventDefault();
                 const targetUrl = this.href;
@@ -45,15 +49,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================================================
-    // B: SIDEBAR TOGGLE MECHANISM
+    // B: SIDEBAR TOGGLE MECHANISM (FIXED WITH MULTI-CLASS & OVERLAY SUPPORT)
     // ==========================================================================
     const sidebarToggleBtn = document.querySelector(".sidebar-toggle-trigger");
     const geminiSidebar = document.querySelector(".gemini-sidebar");
+    const sidebarOverlay = document.getElementById("sidebarOverlay") || document.querySelector(".sidebar-overlay");
 
     if (sidebarToggleBtn && geminiSidebar) {
         sidebarToggleBtn.addEventListener("click", (e) => {
+            e.preventDefault();
             e.stopPropagation();
+            
+            // Dono classes (open aur open-sidebar) ko toggle kar rahe hain taake CSS crash na ho
             geminiSidebar.classList.toggle("open-sidebar");
+            geminiSidebar.classList.toggle("open");
+
+            if (sidebarOverlay) {
+                sidebarOverlay.classList.toggle("show");
+            }
+        });
+    }
+
+    // Overlay par click karne se sidebar close karne ka function
+    if (sidebarOverlay && geminiSidebar) {
+        sidebarOverlay.addEventListener("click", () => {
+            geminiSidebar.classList.remove("open-sidebar");
+            geminiSidebar.classList.remove("open");
+            sidebarOverlay.classList.remove("show");
         });
     }
 });
