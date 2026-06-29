@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. GLOBAL RESET & BASE STYLES
+   1. CORE ARCHITECTURE RESET
    ========================================================================== */
 * {
     margin: 0;
@@ -16,35 +16,36 @@ body {
 }
 
 /* ==========================================================================
-   2. TOP NAV CAPSULE - EXACT MATCH TO PREVIOUS PAGES (FIRST PIC)
+   2. NAVBAR DESIGN - PREMIUM TRANSITIONS (SCREENSHOT 929 MATCH)
    ========================================================================== */
 .nav {
     position: fixed;
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(21, 18, 18, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(26, 26, 26, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
-    gap: 28px;
+    gap: 32px;
     justify-content: center;
     align-items: center;
-    padding: 12px 28px;
+    padding: 14px 32px;
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
     z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav a {
-    color: #555555;
-    font-size: 1rem;
+    color: #707072;
+    font-size: 1.1rem;
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.3s ease, transform 0.2s ease;
+    transition: color 0.25s ease;
 }
 
 .nav a:hover, 
@@ -52,19 +53,18 @@ body {
     color: #ffffff !important;
 }
 
-/* Hide extra text labels in navigation capsule if they overlap */
-.nav a span {
+.tooltip-text {
     display: none;
 }
 
 /* ==========================================================================
-   3. SLIM VERTICAL SIDEBAR - EXACT MATCH TO FIRST PIC / EXPERIENCE
+   3. PERFECT SLIM TO WIDE SIDEBAR TOGGLE
    ========================================================================== */
 .gemini-sidebar {
     position: fixed;
     top: 20px;
     left: 20px;
-    width: 70px;
+    width: 70px; /* Default slim compact state view */
     height: calc(100vh - 40px);
     background: rgba(21, 18, 18, 0.7);
     backdrop-filter: blur(12px);
@@ -75,11 +75,20 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 25px 0;
-    z-index: 1050;
+    z-index: 2000;
     box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
 
-/* Top Burger Menu Icon Inside Sidebar */
+/* Expanded class state rules managed via JS clicks */
+.gemini-sidebar.sidebar-expanded {
+    width: 260px !important;
+    align-items: flex-start;
+    padding: 25px 20px;
+}
+
+/* Top Menu Burger Custom Handler Icon */
 .sidebar-toggle-trigger {
     background: none;
     border: none;
@@ -88,39 +97,58 @@ body {
     margin-bottom: 40px;
     cursor: pointer;
     transition: transform 0.2s;
+    outline: none;
 }
 
-.sidebar-toggle-trigger:hover {
-    transform: scale(1.1);
+.gemini-sidebar.sidebar-expanded .sidebar-toggle-trigger {
+    align-self: flex-end;
 }
 
-/* Sidebar Icons List Alignment */
+/* List Items Structures Rules inside sidebar links list */
 .sidebar-links {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    align-items: center;
+    gap: 20px;
     width: 100%;
 }
 
 .sidebar-links li {
     width: 100%;
-    display: flex;
-    justify-content: center;
 }
 
 .sidebar-links li a {
     color: #777777;
     font-size: 1.2rem;
     text-decoration: none;
-    width: 44px;
+    width: 100%;
     height: 44px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding: 0 10px;
     border-radius: 12px;
     transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.sidebar-links li a i {
+    min-width: 24px;
+    text-align: center;
+}
+
+/* Hidden elements system configuration state rules */
+.sidebar-links li a span,
+.sidebar-links .project-group-title,
+.sidebar-links li .project-dots {
+    display: none;
+    font-size: 0.95rem;
+    margin-left: 15px;
+    color: #8c8c8c;
+}
+
+/* Make text labels visible smoothly when sidebar expands */
+.gemini-sidebar.sidebar-expanded .sidebar-links li a span {
+    display: inline-block;
 }
 
 .sidebar-links li a:hover,
@@ -129,14 +157,7 @@ body {
     color: #ffffff;
 }
 
-/* Hide text descriptions next to icons to keep it slim like first pic */
-.sidebar-links li a span,
-.sidebar-links .project-group-title,
-.sidebar-links li .project-dots {
-    display: none;
-}
-
-/* Bottom User Profile Inside Sidebar */
+/* Footer image element bounds layout controller layer */
 .sidebar-profile-footer {
     margin-top: auto;
     width: 36px;
@@ -144,6 +165,12 @@ body {
     border-radius: 50%;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;
+}
+
+.gemini-sidebar.sidebar-expanded .sidebar-profile-footer {
+    width: 44px;
+    height: 44px;
 }
 
 .sidebar-profile-footer img {
@@ -152,14 +179,33 @@ body {
     object-fit: cover;
 }
 
+/* Full backdrop shading overlay structure mask layer */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 /* ==========================================================================
-   4. MAIN CONTENT LAYOUT ALIGNMENT
+   4. LAYOUT ALIGNMENTS GRID VIEWPORT BLOCKS
    ========================================================================== */
 .main-portfolio-layout {
     width: 100%;
     max-width: 1300px;
     margin: 0 auto;
-    padding: 140px 40px 60px 130px; /* Left padding provides breathing room next to fixed sidebar */
+    padding: 140px 40px 60px 130px;
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 50px;
@@ -175,7 +221,7 @@ body {
 }
 
 /* ==========================================================================
-   5. PROFILE LAYOUT CARDS
+   5. PROFILE & COMPONENT BLOCKS (STRETCH RESOLUTIONS FIX)
    ========================================================================== */
 .profile-card {
     background-color: #ffffff;
@@ -183,7 +229,6 @@ body {
     border-radius: 30px;
     padding: 40px 24px;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
 .image-container {
@@ -224,9 +269,6 @@ body {
     font-size: 1.15rem;
 }
 
-/* ==========================================================================
-   6. PREMIUM TOOLS GRID CONTAINERS
-   ========================================================================== */
 .right-column {
     display: flex;
     flex-direction: column;
@@ -237,12 +279,7 @@ body {
     font-size: 3.5rem;
     font-weight: 900;
     line-height: 1;
-    letter-spacing: -1px;
-    margin-bottom: 10px;
 }
-
-.tools-main-heading .heading-light { color: #ffffff; }
-.tools-main-heading .heading-dark { color: #222222; }
 
 .tools-grid-container {
     display: grid;
@@ -288,75 +325,6 @@ body {
     font-size: 0.85rem;
     color: #666666;
 }
-
-/* ==========================================================================
-   7. CONTACT FORM STYLING
-   ========================================================================== */
-.contact-section { width: 100%; }
-
-.contact-heading h2 {
-    font-size: 3.5rem;
-    font-weight: 900;
-    margin-bottom: 25px;
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background: #090808;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 35px;
-    border-radius: 24px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-@media (max-width: 768px) {
-    .form-row { grid-template-columns: 1fr; }
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-group label {
-    font-size: 0.85rem;
-    color: #8c8c8c;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-    background: #110f0f;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    padding: 16px;
-    color: #ffffff;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    width: 100%;
-    outline: none;
-}
-
-.submit-btn {
-    background-color: #e65f2b;
-    color: #ffffff;
-    border: none;
-    padding: 16px 38px;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.submit-btn:hover { background-color: #cf5222; }
 
 .page-transition-overlay {
     position: fixed;
