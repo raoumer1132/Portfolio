@@ -8,32 +8,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 2. SIDEBAR CLICK TOGGLE SYSTEM (ID TARGETING FIXED)
+    // 2. FIXED SIDEBAR TOGGLE MECHANISM (CLASS INTERACTION FIXED)
     // ==========================================================================
-    const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
-    const geminiSidebar = document.getElementById("geminiSidebar");
+    const sidebarToggleBtn = document.querySelector(".sidebar-toggle-trigger");
+    const geminiSidebar = document.querySelector(".gemini-sidebar");
     const sidebarOverlay = document.getElementById("sidebarOverlay");
 
     if (sidebarToggleBtn && geminiSidebar) {
-        console.log("Elements detected correctly!");
+        console.log("Sidebar elements bounded successfully!");
 
         sidebarToggleBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
             
-            // Toggle 'sidebar-expanded' class
+            // Toggle 'sidebar-expanded' matching CSS expansion rules
             geminiSidebar.classList.toggle("sidebar-expanded");
             
-            // Backdrop overlay handling
             if (sidebarOverlay) {
                 sidebarOverlay.classList.toggle("show");
             }
         });
-    } else {
-        console.log("Error: HTML IDs matching missed!");
     }
 
-    // Close sidebar when clicking outside on the overlay mask
+    // Close when mask layout overlay is pressed
     if (sidebarOverlay) {
         sidebarOverlay.addEventListener("click", () => {
             if (geminiSidebar) geminiSidebar.classList.remove("sidebar-expanded");
