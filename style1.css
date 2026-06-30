@@ -713,3 +713,12 @@ body.page-ready {
         top: 20px;
     }
 }
+body {
+    padding-left: 80px; 
+    transition: padding-left 0.3s ease;
+}
+
+/* 2. Jab hamburger button par click ho aur sidebar open ho jaye */
+body.sidebar-open {
+    padding-left: 260px; 
+}
