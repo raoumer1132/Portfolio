@@ -566,13 +566,20 @@ body {
         display: flex !important;
         flex-direction: column !important;
         grid-template-columns: none !important;
-        margin-left: 90px !important; /* Sidebar ke liye clean offset */
+        margin-left: 80px !important; /* Sidebar ke liye fixed safe margin */
         margin-right: 15px !important;
-        width: calc(100% - 105px) !important;
-        max-width: calc(100% - 105px) !important;
+        width: calc(100% - 95px) !important;
+        max-width: calc(100% - 95px) !important;
         padding-top: 130px !important;
         gap: 40px !important;
+        padding-left: 0 !important; /* Desktop desktop push effect clear kiya */
     }
+
+    /* Mobile par padding-left push reset default collapse logic */
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        padding-left: 0 !important; 
+    }
+
     .left-column {
         position: relative !important;
         top: 0 !important;
@@ -586,30 +593,38 @@ body {
 }
 
 @media (max-width: 768px) {
-    /* FIXED: display: none ko hata kar responsive alignment lagayi */
+    /* Responsive alignment fixed state layout settings */
     .gemini-sidebar {
-        display: flex !important; /* Sidebar wapas visible ho jayega */
+        display: flex !important; 
+        position: fixed !important;
         top: 15px !important;
         left: 15px !important;
         height: calc(100vh - 30px) !important;
         width: 60px !important;
         padding: 15px 8px !important;
+        z-index: 99999 !important;
     }
 
-    /* Top menu spacing fix */
+    /* Sidebar toggle state rule inside mobile width limits */
+    .gemini-sidebar.sidebar-expanded {
+        width: 220px !important;
+    }
+
+    /* Top Floating Menu adjust layout */
     .nav {
         position: fixed !important;
         top: 15px !important;
-        left: calc(50% + 34px) !important;
+        left: calc(50% + 30px) !important;
         transform: translateX(-50%) !important;
-        padding: 12px 24px !important;
+        padding: 12px 20px !important;
         gap: 20px !important;
         width: max-content !important;
+        z-index: 9998 !important;
     }
 
     .experience-main-heading h2, .contact-heading h2 {
-        font-size: 3.2rem !important;
-        letter-spacing: -1.5px !important;
+        font-size: 2.8rem !important;
+        letter-spacing: -1px !important;
     }
 }
 
@@ -619,7 +634,7 @@ body {
         gap: 20px !important;
     }
 
-    /* Experience lists container padding adjustments */
+    /* Experience lists mobile responsive stacking format structure */
     .experience-list-row {
         flex-direction: column !important;
         align-items: flex-start !important;
@@ -635,12 +650,27 @@ body {
 
     .job-description {
         max-width: 100% !important;
+        font-size: 0.95rem !important;
     }
 
     .experience-diagonal-arrow {
         position: absolute !important;
         right: 5px !important;
         top: 25px !important;
+    }
+}
+
+/* ==========================================================================
+   SIDEBAR PUSH LAYOUT EFFECT (DESKTOP ONLY)
+   ========================================================================== */
+.main-portfolio-layout {
+    transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1), margin-left 0.35s ease;
+}
+
+/* Sirf desktop layout view screen par push logic handle ho */
+@media (min-width: 1025px) {
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        padding-left: 320px !important; 
     }
 }
 /* ==========================================================================
