@@ -19,14 +19,37 @@ body {
     opacity: 1; 
     transition: opacity 0.6s ease;
 }
-/* --- PREMIUM GLASSMORPHISM SIDEBAR BASE --- */
+/* Page Transition Overlay - Optimized & Smooth */
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0c0a0a; /* Pure black background matching index */
+    z-index: 99999;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+.page-transition-overlay.fade-out {
+    opacity: 0;
+}
+.page-transition-overlay.fade-in {
+    opacity: 1;
+    pointer-events: all; /* Multi-clicks ko block karne ke liye */
+}
+
+/* ==========================================================================
+   2. PREMIUM GLASSMORPHISM SIDEBAR (FIXED VIEWPORT)
+   ========================================================================== */
 .gemini-sidebar {
-    position: fixed !important;
+    position: fixed !important; 
     top: 30px !important;
     left: 30px !important;
-    width: 240px; 
-    height: calc(100vh - 60px) !important;
-    z-index: 9999 !important; /* Har cheez ke upar rahega */
+    width: 68px; /* Default Collapsed State */
+    height: calc(100vh - 60px) !important; 
+    z-index: 9999 !important;
     background: rgba(255, 255, 255, 0.03) !important; 
     backdrop-filter: blur(20px) saturate(160%) !important; 
     -webkit-backdrop-filter: blur(20px) saturate(160%);
@@ -38,22 +61,19 @@ body {
     justify-content: space-between;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* Gemini style internal scrolling agar content bara ho */
     overflow-y: auto;
-    scrollbar-width: none;
+    overflow-x: hidden;
 }
-.gemini-sidebar.collapsed {
-    width: 68px !important;
+
+/* Active Expanded State Class */
+.gemini-sidebar.sidebar-expanded {
+    width: 240px !important;
 }
+
 .gemini-sidebar::-webkit-scrollbar {
     display: none;
 }
 
-/* Jab sidebar collapsed ho toh width choti ho jaye */
-.gemini-sidebar.collapsed {
-    width: 68px !important; 
-}
 .sidebar-toggle-trigger {
     background: transparent;
     border: none;
@@ -68,7 +88,9 @@ body {
     justify-content: center;
     transition: background 0.2s;
     margin-bottom: 20px;
+    flex-shrink: 0;
 }
+
 .sidebar-toggle-trigger:hover {
     background-color: rgba(255, 255, 255, 0.08);
 }
@@ -113,16 +135,45 @@ body {
     backdrop-filter: blur(5px);
 }
 
+/* Standard Text Visibility Rules */
 .gemini-sidebar .nav-text {
-    opacity: 1;
-    transition: opacity 0.2s ease;
-    display: inline-block;
-}
-
-.gemini-sidebar.collapsed .nav-text {
     opacity: 0;
     pointer-events: none;
     display: none; 
+    transition: opacity 0.2s ease;
+}
+
+.gemini-sidebar.sidebar-expanded .nav-text {
+    opacity: 1;
+    pointer-events: auto;
+    display: inline-block;
+}
+
+.sidebar-bottom-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 6px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    width: 100%;
+    overflow: hidden;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.sidebar-overlay.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Jab script sahi chale tabhi transition effect smoothly chalega */
