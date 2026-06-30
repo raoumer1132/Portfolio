@@ -505,49 +505,52 @@ body {
     background-color: #f0713f;
     transform: translateY(-1px);
 }
-
 /* ==========================================================================
-   7. GLOBAL MEDIA QUERIES (FIXED FOR OVERLAP & ORDERING)
+   7. GLOBAL MEDIA QUERIES (GRID AREA MATRIX REBOOT)
    ========================================================================== */
 @media (max-width: 1024px) {
-    /* Main layout container ko display flex dena zaroori hai */
     .main-portfolio-layout {
-        display: flex !important;
-        flex-direction: column !important; 
-        padding-left: 90px !important; /* Sidebar se safe distance takke overlap na ho */
+        display: grid !important;
+        /* Mobile layout ko do rows mein divide kiya: 'content' pehle aur 'sidebar-card' baad mein */
+        grid-template-columns: 1fr !important;
+        grid-template-areas: 
+            "content"
+            "sidebar-card" !important;
+        padding-left: 95px !important; /* Sidebar se constant safe distance */
         padding-right: 20px !important;
         padding-top: 140px !important;    
-        gap: 50px !important;
+        gap: 45px !important;
     }
 
-    /* 👑 Tools / Form Section: Isko sabse upar laane ke liye order: 1 */
+    /* 👑 Tools/Content Block ko forced kiya ke woh pehli row ('content') mein jaye */
     .right-column, 
-    .main-portfolio-layout > div:not(.left-column),
+    .main-portfolio-layout > div:nth-child(2),
     .main-portfolio-layout > section {
+        grid-area: content !important;
         width: 100% !important;
-        order: 1 !important;  
     }
 
-    /* 👑 Profile Card Section: Isko push karke neechay bhejne ke liye order: 2 */
-    .left-column {
+    /* 👑 Profile Card Block ko forced kiya ke woh doosri row ('sidebar-card') yaani neechay jaye */
+    .left-column, 
+    .main-portfolio-layout > div:nth-child(1) {
+        grid-area: sidebar-card !important;
         position: relative !important;
         top: 0 !important;
         width: 100% !important;
-        order: 2 !important;  
     }
 
-    /* Sidebar expand hone par bhi spacing crash na ho */
+    /* Sidebar expand hone par layout padding lock text gap */
     .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
-        padding-left: 90px !important; 
+        padding-left: 95px !important; 
     }
 }
 
 @media (max-width: 768px) {
-    /* Sidebar Layout Fix: Isko fixed rakhna hai taake content ke upar flat collapse ho */
+    /* Sidebar element placement aur content layer positioning */
     .gemini-sidebar {
         position: fixed !important;
         top: 20px !important;
-        left: 15px !important;
+        left: 12px !important;
         width: 65px !important;
         z-index: 2000 !important;
     }
@@ -560,35 +563,35 @@ body {
         grid-template-columns: 1fr !important; 
     }
 
-    /* Top Floating Navbar Adjustment for mobile grids */
+    /* Top navbar absolute layout scaling bug fix */
     .nav {
         position: fixed !important;
         top: 15px !important;
-        padding: 10px 20px !important;
-        gap: 20px !important;
-        width: calc(100% - 110px) !important; 
+        padding: 10px 16px !important;
+        gap: 15px !important;
+        width: calc(100% - 105px) !important; 
         max-width: max-content !important;
-        left: calc(50% + 35px) !important; /* Center with respect to sidebar */
+        left: calc(50% + 35px) !important; 
     }
 
     .nav a {
-        font-size: 1.1rem !important;
+        font-size: 1.05rem !important;
     }
 
     .tools-main-heading h2, .contact-heading h2 {
-        font-size: 2.3rem !important;
+        font-size: 2.2rem !important;
     }
 }
 
 @media (max-width: 600px) {
     .main-portfolio-layout {
-        padding-left: 85px !important; /* Handheld screen structure check */
+        padding-left: 85px !important; 
         padding-right: 15px !important;
         padding-top: 110px !important;
     }
 
     .nav {
         left: calc(50% + 35px) !important;
-        gap: 15px !important;
+        gap: 12px !important;
     }
 }
