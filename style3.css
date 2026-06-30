@@ -15,54 +15,73 @@ body {
     overflow-x: hidden;
 }
 
-/* ==========================================================================
-   2. NAVBAR DESIGN - MATCHED EXACTLY WITH INDEX.HTML (WIDE SIZE)
-   ========================================================================== */
+/* --- TOP FLOATING NAVBAR FIXED --- */
 .nav {
-    position: fixed;
+    position: absolute;
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(21, 18, 18, 0.85) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #151212;
     display: flex;
-    gap: 25px;
+    gap: 40px;
     justify-content: center;
     align-items: center;
-    padding: 12px 30px !important;
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 16px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.5);
     z-index: 1000;
 }
 
 .nav a {
-    color: #666666 !important;
-    font-size: 0.9rem !important;
+    color: #666666;
+    font-size: 1.3rem;
     text-decoration: none;
-    display: flex;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    gap: 8px; /* Icon aur text ke darmiyan spacing */
-    transition: color 0.25s ease;
+    transition: color 0.3s ease;
+}
+
+.nav a:hover, .nav a.folder-icon {
+    color: #ffffff;
+}
+
+.tooltip-text {
+    position: absolute;
+    top: 145%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background-color: #151212;
+    color: #ffffff;
+    font-size: 0.75rem;
     font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
 }
 
-/* Text elements visible internally like Index.html */
-.nav a .tooltip-text {
-    display: inline-block !important;
-    position: relative !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    color: inherit;
-    font-size: 0.9rem;
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #151212 transparent;
 }
 
-.nav a:hover, 
-.nav a.active-nav {
-    color: #ffffff !important;
+.nav a:hover .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
-
 /* ==========================================================================
    3. PERFECT SLIM TO WIDE SIDEBAR TOGGLE
    ========================================================================== */
