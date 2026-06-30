@@ -21,7 +21,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #0c0a0a; /* Pure black background matching index */
+    background-color: #0c0a0a; 
     z-index: 99999;
     pointer-events: none;
     opacity: 1;
@@ -32,7 +32,7 @@ body {
 }
 .page-transition-overlay.fade-in {
     opacity: 1;
-    pointer-events: all; /* Multi-clicks ko block karne ke liye */
+    pointer-events: all; 
 }
 
 /* ==========================================================================
@@ -244,13 +244,13 @@ body {
    ========================================================================== */
 .main-portfolio-layout {
     display: grid;
-    grid-template-columns: 280px minmax(0, 1fr); /* Profile card ki width perfect fit */
-    gap: 40px;                                   /* Card aur content ke darmiyan gap */
+    grid-template-columns: 280px minmax(0, 1fr); 
+    gap: 40px;                                   
     max-width: 1400px;
     width: 100%;                  
     margin-right: 40px;           
     margin-bottom: 0;
-    margin-left: 90px;                          /* Fixed: Ab gap baaki pages jaisa barabar hoga */           
+    margin-left: 90px;                              
     padding: 120px 20px 60px 20px;  
     align-items: start;
     box-sizing: border-box;
