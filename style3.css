@@ -82,6 +82,7 @@ body {
     visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
+
 /* ==========================================================================
    3. PERFECT SLIM TO WIDE SIDEBAR TOGGLE
    ========================================================================== */
@@ -176,6 +177,7 @@ body {
     background-color: rgba(255, 255, 255, 0.08);
     color: #ffffff;
 }
+
 .sidebar-bottom-user {
     display: flex;
     align-items: center;
@@ -205,7 +207,7 @@ body {
 }
 
 /* ==========================================================================
-   4. LAYOUT ALIGNMENTS GRID VIEWPORT BLOCKS
+   4. LAYOUT ALIGNMENTS GRID VIEWPORT BLOCKS (DESKTOP FIRST)
    ========================================================================== */
 .main-portfolio-layout {
     width: 100%;
@@ -216,88 +218,21 @@ body {
     grid-template-columns: 320px 1fr;
     gap: 50px;
     align-items: start;
+    transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ==========================================================================
-   MOBILE & TABLET RESPONSIVE REBOOT 
-   ========================================================================== */
-@media (max-width: 1024px) {
-    .main-portfolio-layout {
-        display: flex !important;
-        flex-direction: column !important; /* Grid se Flexbox column layout taake order lag sake */
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-        padding-top: 130px !important;    /* Top navbar se safety spacing */
-        gap: 40px !important;
-    }
-
-    /* 👑 Flex order blocks jo tools/content ko upar layenge aur profile card ko neechay push karenge */
-    .right-column {
-        width: 100% !important;
-        order: 1 !important;  /* Tools & Page Content sabse upar dikhega */
-    }
-
-    .left-column {
-        position: relative !important;
-        top: 0 !important;
-        width: 100% !important;
-        order: 2 !important;  /* Profile card scroll karne par neechay aayega */
-    }
-
-    /* Expanding sidebar dynamic adjust for tablet layouts */
-    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
-        padding-left: 20px !important; 
-    }
-}
-
-@media (max-width: 768px) {
-    /* Top floating navbar responsive scaling fix */
-    .nav {
-        position: fixed !important;
-        top: 15px !important;
-        padding: 12px 24px !important;
-        gap: 20px !important;
-        width: calc(100% - 110px) !important; /* Screen width ke mutabik auto wrap */
-        max-width: max-content !important;
-        left: calc(50% + 30px) !important; /* Sidebar space exclusion logic */
-    }
-
-    .nav a {
-        font-size: 1.1rem !important;
-    }
-
-    /* Tools standard layout adjustments */
-    .tools-main-heading h2, .contact-heading h2 {
-        font-size: 2.5rem !important;
-    }
-
-    /* Sticky reset for elements stack */
-    .left-column {
-        position: relative !important;
-        top: 0 !important;
-    }
-}
-
-@media (max-width: 600px) {
-    /* Core mobile view padding layout reset */
-    .main-portfolio-layout {
-        padding-left: 85px !important; /* Sidebar se clean horizontal gap */
-        padding-right: 15px !important;
-        padding-top: 110px !important;
-    }
-
-    .nav {
-        left: calc(50% + 35px) !important;
-        gap: 15px !important;
-    }
-}
 .left-column {
-    position: sticky !important;
-    top: 120px;          /* Top navbar se perfect gap */
-    height: fit-content; /* Yeh property sticky ko activate karne ke liye lazmi hai */
+    position: sticky;
+    top: 120px;          
+    height: fit-content; 
     width: 100%;
     z-index: 10;
 }
+
+.gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+    padding-left: 320px !important; 
+}
+
 /* ==========================================================================
    5. PROFILE CARD & COMPONENT BLOCKS
    ========================================================================== */
@@ -398,6 +333,7 @@ body {
     border-color: #000000;
     transform: translateY(-2px);
 }
+
 /* ====================== */
 .right-column {
     display: flex;
@@ -455,7 +391,7 @@ body {
     color: #666666;
 }
 
-/* Page Transition Overlay - Synchronized with Experience */
+/* Page Transition Overlay */
 .page-transition-overlay {
     position: fixed;
     top: 0;
@@ -475,6 +411,7 @@ body {
     opacity: 1;
     pointer-events: all;
 }
+
 /* ==========================================================================
    6. PREMIUM CONTACT FORM FIXES (DARK STYLE)
    ========================================================================== */
@@ -507,7 +444,6 @@ body {
     gap: 20px;
     width: 100%;
 }
-
 
 .form-group {
     display: flex;
@@ -571,14 +507,74 @@ body {
 }
 
 /* ==========================================================================
-   SIDEBAR PUSH LAYOUT EFFECT
+   7. GLOBAL MEDIA QUERIES (HUMESHA AKHIR MEIN HONI CHAHIYEN)
    ========================================================================== */
-.main-portfolio-layout {
-    transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+@media (max-width: 1024px) {
+    .main-portfolio-layout {
+        display: flex !important;
+        flex-direction: column !important; 
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-top: 140px !important;    
+        gap: 40px !important;
+    }
+
+    /* Tools & Page Content sabse upar laane ke liye order property */
+    .right-column {
+        width: 100% !important;
+        order: 1 !important;  
+    }
+
+    /* Profile card ko neechay dhakelne aur sticky reset ke liye */
+    .left-column {
+        position: relative !important;
+        top: 0 !important;
+        width: 100% !important;
+        order: 2 !important;  
+    }
+
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        padding-left: 20px !important; 
+    }
 }
 
+@media (max-width: 768px) {
+    .tools-grid-container { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .form-row { 
+        grid-template-columns: 1fr; 
+    }
 
-.gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
-    padding-left: 320px !important; 
+    .nav {
+        position: fixed !important;
+        top: 15px !important;
+        padding: 12px 24px !important;
+        gap: 20px !important;
+        width: calc(100% - 110px) !important; 
+        max-width: max-content !important;
+        left: calc(50% + 30px) !important; 
+    }
+
+    .nav a {
+        font-size: 1.1rem !important;
+    }
+
+    .tools-main-heading h2, .contact-heading h2 {
+        font-size: 2.5rem !important;
+    }
 }
 
+@media (max-width: 600px) {
+    .main-portfolio-layout {
+        padding-left: 85px !important; 
+        padding-right: 15px !important;
+        padding-top: 110px !important;
+    }
+
+    .nav {
+        left: calc(50% + 35px) !important;
+        gap: 15px !important;
+    }
+}
