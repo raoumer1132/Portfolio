@@ -15,7 +15,6 @@ body {
     display: flex;
     justify-content: center;
     overflow-x: hidden;
-    /* Opacity issue fixed: Default visible rakhein agar JS fail ho jaye tab bhi */
     opacity: 1; 
     transition: opacity 0.6s ease;
 }
@@ -26,7 +25,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #0c0a0a; /* Pure black background matching index */
+    background-color: #0c0a0a;
     z-index: 99999;
     pointer-events: none;
     opacity: 1;
@@ -37,7 +36,7 @@ body {
 }
 .page-transition-overlay.fade-in {
     opacity: 1;
-    pointer-events: all; /* Multi-clicks ko block karne ke liye */
+    pointer-events: all; 
 }
 
 /* ==========================================================================
@@ -195,14 +194,14 @@ body.page-ready {
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none; /* Yeh click ko block nahi karega */
+    pointer-events: none; 
 }
 
 /* ==========================================================================
    TOP BAR FLOATING MENU & TOOLTIPS
    ========================================================================== */
 .nav {
-    position: absolute; /* Fixed taaki page scroll par menu upar hi rahe */
+    position: absolute;
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
@@ -279,7 +278,7 @@ body.page-ready {
     width: 100%;                  
     margin-right: 40px;           
     margin-bottom: 0;
-    margin-left: 120px; /* Matched with collapsed sidebar fallback */           
+    margin-left: 120px;    
     padding: 120px 20px 60px 20px;  
     align-items: start;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -290,7 +289,7 @@ body.page-ready {
     gap: 30px;
     width: 100%;
     box-sizing: border-box;
-    transition: padding-left 0.3s ease; /* Is se push smooth hoga */
+    transition: padding-left 0.3s ease; 
 }
 .left-column {
     position: sticky;
@@ -317,7 +316,6 @@ body.page-ready {
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-/* Strict box limits for profile image so it never expands ugly */
 .image-container {
     position: relative;
     width: 100%;
