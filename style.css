@@ -472,13 +472,22 @@ body {
     .nav { left: calc(50% + 34px) !important; }
 }
 @media (max-width: 768px) {
-    /* 1. Global Viewport settings taake scroll aye hi na */
+    /* 1. Root and Body Level Control - Isse scrollbar banna bilkul band ho jayega */
     html, body {
+        width: 100% !important;
         max-width: 100% !important;
-        overflow-x: hidden !important; /* Kisi bhi kism ka horizontal scroll block karne ke liye */
+        overflow-x: hidden !important; /* Forcefully stops horizontal scrolling */
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
     }
 
-    /* 2. Sidebar CSS */
+    /* Everything box model reset inside media query */
+    *, *:before, *:after {
+        box-sizing: inherit !important;
+    }
+
+    /* 2. Fixed Sidebar Layout */
     .gemini-sidebar { 
         display: flex !important;
         position: fixed !important;
@@ -490,11 +499,12 @@ body {
         z-index: 9999 !important; 
     }
 
-    /* 3. Top Nav spacing and behavior */
+    /* 3. Top Navbar: Bachi hui right screen space ke perfect center me */
     .nav { 
         position: fixed !important; 
         top: 15px !important;
-        left: calc(50% + 30px) !important; 
+        /* Sidebar ke safe area (90px) se lekar screen ke end tak ka exact center */
+        left: calc(45px + 50%) !important; 
         transform: translateX(-50%) !important; 
         display: flex !important;
         gap: 12px !important; 
@@ -503,63 +513,39 @@ body {
         z-index: 1000 !important;
     }
 
-    /* 4. MAIN PORTFOLIO LAYOUT: Yeh layout ko screen ke andar collapse karega */
+    /* 4. MAIN PORTFOLIO LAYOUT: Strict width constraints to kill scroll */
     .main-portfolio-layout { 
-        display: block !important; /* Grid se block me change kiya taake width limits strict rahein */
-        width: auto !important;
-        margin-left: 90px !important; /* Sidebar ke liye space */
-        margin-right: 15px !important;
-        padding: 100px 0px 40px 0px !important; 
-        box-sizing: border-box !important;
-    }
-
-    /* 5. Left and Right Columns within the layout */
-    .left-column, .right-column {
-        width: 100% !important;
-        max-width: 100% !important;
         display: flex !important;
         flex-direction: column !important;
-        box-sizing: border-box !important;
+        /* Sidebar (60px + 15px left + 15px gap = 90px margin) */
+        margin-left: 90px !important; 
+        margin-right: 15px !important;
+        /* Total available width calculation so it NEVER exceeds the screen */
+        width: calc(100% - 105px) !important; 
+        max-width: calc(100% - 105px) !important;
+        padding: 100px 0px 40px 0px !important; 
     }
 
-    .right-column {
-        gap: 40px !important;
-        margin-top: 30px !important;
+    /* 5. Main Card and Columns constraints */
+    .left-column, .right-column, .profile-card, .main-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
-    /* 6. Text element overflow and responsiveness fixes */
+    /* 6. Typography adjustments to avoid word-overflow pushing layout */
     .main-title, .sub-title, .projects-heading h2, .experience-heading h2, .tools-heading h2, .design-heading h2, .contact-heading h2 { 
         font-size: 2.2rem !important; 
         word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
     }
 
-    .description {
-        max-width: 100% !important;
-        font-size: 1rem !important;
-    }
-
-    /* 7. Components sizing to prevent pushing boundaries */
-    .stats-container, .projects-grid, .form-row { 
+    /* 7. Other elements handling */
+    .stats-container, .projects-grid, .form-row, .tools-grid-box { 
         display: flex !important; 
         flex-direction: column !important; 
         gap: 15px !important; 
-        width: 100% !important;
-    }
-
-    .project-card.orange-card, .project-card.lime-card {
-        flex: 1 1 100% !important;
-        width: 100% !important;
-        min-height: auto !important;
-    }
-
-    .tools-grid-box { 
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 15px !important;
-        width: 100% !important;
-    }
-    
-    .tool-item {
         width: 100% !important;
     }
 }
