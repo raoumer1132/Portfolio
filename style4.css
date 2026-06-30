@@ -12,10 +12,7 @@ body {
     background-color: #0c0a0a;
     color: #ffffff;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
     overflow-x: hidden;
-    overflow-y: auto !important; 
 }
 @keyframes pageIntro {
     from {
