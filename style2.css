@@ -25,7 +25,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #0c0a0a; /* Pure black background matching index */
+    background-color: #0c0a0a; 
     z-index: 99999;
     pointer-events: none;
     opacity: 1;
@@ -257,7 +257,7 @@ body {
     width: 100%;                  
     margin-right: 40px;           
     margin-bottom: 0;
-    margin-left: 120px; /* Matched with collapsed sidebar fallback */           
+    margin-left: 120px;
     padding: 120px 20px 60px 20px;  
     align-items: start;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
