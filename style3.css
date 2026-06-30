@@ -226,6 +226,9 @@ body {
     border-radius: 30px;
     padding: 40px 24px;
     text-align: center;
+   position: -webkit-sticky; /* Safari support ke liye */
+    position: sticky;
+    top: 80px;
 }
 
 .image-container {
