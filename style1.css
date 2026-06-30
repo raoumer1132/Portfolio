@@ -669,46 +669,127 @@ body.page-ready {
 }
 
 /* ==========================================================================
-   RESPONSIVE LAYOUT BREAKPOINTS
+   RESPONSIVE LAYOUT BREAKPOINTS (MOBILE & TABLET FIXES)
    ========================================================================== */
-@media (max-width: 992px) {
+
+@media (max-width: 1024px) {
+    /* Desktop layout grid ko khatam karke vertical stacking ki */
     .main-portfolio-layout {
-        flex-direction: column;
-        margin-top: 100px;
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        margin-left: 90px !important; /* Sidebar ke liye space built-in */
+        margin-right: 15px !important;
+        width: calc(100% - 105px) !important;
+        max-width: calc(100% - 105px) !important;
+        padding-top: 110px !important;
+        gap: 40px !important;
     }
+
     .left-column {
-        width: 100%;
-        position: relative;
-        top: 0;
+        position: relative !important;
+        top: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
+
     .right-column {
-        width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 40px !important;
     }
+
+    /* Floating Top Navbar adjustment */
+    .nav {
+        position: fixed !important;
+        top: 15px !important;
+        left: calc(50% + 34px) !important;
+        transform: translateX(-50%) !important;
+        padding: 12px 24px !important;
+        gap: 20px !important;
+        width: max-content !important;
+        z-index: 999999 !important;
+    }
+
     .projects-main-heading h2, .contact-heading h2 {
-        font-size: 4rem;
+        font-size: 3.2rem !important;
+        letter-spacing: -1px !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
     }
+
     .floating-badge-container {
-        display: none;
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Forceful horizontal overflow kill */
+    html, body {
+        width: 100vw !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Mobile standard responsive sidebar bounds */
+    .gemini-sidebar {
+        top: 15px !important;
+        left: 15px !important;
+        height: calc(100vh - 30px) !important;
+        width: 60px !important;
+        padding: 15px 8px !important;
+    }
+
+    /* Overlap prevention from JS push layout code */
+    body, body.sidebar-open {
+        padding-left: 0 !important;
     }
 }
 
 @media (max-width: 600px) {
+    /* Form input row wrap fix */
     .form-row {
-        flex-direction: column;
-        gap: 25px;
+        flex-direction: column !important;
+        gap: 20px !important;
     }
+
+    /* Projects lists container structural bounds layout alignment */
+    .projects-vertical-list {
+        width: 100% !important;
+        gap: 15px !important;
+    }
+
+    /* Row box wrapping logic layout for Second Page (project.html) */
     .project-list-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 15px !important;
+        padding: 15px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border-radius: 16px !important;
+        border-bottom: none !important;
     }
+
+    .project-thumb-box {
+        width: 100% !important; /* Thumbnail full width ho kar image stretch free ho jaye */
+        height: 180px !important;
+    }
+
     .project-info-box {
-        margin-left: 0;
+        margin-left: 0 !important;
+        width: 100% !important;
     }
+
+    .project-info-box h3 {
+        font-size: 1.4rem !important;
+    }
+
     .project-diagonal-arrow {
-        position: absolute;
-        right: 0;
-        top: 20px;
+        position: absolute !important;
+        right: 15px !important;
+        top: 15px !important;
     }
 }
 body {
