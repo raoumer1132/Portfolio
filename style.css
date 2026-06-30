@@ -500,22 +500,20 @@ body {
     }
 
    /* 3. Top Navbar FIX: Transparent background ko solid kiya aur layering theek ki */
-    .nav { 
-        position: fixed !important; 
-        top: 15px !important;
-        left: calc(45px + 50%) !important; 
-        transform: translateX(-50%) !important; 
-        display: flex !important;
-        gap: 12px !important; 
-        padding: 10px 16px !important; 
-        width: max-content !important; 
-        
-        /* --- YEH LINES ADD KI HAIN --- */
-        background-color: #1a1a1a !important; /* Aapke portfolio ka jo bhi dark theme color hai (e.g., #000 یا #1a1a1a) wo yahan likhein */
-        backdrop-filter: blur(10px) !important; /* Agar background thoda glassmorphism rakhna ho */
-        border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Halka sa border taake cards se alag dikhe */
-        z-index: 10000 !important; /* Ensure karega ki yeh har cheez ke upar rahe bina peeche ka content dikhaye */
-    }
+.nav { 
+    position: fixed !important; 
+    top: 15px !important;
+    left: calc(45px + 50%) !important; 
+    transform: translateX(-50%) !important; 
+    display: flex !important;
+    gap: 12px !important; 
+    padding: 10px 16px !important; 
+    width: max-content !important; 
+    background-color: #1a1a1a !important; 
+    backdrop-filter: blur(10px) !important; 
+    border: 1px solid rgba(255, 255, 255, 0.1) !important; 
+    z-index: 9999999 !important; 
+}
     /* 4. MAIN PORTFOLIO LAYOUT: Strict width constraints to kill scroll */
     .main-portfolio-layout { 
         display: flex !important;
