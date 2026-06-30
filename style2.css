@@ -559,41 +559,88 @@ body {
 }
 
 /* ==========================================================================
-   9. RESPONSIVE MEDIA QUERIES
+   9. RESPONSIVE MEDIA QUERIES (EXPERIENCE PAGE MOBILE FIX)
    ========================================================================== */
 @media (max-width: 1024px) {
     .main-portfolio-layout {
-        grid-template-columns: 1fr;
-        margin-left: 100px !important;
-        margin-right: 20px;
-        padding-top: 140px;
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        margin-left: 90px !important; /* Sidebar ke liye clean offset */
+        margin-right: 15px !important;
+        width: calc(100% - 105px) !important;
+        max-width: calc(100% - 105px) !important;
+        padding-top: 130px !important;
+        gap: 40px !important;
     }
     .left-column {
-        position: relative;
-        top: 0;
-        max-width: 450px;
-        margin: 0 auto;
+        position: relative !important;
+        top: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .right-column {
+        width: 100% !important;
+        max-width: 100% !important;
     }
 }
 
 @media (max-width: 768px) {
-    .main-portfolio-layout {
-        margin-left: 20px !important;
-        padding-top: 120px;
-    }
+    /* FIXED: display: none ko hata kar responsive alignment lagayi */
     .gemini-sidebar {
-        display: none !important;
+        display: flex !important; /* Sidebar wapas visible ho jayega */
+        top: 15px !important;
+        left: 15px !important;
+        height: calc(100vh - 30px) !important;
+        width: 60px !important;
+        padding: 15px 8px !important;
     }
+
+    /* Top menu spacing fix */
+    .nav {
+        position: fixed !important;
+        top: 15px !important;
+        left: calc(50% + 34px) !important;
+        transform: translateX(-50%) !important;
+        padding: 12px 24px !important;
+        gap: 20px !important;
+        width: max-content !important;
+    }
+
     .experience-main-heading h2, .contact-heading h2 {
-        font-size: 3.5rem;
-        letter-spacing: -1.5px;
+        font-size: 3.2rem !important;
+        letter-spacing: -1.5px !important;
     }
 }
 
 @media (max-width: 600px) {
     .form-row {
-        flex-direction: column;
-        gap: 25px;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    /* Experience lists container padding adjustments */
+    .experience-list-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        padding: 20px 0 !important;
+    }
+
+    .row-header-flex {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+    }
+
+    .job-description {
+        max-width: 100% !important;
+    }
+
+    .experience-diagonal-arrow {
+        position: absolute !important;
+        right: 5px !important;
+        top: 25px !important;
     }
 }
 /* ==========================================================================
