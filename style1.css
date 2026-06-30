@@ -286,13 +286,11 @@ body.page-ready {
 }
 .main-portfolio-layout {
     display: grid;
-    /* 1fr profile card ke liye aur 2fr main content area ke liye */
-    grid-template-columns: 280px 1fr; 
+    grid-template-columns: 280px 1fr;
     gap: 30px;
-    
-    /* ---- Sidebar se takrao bachane ke liye yeh properties zaroori hain ---- */
-    padding-left: 260px; /* Taake jab sidebar wide ho, to profile card uske niche na aaye */
-    transition: padding-left 0.3s ease; /* Sidebar toggle hote waqt smooth effect ke liye */
+    width: 100%;
+    box-sizing: border-box;
+    transition: padding-left 0.3s ease; /* Is se push smooth hoga */
 }
 .left-column {
     position: sticky;
