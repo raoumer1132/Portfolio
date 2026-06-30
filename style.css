@@ -486,4 +486,12 @@ body {
     .stats-container, .projects-grid, .form-row { grid-template-columns: 1fr !important; display: flex; flex-direction: column; gap: 20px !important; }
     .tools-grid-box { grid-template-columns: 1fr !important; }
 }
+body {
+    padding-left: 80px; 
+    transition: padding-left 0.3s ease;
+}
 
+/* 2. Jab hamburger button par click ho aur sidebar open ho jaye */
+body.sidebar-open {
+    padding-left: 260px; 
+}
