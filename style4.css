@@ -15,7 +15,7 @@ body {
     display: flex;
     justify-content: center;
     overflow-x: hidden;
-    overflow-y: auto !important; /* Yeh line vertical scroll ko har haal mein allow karegi */
+    overflow-y: auto !important; 
 }
 @keyframes pageIntro {
     from {
@@ -256,7 +256,7 @@ body.page-ready {
     grid-template-columns: 320px 1fr;
     gap: 50px;
     align-items: start;
-    overflow: visible !important; /* Taake scroll block na ho */
+    overflow: visible !important; 
 }
 .left-column {
    height: auto;
@@ -642,12 +642,10 @@ body.page-ready {
    SIDEBAR PUSH LAYOUT EFFECT
    ========================================================================== */
 
-/* Main layout par smooth transition lagayein taake jhatka na lage */
+
 .main-portfolio-layout {
     transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* Jab sidebar expanded ho, toh main layout right side par khisak jaye */
 .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
-    padding-left: 320px !important; /* Space ko barha diya taake content aage ho jaye */
+    padding-left: 320px !important; 
 }
