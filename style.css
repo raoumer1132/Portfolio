@@ -471,13 +471,46 @@ body {
     .left-column { position: relative; top: 0; width: 100%; }
     .nav { left: calc(50% + 34px) !important; }
 }
+/* --- MOBILE RESPONSIVE FIX --- */
 @media (max-width: 768px) {
-    .gemini-sidebar { display: none; }
-    .main-portfolio-layout { grid-template-columns: 1fr !important; gap: 40px !important; margin-left: 0 !important; padding: 100px 20px 40px 20px !important; }
-    .nav { left: 50% !important; gap: 20px !important; padding: 10px 20px !important; }
-    .main-title, .sub-title, .projects-heading h2, .experience-heading h2, .tools-heading h2, .design-heading h2, .contact-heading h2 { font-size: 2.8rem !important; }
-    .stats-container, .projects-grid, .form-row { grid-template-columns: 1fr !important; display: flex; flex-direction: column; gap: 20px !important; }
-    .tools-grid-box { grid-template-columns: 1fr !important; }
+   
+    .gemini-sidebar { 
+        display: flex !important; 
+        top: 15px !important;
+        left: 15px !important;
+        height: calc(100vh - 30px) !important;
+        width: 60px !important; 
+        padding: 15px 8px;
+    }
+    .gemini-sidebar.sidebar-expanded {
+        width: 200px !important;
+        left: 15px !important;
+    }
+    .main-portfolio-layout { 
+        grid-template-columns: 1fr !important; 
+        gap: 40px !important; 
+        margin-left: 85px !important; 
+        margin-right: 15px !important;
+        padding: 100px 10px 40px 10px !important; 
+    }
+    .nav { 
+        left: calc(50% + 30px) !important; 
+        gap: 15px !important; 
+        padding: 10px 15px !important; 
+    }
+    .main-title, .sub-title, .projects-heading h2, .experience-heading h2, .tools-heading h2, .design-heading h2, .contact-heading h2 { 
+        font-size: 2.5rem !important; 
+    }
+    .stats-container, .projects-grid, .form-row { 
+        display: flex !important; 
+        flex-direction: column !important; 
+        gap: 20px !important; 
+    }
+    .tools-grid-box { 
+        display: grid !important;
+        grid-template-columns: 1fr !important; 
+        gap: 20px !important;
+    }
 }
 body {
     padding-left: 80px; 
