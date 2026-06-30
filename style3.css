@@ -429,8 +429,8 @@ body {
 }
 
 .submit-btn {
-    background-color: #ffffff !important;
-    color: #FFA500 !important;
+    background-color: #FFA500 !important;
+    color: #000000 !important;
     border: none;
     padding: 16px 40px;
     border-radius: 14px;
