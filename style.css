@@ -471,9 +471,8 @@ body {
     .left-column { position: relative; top: 0; width: 100%; }
     .nav { left: calc(50% + 34px) !important; }
 }
-/* --- MOBILE RESPONSIVE FIX --- */
 @media (max-width: 768px) {
-    /* 1. Sidebar ko apni jagah fixed rakhna */
+    /* 1. Sidebar ko fixed kiya */
     .gemini-sidebar { 
         display: flex !important;
         top: 15px !important;
@@ -481,42 +480,41 @@ body {
         height: calc(100vh - 30px) !important;
         width: 60px !important;
         padding: 15px 8px;
-        z-index: 9999 !important; /* Yeh ensure karega ki sidebar topbar ke piche na jaye */
+        z-index: 9999 !important; 
     }
 
-    /* 2. Topbar (.nav) ko PERFECT CENTER karne ka fix */
+    /* 2. Topbar (.nav) FIX: Isko bachi hui screen ke center me lane ke liye */
     .nav { 
-        position: fixed !important; /* Absolute se fixed kiya taake scroll par center rahe */
+        position: fixed !important; 
         top: 15px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important; /* Yeh perfect center karega bina kisi left offset ke */
-        width: auto !important;
-        max-width: calc(100% - 110px) !important; /* Taake left se sidebar ke liye auto space chhut jaye */
+        /* 50% screen me sidebar ki half width (approx 45px) add kar di taake gap me center ho */
+        left: calc(50% + 45px) !important; 
+        transform: translateX(-50%) !important; 
+        display: flex !important;
         gap: 15px !important; 
-        padding: 10px 20px !important; 
+        padding: 10px 18px !important; 
+        width: max-content !important; /* Content ke hisab se width adjust hogi */
         z-index: 1000 !important;
     }
 
-    /* 3. Main layout content spacing */
+    /* 3. Main layout content margin ensure karega ke image/card sidebar ke niche na dabe */
     .main-portfolio-layout { 
         grid-template-columns: 1fr !important; 
         gap: 40px !important; 
-        margin-left: 90px !important; /* Content left sidebar se daba rahega aur perfect dikhega */
+        margin-left: 95px !important; /* Safe padding sidebar se door rakhne ke liye */
         margin-right: 20px !important;
-        padding: 90px 0px 40px 0px !important; /* Top padding thodi kam ki taake card thoda upar aaye */
+        padding: 100px 0px 40px 0px !important; 
     }
 
-    /* Baaki elements bilkul sahi hain */
+    /* Baki responsive styles jo pehle se chal rahe hain... */
     .main-title, .sub-title, .projects-heading h2, .experience-heading h2, .tools-heading h2, .design-heading h2, .contact-heading h2 { 
         font-size: 2.5rem !important; 
     }
-
     .stats-container, .projects-grid, .form-row { 
         display: flex !important; 
         flex-direction: column !important; 
         gap: 20px !important; 
     }
-
     .tools-grid-box { 
         display: grid !important;
         grid-template-columns: 1fr !important; 
