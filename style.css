@@ -239,34 +239,36 @@ body {
     transform: translateX(-50%) translateY(0);
 }
 
-/* --- GRID SYSTEM SYSTEM WORKBENCH --- */
+/* ==========================================================================
+   4. GRID SYSTEM WORKBENCH Layout
+   ========================================================================== */
 .main-portfolio-layout {
     display: grid;
-    grid-template-columns: 320px minmax(0, 1fr); /* Sirf Left profile aur Right content column */
+    grid-template-columns: 320px minmax(0, 1fr);
     gap: 50px;
     max-width: 1400px;
-    width: auto;                  
+    width: 100%;                  
     margin-right: 40px;           
     margin-bottom: 0;
-    
-    /* Jab sidebar OPEN ho (Default state), toh left se itni jagah chorega */
-    margin-left: 300px;           
-    padding: 120px 0px 60px 0px;  
+    margin-left: 120px; /* Matched with collapsed sidebar fallback */           
+    padding: 120px 20px 60px 20px;  
     align-items: start;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* 3. DYNAMIC MARGIN (Jab sidebar CLOSE/COLLAPSED ho toh content khud ba khud left ho jaye) */
-body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
-    margin-left: 120px; /* Content upar nahi jayega, balki tameez se left shift ho jayega */
+.main-portfolio-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: padding-left 0.3s ease; /* Is se push smooth hoga */
 }
-
-/* Left column wala profile card apni jagah browser screen par sticky rahega */
 .left-column {
     position: sticky;
     top: 120px; 
     width: 100%;
 }
+
 .right-column {
     display: flex;
     flex-direction: column;
@@ -274,7 +276,6 @@ body:has(.gemini-sidebar.collapsed) .main-portfolio-layout {
     width: 100%;
     min-width: 0;                 
 }
-
 /* --- PROFILE CARD --- */
 .profile-card {
     background-color: #ffffff;
