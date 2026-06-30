@@ -471,7 +471,35 @@ body {
     .left-column { position: relative; top: 0; width: 100%; }
     .nav { left: calc(50% + 34px) !important; }
 }
-/* 3. Top Navbar FIX: Transparent background ko solid kiya aur layering theek ki */
+@media (max-width: 768px) {
+    /* 1. Root and Body Level Control - Isse scrollbar banna bilkul band ho jayega */
+    html, body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important; /* Forcefully stops horizontal scrolling */
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Everything box model reset inside media query */
+    *, *:before, *:after {
+        box-sizing: inherit !important;
+    }
+
+    /* 2. Fixed Sidebar Layout */
+    .gemini-sidebar { 
+        display: flex !important;
+        position: fixed !important;
+        top: 15px !important;
+        left: 15px !important;
+        height: calc(100vh - 30px) !important;
+        width: 60px !important;
+        padding: 15px 8px;
+        z-index: 9999 !important; 
+    }
+
+   /* 3. Top Navbar FIX: Transparent background ko solid kiya aur layering theek ki */
     .nav { 
         position: fixed !important; 
         top: 15px !important;
@@ -488,6 +516,42 @@ body {
         border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Halka sa border taake cards se alag dikhe */
         z-index: 10000 !important; /* Ensure karega ki yeh har cheez ke upar rahe bina peeche ka content dikhaye */
     }
+    /* 4. MAIN PORTFOLIO LAYOUT: Strict width constraints to kill scroll */
+    .main-portfolio-layout { 
+        display: flex !important;
+        flex-direction: column !important;
+        /* Sidebar (60px + 15px left + 15px gap = 90px margin) */
+        margin-left: 90px !important; 
+        margin-right: 15px !important;
+        /* Total available width calculation so it NEVER exceeds the screen */
+        width: calc(100% - 105px) !important; 
+        max-width: calc(100% - 105px) !important;
+        padding: 100px 0px 40px 0px !important; 
+    }
+
+    /* 5. Main Card and Columns constraints */
+    .left-column, .right-column, .profile-card, .main-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* 6. Typography adjustments to avoid word-overflow pushing layout */
+    .main-title, .sub-title, .projects-heading h2, .experience-heading h2, .tools-heading h2, .design-heading h2, .contact-heading h2 { 
+        font-size: 2.2rem !important; 
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+
+    /* 7. Other elements handling */
+    .stats-container, .projects-grid, .form-row, .tools-grid-box { 
+        display: flex !important; 
+        flex-direction: column !important; 
+        gap: 15px !important; 
+        width: 100% !important;
+    }
+}
 body {
     padding-left: 80px; 
     transition: padding-left 0.3s ease;
