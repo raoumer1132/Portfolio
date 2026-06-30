@@ -505,48 +505,50 @@ body {
     background-color: #f0713f;
     transform: translateY(-1px);
 }
+
 /* ==========================================================================
-   7. GLOBAL MEDIA QUERIES (PROFILE CARD FIRST VIEW)
+   7. GLOBAL MEDIA QUERIES (FORCE VERTICAL STACK & PERFECT SIDEBAR)
    ========================================================================== */
 @media (max-width: 1024px) {
+    /* Pure layout ko strict vertical flex-box stack bana diya */
     .main-portfolio-layout {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        /* 👑 Yahan badlao kiya: Profile Card ab pehle row mein aayega, content doosri row mein */
-        grid-template-areas: 
-            "sidebar-card"
-            "content" !important;
-        padding-left: 95px !important; /* Sidebar se constant safe distance */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+        padding-left: 95px !important;  /* Sidebar ke liye clean permanent left space */
         padding-right: 20px !important;
         padding-top: 140px !important;    
         gap: 40px !important;
     }
 
-    /* Profile Card forced to top row */
-    .left-column, 
-    .main-portfolio-layout > div:nth-child(1) {
-        grid-area: sidebar-card !important;
+    /* 👑 FIRST PRIORITY: Profile Card / Left Column sabse upar aaye */
+    .left-column,
+    .main-portfolio-layout > .left-column,
+    .main-portfolio-layout > div:first-child {
+        order: -1 !important; /* Negative value isko forced top par le aayegi */
         position: relative !important;
         top: 0 !important;
         width: 100% !important;
     }
 
-    /* Premium Tools / Content forced to bottom row */
-    .right-column, 
+    /* 👑 SECOND PRIORITY: Tools / Right Column / Form neechay aaye */
+    .right-column,
+    .main-portfolio-layout > .right-column,
     .main-portfolio-layout > div:nth-child(2),
     .main-portfolio-layout > section {
-        grid-area: content !important;
+        order: 1 !important;  /* Isko har haal mein card ke neechay push karega */
         width: 100% !important;
     }
 
-    /* Sidebar expanded layout safety gap */
+    /* Responsive Expanded Sidebar spacing safeguard */
     .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
         padding-left: 95px !important; 
     }
 }
 
 @media (max-width: 768px) {
-    /* Sidebar placement and sticky alignment overrides */
+    /* 🛠️ Sidebar overlap bug fix: Isko bilkul left side par independent set kiya */
     .gemini-sidebar {
         position: fixed !important;
         top: 20px !important;
@@ -555,6 +557,7 @@ body {
         z-index: 2000 !important;
     }
 
+    /* Cards structure mobile stretch rules */
     .tools-grid-container { 
         grid-template-columns: 1fr !important; 
     }
@@ -563,14 +566,14 @@ body {
         grid-template-columns: 1fr !important; 
     }
 
-    /* Top navbar structure lock */
+    /* Top navbar text sizing & auto center alignment logic */
     .nav {
         position: fixed !important;
         top: 15px !important;
         padding: 10px 16px !important;
         gap: 15px !important;
         width: calc(100% - 105px) !important; 
-        max-content: max-content !important;
+        max-width: max-content !important;
         left: calc(50% + 35px) !important; 
     }
 
@@ -584,8 +587,9 @@ body {
 }
 
 @media (max-width: 600px) {
+    /* Core mobile padding alignment updates */
     .main-portfolio-layout {
-        padding-left: 85px !important; /* Mobile breakpoint view padding adjustment */
+        padding-left: 85px !important; 
         padding-right: 15px !important;
         padding-top: 110px !important;
     }
