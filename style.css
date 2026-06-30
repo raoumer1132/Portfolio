@@ -473,39 +473,50 @@ body {
 }
 /* --- MOBILE RESPONSIVE FIX --- */
 @media (max-width: 768px) {
-   
+    /* 1. Sidebar ko apni jagah fixed rakhna */
     .gemini-sidebar { 
-        display: flex !important; 
+        display: flex !important;
         top: 15px !important;
         left: 15px !important;
         height: calc(100vh - 30px) !important;
-        width: 60px !important; 
+        width: 60px !important;
         padding: 15px 8px;
+        z-index: 9999 !important; /* Yeh ensure karega ki sidebar topbar ke piche na jaye */
     }
-    .gemini-sidebar.sidebar-expanded {
-        width: 200px !important;
-        left: 15px !important;
+
+    /* 2. Topbar (.nav) ko PERFECT CENTER karne ka fix */
+    .nav { 
+        position: fixed !important; /* Absolute se fixed kiya taake scroll par center rahe */
+        top: 15px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important; /* Yeh perfect center karega bina kisi left offset ke */
+        width: auto !important;
+        max-width: calc(100% - 110px) !important; /* Taake left se sidebar ke liye auto space chhut jaye */
+        gap: 15px !important; 
+        padding: 10px 20px !important; 
+        z-index: 1000 !important;
     }
+
+    /* 3. Main layout content spacing */
     .main-portfolio-layout { 
         grid-template-columns: 1fr !important; 
         gap: 40px !important; 
-        margin-left: 85px !important; 
-        margin-right: 15px !important;
-        padding: 100px 10px 40px 10px !important; 
+        margin-left: 90px !important; /* Content left sidebar se daba rahega aur perfect dikhega */
+        margin-right: 20px !important;
+        padding: 90px 0px 40px 0px !important; /* Top padding thodi kam ki taake card thoda upar aaye */
     }
-    .nav { 
-        left: calc(50% + 30px) !important; 
-        gap: 15px !important; 
-        padding: 10px 15px !important; 
-    }
+
+    /* Baaki elements bilkul sahi hain */
     .main-title, .sub-title, .projects-heading h2, .experience-heading h2, .tools-heading h2, .design-heading h2, .contact-heading h2 { 
         font-size: 2.5rem !important; 
     }
+
     .stats-container, .projects-grid, .form-row { 
         display: flex !important; 
         flex-direction: column !important; 
         gap: 20px !important; 
     }
+
     .tools-grid-box { 
         display: grid !important;
         grid-template-columns: 1fr !important; 
