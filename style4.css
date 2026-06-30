@@ -256,7 +256,6 @@ body.page-ready {
     grid-template-columns: 320px 1fr;
     gap: 50px;
     align-items: start;
-    overflow: visible !important; 
     min-height: 100vh;
 }
 .left-column {
