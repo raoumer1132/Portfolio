@@ -218,11 +218,77 @@ body {
     align-items: start;
 }
 
+/* ==========================================================================
+   MOBILE & TABLET RESPONSIVE REBOOT 
+   ========================================================================== */
 @media (max-width: 1024px) {
     .main-portfolio-layout {
-        grid-template-columns: 1fr;
-        padding-left: 40px;
-        padding-top: 120px;
+        display: flex !important;
+        flex-direction: column !important; /* Grid se Flexbox column layout taake order lag sake */
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-top: 130px !important;    /* Top navbar se safety spacing */
+        gap: 40px !important;
+    }
+
+    /* 👑 Flex order blocks jo tools/content ko upar layenge aur profile card ko neechay push karenge */
+    .right-column {
+        width: 100% !important;
+        order: 1 !important;  /* Tools & Page Content sabse upar dikhega */
+    }
+
+    .left-column {
+        position: relative !important;
+        top: 0 !important;
+        width: 100% !important;
+        order: 2 !important;  /* Profile card scroll karne par neechay aayega */
+    }
+
+    /* Expanding sidebar dynamic adjust for tablet layouts */
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        padding-left: 20px !important; 
+    }
+}
+
+@media (max-width: 768px) {
+    /* Top floating navbar responsive scaling fix */
+    .nav {
+        position: fixed !important;
+        top: 15px !important;
+        padding: 12px 24px !important;
+        gap: 20px !important;
+        width: calc(100% - 110px) !important; /* Screen width ke mutabik auto wrap */
+        max-width: max-content !important;
+        left: calc(50% + 30px) !important; /* Sidebar space exclusion logic */
+    }
+
+    .nav a {
+        font-size: 1.1rem !important;
+    }
+
+    /* Tools standard layout adjustments */
+    .tools-main-heading h2, .contact-heading h2 {
+        font-size: 2.5rem !important;
+    }
+
+    /* Sticky reset for elements stack */
+    .left-column {
+        position: relative !important;
+        top: 0 !important;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Core mobile view padding layout reset */
+    .main-portfolio-layout {
+        padding-left: 85px !important; /* Sidebar se clean horizontal gap */
+        padding-right: 15px !important;
+        padding-top: 110px !important;
+    }
+
+    .nav {
+        left: calc(50% + 35px) !important;
+        gap: 15px !important;
     }
 }
 .left-column {
@@ -354,10 +420,6 @@ body {
     gap: 20px;
 }
 
-@media (max-width: 768px) {
-    .tools-grid-container { grid-template-columns: 1fr; }
-}
-
 .tool-card {
     background-color: #090808;
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -446,9 +508,6 @@ body {
     width: 100%;
 }
 
-@media (max-width: 768px) {
-    .form-row { grid-template-columns: 1fr; }
-}
 
 .form-group {
     display: flex;
