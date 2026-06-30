@@ -240,28 +240,21 @@ body {
 }
 
 /* ==========================================================================
-   4. GRID SYSTEM WORKBENCH Layout
+   4. GRID SYSTEM WORKBENCH Layout (FIXED & CLEANED)
    ========================================================================== */
 .main-portfolio-layout {
     display: grid;
-    grid-template-columns: 320px minmax(0, 1fr);
-    gap: 50px;
+    grid-template-columns: 280px minmax(0, 1fr); /* Profile card ki width perfect fit */
+    gap: 40px;                                   /* Card aur content ke darmiyan gap */
     max-width: 1400px;
     width: 100%;                  
     margin-right: 40px;           
     margin-bottom: 0;
-    margin-left: 120px; /* Matched with collapsed sidebar fallback */           
+    margin-left: 90px;                          /* Fixed: Ab gap baaki pages jaisa barabar hoga */           
     padding: 120px 20px 60px 20px;  
     align-items: start;
-    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.main-portfolio-layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 30px;
-    width: 100%;
     box-sizing: border-box;
-    transition: padding-left 0.3s ease; /* Is se push smooth hoga */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .left-column {
     position: sticky;
