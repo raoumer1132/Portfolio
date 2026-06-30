@@ -472,9 +472,16 @@ body {
     .nav { left: calc(50% + 34px) !important; }
 }
 @media (max-width: 768px) {
-    /* 1. Sidebar ko fixed kiya */
+    /* 1. Global Viewport settings taake scroll aye hi na */
+    html, body {
+        max-width: 100% !important;
+        overflow-x: hidden !important; /* Kisi bhi kism ka horizontal scroll block karne ke liye */
+    }
+
+    /* 2. Sidebar CSS */
     .gemini-sidebar { 
         display: flex !important;
+        position: fixed !important;
         top: 15px !important;
         left: 15px !important;
         height: calc(100vh - 30px) !important;
@@ -483,42 +490,77 @@ body {
         z-index: 9999 !important; 
     }
 
-    /* 2. Topbar (.nav) FIX: Isko bachi hui screen ke center me lane ke liye */
+    /* 3. Top Nav spacing and behavior */
     .nav { 
         position: fixed !important; 
         top: 15px !important;
-        /* 50% screen me sidebar ki half width (approx 45px) add kar di taake gap me center ho */
-        left: calc(50% + 45px) !important; 
+        left: calc(50% + 30px) !important; 
         transform: translateX(-50%) !important; 
         display: flex !important;
-        gap: 15px !important; 
-        padding: 10px 18px !important; 
-        width: max-content !important; /* Content ke hisab se width adjust hogi */
+        gap: 12px !important; 
+        padding: 10px 16px !important; 
+        width: max-content !important; 
         z-index: 1000 !important;
     }
 
-    /* 3. Main layout content margin ensure karega ke image/card sidebar ke niche na dabe */
+    /* 4. MAIN PORTFOLIO LAYOUT: Yeh layout ko screen ke andar collapse karega */
     .main-portfolio-layout { 
-        grid-template-columns: 1fr !important; 
-        gap: 40px !important; 
-        margin-left: 95px !important; /* Safe padding sidebar se door rakhne ke liye */
-        margin-right: 20px !important;
+        display: block !important; /* Grid se block me change kiya taake width limits strict rahein */
+        width: auto !important;
+        margin-left: 90px !important; /* Sidebar ke liye space */
+        margin-right: 15px !important;
         padding: 100px 0px 40px 0px !important; 
+        box-sizing: border-box !important;
     }
 
-    /* Baki responsive styles jo pehle se chal rahe hain... */
-    .main-title, .sub-title, .projects-heading h2, .experience-heading h2, .tools-heading h2, .design-heading h2, .contact-heading h2 { 
-        font-size: 2.5rem !important; 
+    /* 5. Left and Right Columns within the layout */
+    .left-column, .right-column {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        box-sizing: border-box !important;
     }
+
+    .right-column {
+        gap: 40px !important;
+        margin-top: 30px !important;
+    }
+
+    /* 6. Text element overflow and responsiveness fixes */
+    .main-title, .sub-title, .projects-heading h2, .experience-heading h2, .tools-heading h2, .design-heading h2, .contact-heading h2 { 
+        font-size: 2.2rem !important; 
+        word-wrap: break-word !important;
+    }
+
+    .description {
+        max-width: 100% !important;
+        font-size: 1rem !important;
+    }
+
+    /* 7. Components sizing to prevent pushing boundaries */
     .stats-container, .projects-grid, .form-row { 
         display: flex !important; 
         flex-direction: column !important; 
-        gap: 20px !important; 
+        gap: 15px !important; 
+        width: 100% !important;
     }
+
+    .project-card.orange-card, .project-card.lime-card {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        min-height: auto !important;
+    }
+
     .tools-grid-box { 
-        display: grid !important;
-        grid-template-columns: 1fr !important; 
-        gap: 20px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        width: 100% !important;
+    }
+    
+    .tool-item {
+        width: 100% !important;
     }
 }
 body {
