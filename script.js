@@ -10,11 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
         toggleBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
-            // Sidebar ko toggle kiya
+           
             sidebar.classList.toggle("sidebar-expanded");
             
-            /* ---- ISS LINE KO ADD KIYA HAI: Taake baqi columns push ho sakein ---- */
             document.body.classList.toggle("sidebar-open");
             
             if (sidebarOverlay) {
@@ -23,13 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Sidebar ke bahar kahin bhi click karne par use wapas close karne ke liye
     document.addEventListener("click", (e) => {
         if (sidebar && sidebar.classList.contains("sidebar-expanded")) {
             if (!sidebar.contains(e.target) && toggleBtn && !toggleBtn.contains(e.target)) {
                 sidebar.classList.remove("sidebar-expanded");
                 
-                /* ---- ISS LINE KO ADD KIYA HAI: Bahar click karne par layout wapas normal ho ---- */
                 document.body.classList.remove("sidebar-open");
                 
                 if (sidebarOverlay) {
