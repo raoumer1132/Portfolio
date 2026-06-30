@@ -559,25 +559,26 @@ body {
 }
 
 /* ==========================================================================
-   9. RESPONSIVE MEDIA QUERIES (EXPERIENCE PAGE MOBILE FIX)
+   9. RESPONSIVE MEDIA QUERIES (EXPERIENCE PAGE RESPONSIVE FIXED)
    ========================================================================== */
 @media (max-width: 1024px) {
     .main-portfolio-layout {
         display: flex !important;
         flex-direction: column !important;
         grid-template-columns: none !important;
-        margin-left: 80px !important; /* Sidebar ke liye fixed safe margin */
-        margin-right: 15px !important;
-        width: calc(100% - 95px) !important;
-        max-width: calc(100% - 95px) !important;
-        padding-top: 130px !important;
+        margin-left: 90px !important; /* Fixed safe separation from left fixed sidebar */
+        margin-right: 20px !important;
+        width: calc(100% - 110px) !important;
+        max-width: calc(100% - 110px) !important;
+        padding-top: 140px !important;
+        padding-left: 0 !important; /* Explicitly reset any dynamic padding spacing */
         gap: 40px !important;
-        padding-left: 0 !important; /* Desktop desktop push effect clear kiya */
     }
 
-    /* Mobile par padding-left push reset default collapse logic */
+    /* Prevent sidebar pushing inside responsive fluid states */
     .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
-        padding-left: 0 !important; 
+        padding-left: 0 !important;
+        margin-left: 90px !important;
     }
 
     .left-column {
@@ -586,6 +587,7 @@ body {
         width: 100% !important;
         max-width: 100% !important;
     }
+
     .right-column {
         width: 100% !important;
         max-width: 100% !important;
@@ -593,24 +595,28 @@ body {
 }
 
 @media (max-width: 768px) {
-    /* Responsive alignment fixed state layout settings */
     .gemini-sidebar {
-        display: flex !important; 
+        display: flex !important;
         position: fixed !important;
         top: 15px !important;
         left: 15px !important;
         height: calc(100vh - 30px) !important;
         width: 60px !important;
         padding: 15px 8px !important;
-        z-index: 99999 !important;
+        z-index: 99999 !important; /* Force to overlay stack layers */
     }
 
-    /* Sidebar toggle state rule inside mobile width limits */
     .gemini-sidebar.sidebar-expanded {
         width: 220px !important;
     }
 
-    /* Top Floating Menu adjust layout */
+    /* Dynamic overlay when hamburger expands sidebar */
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        margin-left: 90px !important; 
+        padding-left: 0 !important;
+    }
+
+    /* Fixed Top bar spacing adjust */
     .nav {
         position: fixed !important;
         top: 15px !important;
@@ -619,22 +625,28 @@ body {
         padding: 12px 20px !important;
         gap: 20px !important;
         width: max-content !important;
-        z-index: 9998 !important;
+        z-index: 1000 !important;
     }
 
     .experience-main-heading h2, .contact-heading h2 {
-        font-size: 2.8rem !important;
-        letter-spacing: -1px !important;
+        font-size: 3rem !important;
+        letter-spacing: -1.5px !important;
     }
 }
 
 @media (max-width: 600px) {
+    .main-portfolio-layout {
+        margin-left: 80px !important;
+        margin-right: 10px !important;
+        width: calc(100% - 90px) !important;
+        max-width: calc(100% - 90px) !important;
+    }
+
     .form-row {
         flex-direction: column !important;
         gap: 20px !important;
     }
 
-    /* Experience lists mobile responsive stacking format structure */
     .experience-list-row {
         flex-direction: column !important;
         align-items: flex-start !important;
@@ -661,28 +673,15 @@ body {
 }
 
 /* ==========================================================================
-   SIDEBAR PUSH LAYOUT EFFECT (DESKTOP ONLY)
+   10. SIDEBAR PUSH LAYOUT EFFECT (STRICT DESKTOP ENFORCED ONLY)
    ========================================================================== */
 .main-portfolio-layout {
     transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1), margin-left 0.35s ease;
 }
 
-/* Sirf desktop layout view screen par push logic handle ho */
+/* Is zone ke baahar (mobile/tablet par) push logic kabhi trigger nahi hogi */
 @media (min-width: 1025px) {
     .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
-        padding-left: 320px !important; 
+        padding-left: 320px !important;
     }
-}
-/* ==========================================================================
-   SIDEBAR PUSH LAYOUT EFFECT
-   ========================================================================== */
-
-/* Main layout par smooth transition lagayein taake jhatka na lage */
-.main-portfolio-layout {
-    transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Jab sidebar expanded ho, toh main layout right side par khisak jaye */
-.gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
-    padding-left: 320px !important; /* Space ko barha diya taake content aage ho jaye */
 }
