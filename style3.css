@@ -436,3 +436,39 @@ body {
 .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
     padding-left: 320px !important; /* Space ko barha diya taake content aage ho jaye */
 }
+/* ==========================================================================
+   4. TOP NAVBAR DESIGN (ADDED FROM HTML INLINE STYLES)
+   ========================================================================== */
+
+.top-nav-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.top-navbar {
+    background: rgba(25, 25, 25, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support ke liye */
+    padding: 10px 24px;
+    border-radius: 12px;
+    display: flex;
+    gap: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.top-navbar a {
+    color: #888;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+/* Hover effect: jab icon par mouse le kar jayein to color thoda bright ho jaye */
+.top-navbar a:hover {
+    color: #bbb;
+}
+
+/* Jo page open hai (jaise abhi tools.html active hai) uske liye white color */
+.top-navbar a[href="tools.html"] {
+    color: #fff !important;
+}
