@@ -225,7 +225,13 @@ body {
         padding-top: 120px;
     }
 }
-
+.left-column {
+    position: sticky !important;
+    top: 120px;          /* Top navbar se perfect gap */
+    height: fit-content; /* Yeh property sticky ko activate karne ke liye lazmi hai */
+    width: 100%;
+    z-index: 10;
+}
 /* ==========================================================================
    5. PROFILE CARD & COMPONENT BLOCKS
    ========================================================================== */
