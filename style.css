@@ -501,7 +501,7 @@ body {
 
     /* 3. Top Navbar: Bachi hui right screen space ke perfect center me */
     .nav { 
-        position: fixed !important; 
+        position: absolute !important; 
         top: 15px !important;
         /* Sidebar ke safe area (90px) se lekar screen ke end tak ka exact center */
         left: calc(45px + 50%) !important; 
