@@ -596,68 +596,61 @@ body.page-ready {
 .footer-orange { color: #e65f2b; }
 
 /* ==========================================================================
-   MOBILE RESPONSIVE COMPLETE RE-FIX (OVERLAP & SIDEBAR VISIBILITY)
+   MOBILE & TABLET COLUMN PUSH (SIDEBAR ADJUSTMENT)
    ========================================================================== */
 @media (max-width: 1024px) {
-    /* 1. Desktop wale absolute body/sibling pushes ko overwrite karein */
+    /* 1. Desktop push rules ko override karein */
     .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout,
     .gemini-sidebar ~ .main-portfolio-layout {
-        padding-left: 20px !important; 
-        padding-right: 20px !important;
+        padding-left: 90px !important; /* Sidebar ke liye custom space */
+        padding-right: 15px !important;
     }
 
-    /* 2. Main layout grid ko flex column me badlein aur margins normal karein */
+    /* 2. Layout ko control karein aur right side push karein */
     .main-portfolio-layout {
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
         max-width: 100vw !important;
-        padding: 120px 20px 60px 20px !important; /* Top nav ke liye space */
+        /* Left side par 90px padding di hai taake sidebar ke upar content na aaye */
+        padding: 120px 15px 60px 90px !important; 
         gap: 40px !important;
     }
 
-    /* 3. Overlapping Khatam: Left column ko sticky se hata kar static/relative karein */
-    .left-column {
+    /* 3. Columns ki width settings */
+    .left-column, 
+    .right-column {
         position: relative !important;
         top: 0 !important;
         width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
         z-index: 5 !important;
     }
 
-    .right-column {
-        width: 100% !important;
-        z-index: 4 !important;
-    }
-
-    /* 4. Sidebar default me slim bar ban kar left me visible rahega */
+    /* 4. Sidebar default slim state setting */
     .gemini-sidebar {
         position: fixed !important;
-        left: 10px !important; /* Screen ke andar thoda sa dikhta rahega */
-        top: 90px !important;  /* Top nav ke bilkul niche adjustment */
-        height: calc(100vh - 110px) !important;
-        width: 60px !important; /* Slim default width */
+        left: 15px !important; /* Apni safe jagah par fixed rahega */
+        top: 90px !important;
+        height: calc(100vh - 120px) !important;
+        width: 60px !important;
         z-index: 9999 !important;
         border-radius: 16px !important;
         padding: 15px 0 !important;
         transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 
-    /* 5. Jab click ho to expand ho kar poora bahar aaye */
+    /* 5. Jab menu trigger ho to overlay base par expand ho */
     .gemini-sidebar.sidebar-expanded {
         width: 260px !important;
-    }
-
-    /* Profile card elements spacing check */
-    .dashed-circle {
-        display: none !important; /* Mobile pe agar overlap kare to hide kar dein */
     }
 }
 
 @media (max-width: 768px) {
-    /* 6. Font sizes scale down karein taake heading wrap ho kar profile card ke piche na jaye */
     .blog-main-heading h2, 
     .contact-heading h2 {
-        font-size: 2.8rem !important;
+        font-size: 2.5rem !important;
         letter-spacing: -1px !important;
         line-height: 1.1 !important;
     }
