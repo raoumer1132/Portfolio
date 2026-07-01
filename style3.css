@@ -591,22 +591,26 @@ body {
         grid-template-columns: 1fr !important; 
     }
 
-    /* Nav alignment container fix for overflow defense */
+   @media (max-width: 768px) {
+    /* Top navbar ko dono pages par unique uniform compact size par freeze karein */
     .nav {
         position: fixed !important;
         top: 15px !important;
-        padding: 10px 16px !important;
-        gap: 15px !important;
-        width: calc(100% - 115px) !important; 
-        max-width: max-content !important;
+        padding: 8px 14px !important; 
+        gap: 12px !important;       
+        width: auto !important;       
+        max-width: calc(100% - 110px) !important; 
         left: calc(50% + 32px) !important; 
+        transform: translateX(-50%) !important;
         box-sizing: border-box !important;
     }
 
+    /* Navbar ke andar ke icons ka mobile size perfect compact rakhein */
     .nav a {
-        font-size: 1.05rem !important;
+        font-size: 1rem !important;
+        padding: 4px !important;
     }
-
+}
     .tools-main-heading h2, .contact-heading h2 {
         font-size: 2.2rem !important;
     }
