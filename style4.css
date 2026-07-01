@@ -599,12 +599,15 @@ body.page-ready {
    MOBILE & TABLET RESPONSIVE RE-SET (OVERLAP & CUT FIX)
    ========================================================================== */
 @media (max-width: 1024px) {
-    /* 1. Desktop wale push effect ko mobile par STRICTLY khatam karein */
-    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout,
-    .gemini-sidebar ~ .main-portfolio-layout {
-        padding-left: 20px !important; 
-        padding-right: 20px !important;
+    .gemini-sidebar {
+        position: fixed !important;
+        left: 15px !important;
+        top: 15px !important;
+        height: calc(100vh - 30px) !important;
+        width: 70px !important;
+        z-index: 9999 !important;
     }
+}
 
     /* 2. Main layout ko screen ke andar warp karein aur center karein */
     .main-portfolio-layout {
