@@ -507,38 +507,65 @@ body {
 }
 
 /* ==========================================================================
-   7. GLOBAL MEDIA QUERIES (FORCE VERTICAL STACK & PERFECT SIDEBAR)
+   7. GLOBAL MEDIA QUERIES (STRICT OVERFLOW & LAYOUT RESET)
    ========================================================================== */
 @media (max-width: 1024px) {
-    /* Pure layout ko strict vertical flex-box stack bana diya */
+    /* HTML/Body overflow boundary lock */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+    }
+
+    /* Width auto karne se padding andar calculate hogi, screen se bahar nahi jayegi */
     .main-portfolio-layout {
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important;
         align-items: stretch !important;
-        padding-left: 95px !important;  /* Sidebar ke liye clean permanent left space */
+        width: auto !important; 
+        max-width: 100% !important;
+        padding-left: 95px !important;  
         padding-right: 20px !important;
         padding-top: 140px !important;    
         gap: 40px !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
     }
 
-    /* 👑 FIRST PRIORITY: Profile Card / Left Column sabse upar aaye */
+    /* Profile Card / Left Column Order Fix */
     .left-column,
-    .main-portfolio-layout > .left-column,
-    .main-portfolio-layout > div:first-child {
-        order: -1 !important; /* Negative value isko forced top par le aayegi */
+    .main-portfolio-layout > .left-column {
+        order: -1 !important; 
         position: relative !important;
         top: 0 !important;
         width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
-    /* 👑 SECOND PRIORITY: Tools / Right Column / Form neechay aaye */
+    /* Tools / Right Column Order Fix */
     .right-column,
-    .main-portfolio-layout > .right-column,
-    .main-portfolio-layout > div:nth-child(2),
-    .main-portfolio-layout > section {
-        order: 1 !important;  /* Isko har haal mein card ke neechay push karega */
+    .main-portfolio-layout > .right-column {
+        order: 1 !important;  
         width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Grid layout limits definition to stop horizontal push */
+    .tools-grid-container, 
+    .tool-card, 
+    .contact-form, 
+    .form-row {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .tool-details {
+        min-width: 0 !important;
+        word-break: break-word !important;
     }
 
     /* Responsive Expanded Sidebar spacing safeguard */
@@ -548,7 +575,6 @@ body {
 }
 
 @media (max-width: 768px) {
-    /* 🛠️ Sidebar overlap bug fix: Isko bilkul left side par independent set kiya */
     .gemini-sidebar {
         position: fixed !important;
         top: 20px !important;
@@ -557,7 +583,6 @@ body {
         z-index: 2000 !important;
     }
 
-    /* Cards structure mobile stretch rules */
     .tools-grid-container { 
         grid-template-columns: 1fr !important; 
     }
@@ -566,15 +591,16 @@ body {
         grid-template-columns: 1fr !important; 
     }
 
-    /* Top navbar text sizing & auto center alignment logic */
+    /* Nav alignment container fix for overflow defense */
     .nav {
         position: fixed !important;
         top: 15px !important;
         padding: 10px 16px !important;
         gap: 15px !important;
-        width: calc(100% - 105px) !important; 
+        width: calc(100% - 115px) !important; 
         max-width: max-content !important;
-        left: calc(50% + 35px) !important; 
+        left: calc(50% + 32px) !important; 
+        box-sizing: border-box !important;
     }
 
     .nav a {
@@ -587,7 +613,6 @@ body {
 }
 
 @media (max-width: 600px) {
-    /* Core mobile padding alignment updates */
     .main-portfolio-layout {
         padding-left: 85px !important; 
         padding-right: 15px !important;
@@ -595,37 +620,7 @@ body {
     }
 
     .nav {
-        left: calc(50% + 35px) !important;
+        left: calc(50% + 32px) !important;
         gap: 12px !important;
-    }
-}
-@media (max-width: 1024px) {
-    /* 1. Viewport boundaries ko force karein ke koi cheez scroll na banaye */
-    html, body {
-        overflow-x: hidden !important;
-        width: 100% !important;
-        max-width: 100vw !important;
-    }
-
-    /* 2. Main content area ko strict safe bounding box me rakhein */
-    .main-portfolio-layout {
-        max-width: 100vw !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 3. Grid aur Form Rows ko automatic sizing par force karein */
-    .tools-grid-container,
-    .form-row,
-    .contact-form,
-    .tool-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 4. Kisi card ya element ke un-intentional out-push ko block karein */
-    .tool-details {
-        min-width: 0 !important; /* Flexbox inline items overflow ko rokta hai */
-        word-break: break-word;
     }
 }
