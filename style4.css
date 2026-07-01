@@ -596,43 +596,42 @@ body.page-ready {
 .footer-orange { color: #e65f2b; }
 
 /* ==========================================================================
-   8. RESPONSIVE DESIGN BREAKPOINTS
+   MOBILE & TABLET RESPONSIVE SIDEBAR OVERLAP FIX
    ========================================================================== */
 @media (max-width: 1024px) {
-    .main-portfolio-layout {
-        grid-template-columns: 1fr;
-        padding-left: 40px;
-        padding-top: 120px;
+    /* 1. Mobile par sidebar ko screen se bahar (hidden) rakhein default me */
+    .gemini-sidebar {
+        left: -100px; /* Hide completely */
+        height: calc(100vh - 20px);
+        top: 10px;
+        transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s ease;
     }
-    .left-column {
-        width: 100%;
-        position: relative;
-        top: 0;
+
+    /* 2. Jab JavaScript se class active ho to slide in ho */
+    .gemini-sidebar.sidebar-expanded {
+        left: 10px !important;
+        width: 260px !important;
+    }
+
+    /* 3. Mobile par body push effect ko disable karein taake layout kharab na ho */
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        padding-left: 20px !important; 
+    }
+
+    /* 4. Layout padding ko zero/minimal karein taake overlapping na ho */
+    .main-portfolio-layout {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-top: 100px !important; /* Top nav ke liye space */
     }
 }
 
-@media (max-width: 992px) {
-    .blog-main-heading h2 {
-        font-size: 4rem;
-        letter-spacing: -1.5px;
-    }
-}
-
-@media (max-width: 768px) {
-    .main-portfolio-layout {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    .blog-title {
-        font-size: 1.4rem;
-    }
-    .form-row {
-        flex-direction: column;
-        gap: 24px;
-    }
+@media (max-width: 480px) {
+    /* Typography scale down for small devices */
+    .blog-main-heading h2, 
     .contact-heading h2 {
-        font-size: 3.5rem;
-        letter-spacing: -1.5px;
+        font-size: 2.5rem !important;
+        letter-spacing: -1px;
     }
 }
 /* ==========================================================================
