@@ -596,42 +596,61 @@ body.page-ready {
 .footer-orange { color: #e65f2b; }
 
 /* ==========================================================================
-   MOBILE & TABLET RESPONSIVE SIDEBAR OVERLAP FIX
+   MOBILE & TABLET RESPONSIVE RE-SET (OVERLAP & CUT FIX)
    ========================================================================== */
 @media (max-width: 1024px) {
-    /* 1. Mobile par sidebar ko screen se bahar (hidden) rakhein default me */
-    .gemini-sidebar {
-        left: -100px; /* Hide completely */
-        height: calc(100vh - 20px);
-        top: 10px;
-        transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s ease;
-    }
-
-    /* 2. Jab JavaScript se class active ho to slide in ho */
-    .gemini-sidebar.sidebar-expanded {
-        left: 10px !important;
-        width: 260px !important;
-    }
-
-    /* 3. Mobile par body push effect ko disable karein taake layout kharab na ho */
-    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+    /* 1. Desktop wale push effect ko mobile par STRICTLY khatam karein */
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout,
+    .gemini-sidebar ~ .main-portfolio-layout {
         padding-left: 20px !important; 
+        padding-right: 20px !important;
     }
 
-    /* 4. Layout padding ko zero/minimal karein taake overlapping na ho */
+    /* 2. Main layout ko screen ke andar warp karein aur center karein */
     .main-portfolio-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100vw !important;
         padding-left: 20px !important;
         padding-right: 20px !important;
-        padding-top: 100px !important; /* Top nav ke liye space */
+        padding-top: 110px !important; /* Top bar navigation ke liye space */
+        gap: 30px !important;
+        overflow-x: hidden;
+    }
+
+    /* 3. Left aur Right columns ko 100% width pe le aayein */
+    .left-column, 
+    .right-column {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    /* 4. Sidebar default mein screen se bahar rahega */
+    .gemini-sidebar {
+        position: fixed !important;
+        left: -110px !important; /* Screen se bahar */
+        top: 15px !important;
+        height: calc(100vh - 30px) !important;
+        width: 70px !important;
+        z-index: 9999 !important; /* Har cheez ke upar rahe */
+        transition: left 0.3s ease, width 0.3s ease !important;
+    }
+
+    /* 5. Jab hamburger click ho to left se slide-in ho */
+    .gemini-sidebar.sidebar-expanded {
+        left: 15px !important;
+        width: 260px !important;
     }
 }
 
-@media (max-width: 480px) {
-    /* Typography scale down for small devices */
+@media (max-width: 768px) {
+    /* Mobile text headings size optimization */
     .blog-main-heading h2, 
     .contact-heading h2 {
-        font-size: 2.5rem !important;
-        letter-spacing: -1px;
+        font-size: 2.8rem !important;
+        letter-spacing: -1px !important;
     }
 }
 /* ==========================================================================
