@@ -599,3 +599,33 @@ body {
         gap: 12px !important;
     }
 }
+@media (max-width: 1024px) {
+    /* 1. Viewport boundaries ko force karein ke koi cheez scroll na banaye */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+    }
+
+    /* 2. Main content area ko strict safe bounding box me rakhein */
+    .main-portfolio-layout {
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. Grid aur Form Rows ko automatic sizing par force karein */
+    .tools-grid-container,
+    .form-row,
+    .contact-form,
+    .tool-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 4. Kisi card ya element ke un-intentional out-push ko block karein */
+    .tool-details {
+        min-width: 0 !important; /* Flexbox inline items overflow ko rokta hai */
+        word-break: break-word;
+    }
+}
