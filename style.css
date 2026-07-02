@@ -577,7 +577,7 @@ body {
     }
 }
 /* --- FLOATING HAMBURGER BUTTON STYLES (FINAL FIXED) --- */
-#sidebarToggleBtn {
+#sidebarToggleBtn, .global-toggle-btn {
     position: fixed !important;
     top: 30px !important;
     left: 30px !important; 
@@ -598,20 +598,20 @@ body {
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s !important;
 }
 
-#sidebarToggleBtn:hover {
+#sidebarToggleBtn:hover, .global-toggle-btn:hover {
     background: rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Desktop Styles: Jab sidebar open ho to button aage shift ho */
 @media (min-width: 769px) {
-    body.sidebar-open #sidebarToggleBtn {
+    body.sidebar-open #sidebarToggleBtn, body.sidebar-open .global-toggle-btn {
         left: 255px !important; 
     }
 }
 
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
-    #sidebarToggleBtn {
+    #sidebarToggleBtn, .global-toggle-btn {
         top: 15px !important;
         left: 15px !important;
     }
@@ -620,5 +620,3 @@ body {
         left: 15px !important;
     }
 }
-
-
