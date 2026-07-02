@@ -573,8 +573,8 @@ body {
         padding-left: 260px; 
     }
 }
-/* --- FLOATING HAMBURGER BUTTON STYLES (COMPLETED) --- */
-.global-toggle-btn {
+/* --- FLOATING HAMBURGER BUTTON STYLES (FINAL FIXED) --- */
+#sidebarToggleBtn {
     position: fixed !important;
     top: 30px !important;
     left: 30px !important; 
@@ -595,28 +595,27 @@ body {
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s !important;
 }
 
-.global-toggle-btn:hover {
+#sidebarToggleBtn:hover {
     background: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Jab desktop par sidebar open ho to button smoothly aage move kare */
+/* Desktop Styles: Jab sidebar open ho to button aage shift ho */
 @media (min-width: 769px) {
-    body.sidebar-open .global-toggle-btn {
+    body.sidebar-open #sidebarToggleBtn {
         left: 255px !important; 
     }
 }
 
-/* Mobile responsive alignment adjustment */
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
-    .global-toggle-btn {
+    #sidebarToggleBtn {
         top: 15px !important;
         left: 15px !important;
     }
-}
-
-/* Mobile par open hone ke liye adjustment */
-@media (max-width: 768px) {
+    
     .gemini-sidebar.sidebar-open {
         left: 15px !important;
     }
 }
+
+
