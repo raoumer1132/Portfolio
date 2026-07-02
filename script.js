@@ -14,14 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
             e.stopPropagation(); // Click event ko baqi body par click hone se rokta hai
             
             // Sidebar ko andar/bahar slide karne ki class toggle
-            sidebar.classList.toggle("sidebar-open");
-            
-            // Background black overlay shadow screen ko toggle karne ke liye
-            if (sidebarOverlay) {
-                sidebarOverlay.classList.toggle("show");
-            }
-        });
-    }
+        sidebar.classList.toggle("sidebar-open");
+        
+        // Body class toggle (Button slide karne ke liye)
+        document.body.classList.toggle("sidebar-open");
+        
+        // Background black overlay shadow screen ko toggle karne ke liye
+        if (sidebarOverlay) {
+            sidebarOverlay.classList.toggle("show");
+        }
 
     // Screen par kahin bhi bahar click karne se ya overlay par tap karne se sidebar close ho jaye
     document.addEventListener("click", (e) => {
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Agar click sidebar ke andar ya hamburger toggle button par NAHI hua
             if (!sidebar.contains(e.target) && toggleBtn && !toggleBtn.contains(e.target)) {
                 sidebar.classList.remove("sidebar-open");
-                
+                document.body.classList.remove("sidebar-open");
                 if (sidebarOverlay) {
                     sidebarOverlay.classList.remove("show");
                 }
