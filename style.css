@@ -14,6 +14,9 @@ body {
 }    
 
 
+/* ==========================================================================
+   PAGE TRANSITION OVERLAY (FIXED & TESTED)
+   ========================================================================== */
 .page-transition-overlay {
     position: fixed;
     top: 0;
@@ -22,21 +25,24 @@ body {
     height: 100vh;
     background-color: #0c0a0a; 
     z-index: 99999;
-    pointer-events: none;
-    opacity: 1;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-.page-transition-overlay.fade-out {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-.page-transition-overlay.fade-in {
     opacity: 1;
     visibility: visible;
-    pointer-events: all; 
+    pointer-events: all; /* Shuruat mein click block rakhega */
+    transition: opacity 0.4s ease, visibility 0.4s ease !important;
 }
 
+/* Jab JS se fade-out class aaye to ye smoothly gayab ho jaye aur rasta chor de */
+.page-transition-overlay.fade-out {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important; /* Isse baqi page ke elements par click hona shuru ho jayega */
+}
+
+.page-transition-overlay.fade-in {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: all !important; 
+}
 /* ==========================================================================
    2. PREMIUM GLASSMORPHISM SIDEBAR (NEW HIDDEN STATE)
    ========================================================================== */
@@ -567,28 +573,45 @@ body {
         padding-left: 260px; 
     }
 }
-/* --- FLOATING HAMBURGER BUTTON STYLES --- */
+/* --- FLOATING HAMBURGER BUTTON STYLES (COMPLETED) --- */
 .global-toggle-btn {
     position: fixed !important;
     top: 30px !important;
-    left: 30px !important; /* Hamesha screen ke top-left corner par dikhega */
-    z-index: 1000000 !important; /* Sidebar se bhi upar taake click ho sake */
+    left: 30px !important; 
+    width: 46px !important; 
+    height: 46px !important;
+    border-radius: 50% !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+    z-index: 1000000 !important; 
     background: rgba(255, 255, 255, 0.05) !important;
     backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     color: white !important;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s !important;
 }
 
-/* Jab desktop par sidebar open ho to button thoda aage move ho jaye */
+.global-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Jab desktop par sidebar open ho to button smoothly aage move kare */
 @media (min-width: 769px) {
     body.sidebar-open .global-toggle-btn {
-        left: 245px !important; 
+        left: 255px !important; 
     }
 }
-/* Sidebar open karne ke liye toggle class */
-.gemini-sidebar.sidebar-open {
-    left: 30px !important;
+
+/* Mobile responsive alignment adjustment */
+@media (max-width: 768px) {
+    .global-toggle-btn {
+        top: 15px !important;
+        left: 15px !important;
+    }
 }
 
 /* Mobile par open hone ke liye adjustment */
