@@ -15,7 +15,7 @@ body {
 
 
 /* ==========================================================================
-   PAGE TRANSITION OVERLAY (FIXED & TESTED)
+   PAGE TRANSITION OVERLAY (FIXED & SAFE STATE)
    ========================================================================== */
 .page-transition-overlay {
     position: fixed;
@@ -25,23 +25,26 @@ body {
     height: 100vh;
     background-color: #0c0a0a; 
     z-index: 99999;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: all;
+    
+    /* Default state ko hidden rakhein taake page freeze na ho */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; 
+    
     transition: opacity 0.4s ease, visibility 0.4s ease !important;
 }
 
-/* Jab fade-out class aaye to display none zaroor ho */
-.page-transition-overlay.fade-out {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    display: none !important; /* Yeh line add ki hai safe rehne ke liye */
-}
+/* Jab page transitions active hon sirf tabhi ye show ho */
 .page-transition-overlay.fade-in {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: all !important; 
+}
+
+.page-transition-overlay.fade-out {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 /* ==========================================================================
    2. PREMIUM GLASSMORPHISM SIDEBAR (NEW HIDDEN STATE)
