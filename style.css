@@ -27,17 +27,17 @@ body {
     z-index: 99999;
     opacity: 1;
     visibility: visible;
-    pointer-events: all; /* Shuruat mein click block rakhega */
+    pointer-events: all;
     transition: opacity 0.4s ease, visibility 0.4s ease !important;
 }
 
-/* Jab JS se fade-out class aaye to ye smoothly gayab ho jaye aur rasta chor de */
+/* Jab fade-out class aaye to display none zaroor ho */
 .page-transition-overlay.fade-out {
     opacity: 0 !important;
     visibility: hidden !important;
-    pointer-events: none !important; /* Isse baqi page ke elements par click hona shuru ho jayega */
+    pointer-events: none !important;
+    display: none !important; /* Yeh line add ki hai safe rehne ke liye */
 }
-
 .page-transition-overlay.fade-in {
     opacity: 1 !important;
     visibility: visible !important;
