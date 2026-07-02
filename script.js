@@ -78,3 +78,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+        // Page load hote hi black screen overlay ko remove karne ke liye
+window.addEventListener("DOMContentLoaded", () => {
+    const overlay = document.querySelector(".page-transition-overlay");
+    if (overlay) {
+        overlay.classList.add("fade-out");
+        
+        // 400ms baad element ko display none kar dein taake ye rasta na rokay
+        setTimeout(() => {
+            overlay.style.display = "none";
+        }, 400);
+    }
+});
