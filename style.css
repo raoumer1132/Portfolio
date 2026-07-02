@@ -36,15 +36,15 @@ body {
 }
 
 /* ==========================================================================
-   2. PREMIUM GLASSMORPHISM SIDEBAR (FIXED VIEWPORT)
+   2. PREMIUM GLASSMORPHISM SIDEBAR (NEW HIDDEN STATE)
    ========================================================================== */
 .gemini-sidebar {
     position: fixed !important; 
     top: 30px !important;
-    left: 30px !important;
-    width: 68px; /* Default Collapsed State */
+    left: -280px !important; /* Default state: Screen se poora bahar hidden */
+    width: 250px !important; /* Expanded width fixed */
     height: calc(100vh - 60px) !important; 
-    z-index: 9999 !important;
+    z-index: 999999 !important; 
     background: rgba(255, 255, 255, 0.03) !important; 
     backdrop-filter: blur(20px) saturate(160%) !important; 
     -webkit-backdrop-filter: blur(20px) saturate(160%);
@@ -55,14 +55,22 @@ body {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Width badalne ke bajaye ab left position smoothly slide hogi */
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* Active Expanded State Class */
-.gemini-sidebar.sidebar-expanded {
-    width: 240px !important;
+/* Sidebar ke andar ke text ko default visible rakhein */
+.gemini-sidebar .nav-text {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    display: inline-block !important;
+}
+
+/* Toggle hone par sidebar is class se andar aayega */
+.gemini-sidebar.sidebar-open {
+    left: 30px !important; 
 }
 
 .gemini-sidebar::-webkit-scrollbar {
@@ -127,21 +135,8 @@ body {
 .sidebar-links li a.active {
     background-color: rgba(255, 255, 255, 0.12) !important; 
     color: #ffffff;
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-}
-
-/* Standard Text Visibility Rules */
-.gemini-sidebar .nav-text {
-    opacity: 0;
-    pointer-events: none;
-    display: none; 
-    transition: opacity 0.2s ease;
-}
-
-.gemini-sidebar.sidebar-expanded .nav-text {
-    opacity: 1;
-    pointer-events: auto;
-    display: inline-block;
 }
 
 .sidebar-bottom-user {
@@ -166,6 +161,7 @@ body {
     visibility: hidden;
     transition: all 0.3s ease;
 }
+
 .sidebar-overlay.show {
     opacity: 1;
     visibility: visible;
@@ -488,16 +484,20 @@ body {
         box-sizing: inherit !important;
     }
 
-    /* 2. Fixed Sidebar Layout */
+    /* 2. New Mobile Sidebar Layout (Fully Hidden) */
     .gemini-sidebar { 
         display: flex !important;
         position: fixed !important;
         top: 15px !important;
-        left: 15px !important;
+        left: -280px !important; /* Mobile par bhee default hidden */
         height: calc(100vh - 30px) !important;
-        width: 60px !important;
+        width: 250px !important;
         padding: 15px 8px;
-        z-index: 999999 !important; /* Sidebar ko projects card se upar rakha */
+        z-index: 999999 !important;
+    }
+    
+    .gemini-sidebar.sidebar-open {
+        left: 15px !important; /* Open hone par mobile margin edge */
     }
 
     /* 3. Top Navbar FIX: Centered with high layering */
@@ -516,17 +516,16 @@ body {
         z-index: 9999999 !important; /* Sabse highest priority top bar ko di */
     }
 
-    /* 4. MAIN PORTFOLIO LAYOUT: Fixed width limits */
+    /* 4. MAIN PORTFOLIO LAYOUT: Fixed width limits (No Sidebar Offset) */
     .main-portfolio-layout { 
         display: flex !important;
         flex-direction: column !important;
-        margin-left: 90px !important; 
+        margin-left: 15px !important; /* Ab left se automatic space nahi banegi text center rahega */
         margin-right: 15px !important;
-        width: calc(100% - 105px) !important; 
-        max-width: calc(100% - 105px) !important;
+        width: calc(100% - 30px) !important; 
+        max-width: calc(100% - 30px) !important;
         padding: 100px 0px 40px 0px !important; 
     }
-
     /* 5. Main Card and Columns constraints */
     .left-column, .right-column, .profile-card, .main-card {
         width: 100% !important;
