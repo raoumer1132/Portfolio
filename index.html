@@ -7,20 +7,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
-</head>
-<body>
-<div class="page-transition-overlay"></div>
-    <!-- SIDEBAR SECTION -->
-   <button id="sidebarToggleBtn" class="sidebar-toggle-trigger global-toggle-btn" type="button" aria-label="Toggle Sidebar">
+</head><body>
+    <button id="sidebarToggleBtn" style="position: fixed; top: 30px; left: 30px; z-index: 9999999; background: #1a1a1a; border: 1px solid #333; color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
         <i class="fa-solid fa-bars"></i>
     </button>
 
+    <div class="page-transition-overlay"></div>
+    
     <aside id="geminiSidebar" class="gemini-sidebar">
-    <div class="sidebar-top">
-        </div>
-        
         <ul class="sidebar-links">
             <li><a href="index.html"><i class="fa-solid fa-house"></i><span class="nav-text">Dashboard</span></a></li>
+            ...
             <li><a href="https://www.linkedin.com/in/umerdeveloper1122"><i class="fa-solid fa-user-group"></i><span class="nav-text">Team</span></a></li>
             <li><a href="https://calendly.com/app/availability/schedules"><i class="fa-solid fa-calendar-days"></i><span class="nav-text">Calendar</span></a></li>
             <li><a href="https://www.daraz.pk"><i class="fa-solid fa-file-lines"></i><span class="nav-text">Documents</span></a></li>
