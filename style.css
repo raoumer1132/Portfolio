@@ -584,3 +584,14 @@ body {
         left: 245px !important; 
     }
 }
+/* Sidebar open karne ke liye toggle class */
+.gemini-sidebar.sidebar-open {
+    left: 30px !important;
+}
+
+/* Mobile par open hone ke liye adjustment */
+@media (max-width: 768px) {
+    .gemini-sidebar.sidebar-open {
+        left: 15px !important;
+    }
+}
