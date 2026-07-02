@@ -565,3 +565,22 @@ body {
         padding-left: 260px; 
     }
 }
+/* --- FLOATING HAMBURGER BUTTON STYLES --- */
+.global-toggle-btn {
+    position: fixed !important;
+    top: 30px !important;
+    left: 30px !important; /* Hamesha screen ke top-left corner par dikhega */
+    z-index: 1000000 !important; /* Sidebar se bhi upar taake click ho sake */
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Jab desktop par sidebar open ho to button thoda aage move ho jaye */
+@media (min-width: 769px) {
+    body.sidebar-open .global-toggle-btn {
+        left: 245px !important; 
+    }
+}
