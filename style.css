@@ -29,6 +29,8 @@ body {
 }
 .page-transition-overlay.fade-out {
     opacity: 0;
+    pointer-events: none; 
+    visibility: hidden;
 }
 .page-transition-overlay.fade-in {
     opacity: 1;
