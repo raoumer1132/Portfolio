@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Portfolio</title>
+    <style>
+        body { background-color: #000; color: #fff; font-family: Arial, sans-serif; padding: 40px; }
+        .cart-wrapper { max-width: 600px; margin: 0 auto; background: #111; padding: 20px; border-radius: 10px; border: 1px solid #222; }
+        h1 { color: #ff5722; text-align: center; text-transform: uppercase; }
+        .cart-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #222; }
+        .total { font-size: 1.5rem; text-align: right; margin-top: 20px; color: #ff5722; font-weight: bold; }
+        .checkout-btn { background: #ff5722; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 25px; cursor: pointer; font-size: 1rem; margin-top: 20px; font-weight: bold; }
+        .clear-btn { background: #333; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="cart-wrapper">
+    <h1>Your Selected Packages</h1>
+    <div id="cart-items-list">
+        </div>
+    <div class="total">Total: $<span id="cart-total-price">0</span></div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+    <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+</div>
+
+<script>
+    function displayCart() {
+        let cart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
+        let listContainer = document.getElementById('cart-items-list');
+        let totalContainer = document.getElementById('cart-total-price');
+        
+        if(cart.length === 0) {
+            listContainer.innerHTML = "<p style='text-align:center; color:#888;'>Your cart is empty.</p>";
+            totalContainer.innerText = "0";
+            return;
+        }
+        
+        listContainer.innerHTML = "";
+        let total = 0;
+        
+        cart.forEach(item => {
+            total += (item.price * item.quantity);
+            listContainer.innerHTML += `
+                <div class="cart-item">
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>$${item.price * item.quantity}</span>
+                </div>
+            `;
+        });
+        
+        totalContainer.innerText = total;
+    }
+
+    function clearCart() {
+        localStorage.removeItem('portfolioCart');
+        displayCart();
+    }
+
+    function checkout() {
+        alert("Thank you! Connecting you to the payment gateway...");
+    }
+
+    displayCart();
+</script>
+
+</body>
+</html>
