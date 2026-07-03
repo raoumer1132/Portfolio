@@ -628,3 +628,138 @@ body {
         gap: 12px !important;
     }
 }
+
+
+/* ==========================================================================
+   UNIVERSAL PREMIUM GLASSMORPHISM SIDEBAR & FLOATING BUTTON OVERRIDES
+   ========================================================================== */
+
+/* 1. Sidebar Slide Hidden-to-Open Overrides (Resetting old layout constraints) */
+.gemini-sidebar {
+    position: fixed !important; 
+    top: 30px !important;
+    left: -280px !important; /* Default hidden positioning */
+    width: 250px !important; 
+    height: calc(100vh - 60px) !important; 
+    z-index: 999999 !important; 
+    background: rgba(255, 255, 255, 0.03) !important; 
+    backdrop-filter: blur(20px) saturate(160%) !important; 
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; 
+    border-radius: 24px !important; 
+    padding: 20px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+    align-items: stretch !important; /* Proper text flex mapping */
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Sidebar Active state triggering layout logic */
+.gemini-sidebar.sidebar-open {
+    left: 30px !important; 
+}
+
+/* Old layout toggle safeguards overrides */
+.gemini-sidebar.sidebar-expanded {
+    width: 250px !important; 
+    align-items: stretch !important;
+    padding: 20px 12px !important;
+}
+
+.gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+    padding-left: 130px !important; /* Prevent old push state on desktops */
+}
+
+/* Removing obsolete inner spacing triggers */
+.sidebar-top {
+    display: none !important;
+}
+
+/* 2. Floating Hamburger Button Layout Rules */
+#sidebarToggleBtn, .global-toggle-btn {
+    position: fixed !important;
+    top: 30px !important;
+    left: 30px !important; 
+    width: 46px !important; 
+    height: 46px !important;
+    border-radius: 50% !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+    z-index: 1000000 !important; 
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s !important;
+}
+
+#sidebarToggleBtn:hover, .global-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Desktop Interaction Layout Logic */
+@media (min-width: 769px) {
+    body.sidebar-open #sidebarToggleBtn, body.sidebar-open .global-toggle-btn {
+        left: 20px !important; 
+        z-index: 1000001 !important;
+    }
+}
+
+/* Responsive Media Breakdown Locks */
+@media (max-width: 1024px) {
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        padding-left: 95px !important; 
+    }
+}
+
+@media (max-width: 768px) {
+    #sidebarToggleBtn, .global-toggle-btn {
+        top: 15px !important;
+        left: 15px !important;
+    }
+    .gemini-sidebar {
+        top: 15px !important;
+        left: -280px !important;
+        height: calc(100vh - 30px) !important;
+    }
+    .gemini-sidebar.sidebar-open {
+        left: 15px !important;
+    }
+}
+
+/* ==========================================================================
+   SIDEBAR LINK METRICS & OPACITY CONTROLS
+   ========================================================================== */
+
+/* Active open state parameters */
+.gemini-sidebar.sidebar-open .sidebar-links li a span,
+.gemini-sidebar.sidebar-open .nav-text {
+    display: inline-block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: #ffffff !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.gemini-sidebar.sidebar-open .sidebar-links li a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    width: 100% !important;
+    padding: 12px 15px !important;
+    text-decoration: none !important;
+}
+
+/* Closed state parameters */
+.gemini-sidebar:not(.sidebar-open) .sidebar-links li a span,
+.gemini-sidebar:not(.sidebar-open) .nav-text {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+}
