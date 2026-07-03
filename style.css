@@ -621,3 +621,87 @@ body {
         left: 15px !important;
     }
 }
+
+/* Pricing Section Styling */
+.pricing-section {
+    padding: 60px 20px;
+    background-color: #000000;
+    text-align: center;
+    color: #ffffff;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.packages-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Card Base Design */
+.package-card {
+    background: #111111;
+    border: 1px solid #222222;
+    border-radius: 16px;
+    padding: 30px;
+    width: 280px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.package-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff5722; /* Orange accent color */
+}
+
+/* Featured Card Highlight */
+.package-card.featured {
+    border: 2px solid #ff5722;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ff5722;
+}
+
+.price span {
+    font-size: 1rem;
+    color: #aaaaaa;
+}
+
+.package-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.package-card ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #222222;
+    color: #cccccc;
+}
+
+/* Button Design */
+.add-to-cart-btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #ff5722;
+    color: #ffffff;
+}
