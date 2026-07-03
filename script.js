@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             e.stopPropagation(); // Click event ko baqi body par click hone se rokta hai
             
-            // Sidebar Toggle Button Click Event Handler
+       // Sidebar Toggle Button Click Event Handler (FIXED)
 const toggleBtn = document.getElementById("sidebarToggleBtn") || document.querySelector(".global-toggle-btn");
 const sidebar = document.querySelector(".gemini-sidebar");
 const sidebarOverlay = document.querySelector(".sidebar-overlay");
