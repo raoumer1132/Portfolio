@@ -116,3 +116,14 @@ addToCartButtons.forEach(button => {
         alert(`${packageName} successfully cart me add ho gaya hai!`);
     });
 });
+
+function updateCartBadge() {
+    let currentCart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
+    const totalItems = currentCart.reduce((total, item) => total + item.quantity, 0);
+    const badge = document.getElementById('cart-count');
+    if(badge) {
+        badge.innerText = totalItems;
+    }
+}
+// Isko har dafa button click hone par aur page load par call karein
+updateCartBadge();
