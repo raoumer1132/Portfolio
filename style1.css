@@ -887,3 +887,36 @@ body.sidebar-open {
         left: 15px !important;
     }
 }
+
+/* ==========================================================================
+   SIDEBAR TEXT VISIBILITY FIX FOR PROJECTS PAGE
+   ========================================================================== */
+
+/* Jab sidebar open ho, to uske andar ke links aur text ko complete display aur full opacity do */
+.gemini-sidebar.sidebar-open .sidebar-links li a span,
+.gemini-sidebar.sidebar-open .nav-text,
+.gemini-sidebar.sidebar-open .project-text {
+    display: inline-block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: #ffffff !important; /* Premium White Text */
+    transition: opacity 0.3s ease !important;
+}
+
+/* Sidebar ke andar layout spacing adjustments taake text icons ke sath sahi baithe */
+.gemini-sidebar.sidebar-open .sidebar-links li a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important; /* Icon aur Text ke beech space */
+    width: 100% !important;
+    padding: 12px 15px !important;
+    text-decoration: none !important;
+}
+
+/* Agar closed state mein text hide rakhna ho to default rules */
+.gemini-sidebar:not(.sidebar-open) .sidebar-links li a span,
+.gemini-sidebar:not(.sidebar-open) .nav-text {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+}
