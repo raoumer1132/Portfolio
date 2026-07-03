@@ -1,38 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // ==========================================================================
     // 1. PERFECT HIDDEN-TO-SLIDE SIDEBAR LOGIC
-    // ==========================================================================
-    const sidebar = document.getElementById("geminiSidebar");
-    const toggleBtn = document.getElementById("sidebarToggleBtn");
-    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const sidebar = document.querySelector(".gemini-sidebar");
+    const toggleBtn = document.getElementById("sidebarToggleBtn") || document.querySelector(".global-toggle-btn");
+    const sidebarOverlay = document.querySelector(".sidebar-overlay");
 
     if (sidebar && toggleBtn) {
-        // Bars button (three bars) click event
+        // Bars button click event
         toggleBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation(); // Click event ko baqi body par click hone se rokta hai
             
-       // Sidebar Toggle Button Click Event Handler (FIXED)
-const toggleBtn = document.getElementById("sidebarToggleBtn") || document.querySelector(".global-toggle-btn");
-const sidebar = document.querySelector(".gemini-sidebar");
-const sidebarOverlay = document.querySelector(".sidebar-overlay");
-
-if (toggleBtn && sidebar) {
-    toggleBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation(); // Click event ko baqi body par click hone se rokta hai
-        
-        // Sidebar aur Body par open classes toggle karein
-        sidebar.classList.toggle("sidebar-open");
-        document.body.classList.toggle("sidebar-open");
-        
-        // Background overlay ko toggle karne ke liye
-        if (sidebarOverlay) {
-            sidebarOverlay.classList.toggle("show");
-        }
-    });
-}
+            // Sidebar aur Body par open classes toggle karein
+            sidebar.classList.toggle("sidebar-open");
+            document.body.classList.toggle("sidebar-open");
+            
+            // Background overlay ko toggle karne ke liye
+            if (sidebarOverlay) {
+                sidebarOverlay.classList.toggle("show");
+            }
+        });
+    }
 
     // Screen par kahin bhi bahar click karne se ya overlay par tap karne se sidebar close ho jaye
     document.addEventListener("click", (e) => {
