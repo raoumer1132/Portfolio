@@ -605,7 +605,8 @@ body {
 /* Desktop Styles: Jab sidebar open ho to button aage shift ho */
 @media (min-width: 769px) {
     body.sidebar-open #sidebarToggleBtn, body.sidebar-open .global-toggle-btn {
-        left: 255px !important; 
+        left: 20px !important;  
+        z-index: 1000001 !important;
     }
 }
 
