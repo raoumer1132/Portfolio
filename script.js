@@ -85,3 +85,34 @@ window.addEventListener("DOMContentLoaded", () => {
         }, 400);
     }
 });
+
+// Cart check karega agar pehle se LocalStorage me data hai
+let cart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
+
+const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        const packageName = e.target.getAttribute('data-name');
+        const packagePrice = parseFloat(e.target.getAttribute('data-price'));
+
+        const item = {
+            name: packageName,
+            price: packagePrice,
+            quantity: 1
+        };
+
+        const existingItemIndex = cart.findIndex(cartItem => cartItem.name === packageName);
+
+        if (existingItemIndex > -1) {
+            cart[existingItemIndex].quantity += 1;
+        } else {
+            cart.push(item);
+        }
+
+        // LocalStorage me save karna
+        localStorage.setItem('portfolioCart', JSON.stringify(cart));
+
+        alert(`${packageName} successfully cart me add ho gaya hai!`);
+    });
+});
