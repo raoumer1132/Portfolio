@@ -8,8 +8,54 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./style4.css">
     <script src="./script.js" defer></script>
+    
+    <style>
+        /* Floating Cart Icon Styling */
+        .top-cart-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto 20px auto;
+            padding: 0 20px;
+        }
+        .custom-cart-btn {
+            background-color: #111111;
+            border: 1px solid #222222;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        .custom-cart-btn:hover {
+            border-color: #ff5722;
+            color: #ff5722;
+        }
+        #cart-count {
+            background-color: #ff5722;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+    </style>
 </head>
-<body style="background-color: #000000; padding-top: 50px;">
+<body style="background-color: #000000; padding-top: 40px;">
+
+    <div class="top-cart-container">
+        <a href="index.html" style="color: #aaaaaa; text-decoration: none; font-weight: bold;">
+            <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </a>
+        
+        <a href="cart.html" class="custom-cart-btn">
+            <i class="fa-solid fa-cart-shopping"></i> My Cart <span id="cart-count">0</span>
+        </a>
+    </div>
 
     <section class="pricing-section">
         <h2 class="section-title">Subscription Fee Packages</h2>
@@ -47,10 +93,6 @@
                 </ul>
                 <button class="add-to-cart-btn" data-name="Premium Plan" data-price="99">Add to Cart</button>
             </div>
-        </div>
-        
-        <div style="margin-top: 40px;">
-            <a href="index.html" style="color: #ff5722; text-decoration: none; font-weight: bold;"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
         </div>
     </section>
 
