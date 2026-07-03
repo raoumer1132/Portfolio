@@ -801,3 +801,89 @@ body {
 body.sidebar-open {
     padding-left: 260px; 
 }
+
+
+/* ==========================================================================
+   UNIVERSAL PREMIUM GLASSMORPHISM SIDEBAR & FLOATING BUTTON EXTENSION
+   ========================================================================== */
+
+/* 1. Sidebar Slide Hidden-to-Open Overrides */
+.gemini-sidebar {
+    position: fixed !important; 
+    top: 30px !important;
+    left: -280px !important; /* Screen se bahar default state */
+    width: 250px !important; 
+    height: calc(100vh - 60px) !important; 
+    z-index: 999999 !important; 
+    background: rgba(255, 255, 255, 0.03) !important; 
+    backdrop-filter: blur(20px) saturate(160%) !important; 
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important; 
+    border-radius: 24px !important; 
+    padding: 20px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Sidebar khulne par andar aane wali state */
+.gemini-sidebar.sidebar-open {
+    left: 30px !important; 
+}
+
+/* Purane inner button space ko remove karne ke liye */
+.sidebar-top {
+    display: none !important;
+}
+
+/* 2. Floating Hamburger Button Alignment & Animation Rules */
+#sidebarToggleBtn, .global-toggle-btn {
+    position: fixed !important;
+    top: 30px !important;
+    left: 30px !important; 
+    width: 46px !important; 
+    height: 46px !important;
+    border-radius: 50% !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+    z-index: 1000000 !important; 
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s !important;
+}
+
+#sidebarToggleBtn:hover, .global-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Desktop Interaction: Sidebar khulne par button yellow side base par smoothly setup ho */
+@media (min-width: 769px) {
+    body.sidebar-open #sidebarToggleBtn, body.sidebar-open .global-toggle-btn {
+        left: 20px !important; 
+        z-index: 1000001 !important;
+    }
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    #sidebarToggleBtn, .global-toggle-btn {
+        top: 15px !important;
+        left: 15px !important;
+    }
+    .gemini-sidebar {
+        top: 15px !important;
+        left: -280px !important;
+        height: calc(100vh - 30px) !important;
+    }
+    .gemini-sidebar.sidebar-open {
+        left: 15px !important;
+    }
+}
