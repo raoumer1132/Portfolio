@@ -116,7 +116,6 @@ addToCartButtons.forEach(button => {
         alert(`${packageName} successfully cart me add ho gaya hai!`);
     });
 });
-
 function updateCartBadge() {
     let currentCart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
     const totalItems = currentCart.reduce((total, item) => total + item.quantity, 0);
@@ -125,5 +124,4 @@ function updateCartBadge() {
         badge.innerText = totalItems;
     }
 }
-// Isko har dafa button click hone par aur page load par call karein
-updateCartBadge();
+document.addEventListener("DOMContentLoaded", updateCartBadge);
