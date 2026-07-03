@@ -1,17 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. PERFECT HIDDEN-TO-SLIDE SIDEBAR LOGIC
-    const sidebar = document.querySelector(".gemini-sidebar");
+    
+    // ==========================================
+    // 1. SIDEBAR TOGGLE LOGIC
+    // ==========================================
     const toggleBtn = document.getElementById("sidebarToggleBtn") || document.querySelector(".global-toggle-btn");
+    const sidebar = document.querySelector(".gemini-sidebar");
     const sidebarOverlay = document.querySelector(".sidebar-overlay");
 
-    if (sidebar && toggleBtn) {
+    if (toggleBtn && sidebar) {
         toggleBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            e.stopPropagation();
+            e.stopPropagation(); // Click event ko baqi body par click hone se rokta hai
             
             sidebar.classList.toggle("sidebar-open");
             document.body.classList.toggle("sidebar-open");
-            
+
             if (sidebarOverlay) {
                 sidebarOverlay.classList.toggle("show");
             }
@@ -31,15 +34,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // ==========================================
     // 2. SEAMLESS PAGE TRANSITION LOGIC
+    // ==========================================
     const transitionOverlay = document.querySelector(".page-transition-overlay");
 
     if (transitionOverlay) {
         setTimeout(() => {
             transitionOverlay.classList.add("fade-out");
-            setTimeout(() => {
-                transitionOverlay.style.display = "none";
-            }, 400);
         }, 50);
     }
 
@@ -49,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         link.addEventListener("click", function (e) {
             const targetUrl = this.getAttribute("href");
 
+            // External links ya section anchors (#) ko transition overlay block na kare
             if (
                 targetUrl &&
                 !targetUrl.startsWith("#") &&
@@ -58,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.preventDefault();
 
                 if (transitionOverlay) {
-                    transitionOverlay.style.display = "block";
                     transitionOverlay.classList.remove("fade-out");
                     transitionOverlay.classList.add("fade-in");
 
@@ -72,13 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-        // Page load hote hi black screen overlay ko remove karne ke liye
+
+// Page load hote hi black screen overlay ko remove karne ke liye
 window.addEventListener("DOMContentLoaded", () => {
     const overlay = document.querySelector(".page-transition-overlay");
     if (overlay) {
         overlay.classList.add("fade-out");
-        
-        // 400ms baad element ko display none kar dein taake ye rasta na rokay
         setTimeout(() => {
             overlay.style.display = "none";
         }, 400);
