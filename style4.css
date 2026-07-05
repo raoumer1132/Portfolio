@@ -808,3 +808,51 @@ body.page-ready {
     visibility: hidden !important;
     display: none !important;
 }
+/* ==========================================================================
+   FINAL POOJA FIX: FORCE DESKTOP PUSH & HAMBURGER OVERLAP CONTROL
+   ========================================================================== */
+
+/* 1. Hamburger button ke upar links overlap na hon */
+.gemini-sidebar {
+    padding-top: 100px !important; /* Pehle link (Subscription/Dashboard) ko button se niche push karne ke liye */
+}
+
+/* 2. Desktop Screens par dynamic Layout Push Effect (Min-Width: 1025px) */
+@media (min-width: 1025px) {
+    /* Jab sidebar open ho to main section ko right side dhaka dein */
+    body.sidebar-open .main-portfolio-layout,
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
+        margin-left: 300px !important; /* Sidebar width (250px) + Perfect Gap spacing (50px) */
+        padding-left: 40px !important;  /* Base structural safety padding */
+        max-width: calc(100% - 300px) !important; /* Page width auto lock stretch constraint */
+        transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    
+    /* Layout transition structural setup */
+    .main-portfolio-layout {
+        transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding-left 0.35s ease !important;
+    }
+}
+
+/* 3. Laptops aur Medium Screens Layout Adjustments (769px to 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    body.sidebar-open .main-portfolio-layout,
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
+        margin-left: 280px !important;
+        padding-left: 20px !important;
+        max-width: calc(100% - 280px) !important;
+    }
+}
+
+/* 4. Small Mobile Screen Optimization Guardrails (Max-Width: 768px) */
+@media (max-width: 768px) {
+    .gemini-sidebar {
+        padding-top: 85px !important; /* Mobile padding calculation gap */
+    }
+    /* Mobile screen par static overlap smooth clean dark overlay ke sath standard default rakhna behtar hai */
+    body.sidebar-open .main-portfolio-layout,
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
+        margin-left: 0 !important;
+        padding-left: 40px !important;
+    }
+}
