@@ -763,3 +763,49 @@ body {
     visibility: hidden !important;
     display: none !important;
 }
+
+/* ==========================================================================
+   FINAL CONSOLIDATED OVERRIDES: PUSH EFFECT AND BUTTON OVERLAP FIX
+   ========================================================================== */
+
+/* 1. Clear Overlap From Hamburger Menu Buttons Everywhere */
+.gemini-sidebar {
+    padding-top: 95px !important; /* Items ko strictly hamburger icon se niche shift karne ke liye */
+}
+
+/* 2. Desktop Push Effect Layout (Min-Width: 1025px) */
+@media (min-width: 1025px) {
+    /* Jab bhi sidebar open ho ya expanded structural hierarchy dynamic selector ho */
+    body.sidebar-open .main-portfolio-layout,
+    body.sidebar-expanded .main-portfolio-layout,
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout,
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        margin-left: 310px !important; /* Sidebar width (250px) + Gap space (60px) */
+        padding-left: 40px !important;  /* Fluid structural boundaries alignment */
+        transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+}
+
+/* 3. Medium & Laptop Screen Push Layout (769px to 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    body.sidebar-open .main-portfolio-layout,
+    body.sidebar-expanded .main-portfolio-layout,
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout,
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        margin-left: 290px !important;
+        padding-left: 20px !important;
+        transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+}
+
+/* 4. Small Mobile Screen Safety Adjustments */
+@media (max-width: 768px) {
+    .gemini-sidebar {
+        padding-top: 80px !important;
+    }
+    /* Mobile par screen size kam hota hai isliye mobile par overlay hi default responsive behaviour hota hai */
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
+        padding-left: 85px !important;
+        margin-left: 0 !important;
+    }
+}
