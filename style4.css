@@ -743,14 +743,6 @@ body.page-ready {
     background: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Desktop open positioning override */
-@media (min-width: 769px) {
-    body.sidebar-open #sidebarToggleBtn, body.sidebar-open .global-toggle-btn {
-        left: 20px !important; 
-        z-index: 1000001 !important;
-    }
-}
-
 /* Tablet Media Guardrails Override */
 @media (max-width: 1024px) {
     .main-portfolio-layout {
@@ -839,5 +831,26 @@ body.page-ready {
     .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
         margin-left: 0 !important;                 /* Mobile par layout auto overlap mode pe rahega */
         padding-left: 15px !important;
+    }
+}
+/* ==========================================================================
+   HAMBURGER BUTTON PUSH ENGINE (FIX OVERLAP)
+   ========================================================================== */
+
+/* 1. Large Screens & Desktops (Min-Width: 769px) */
+@media (min-width: 769px) {
+    /* Jab body par class trigger ho, to toggle button ko aage push karein */
+    body.sidebar-open #sidebarToggleBtn, 
+    body.sidebar-open .global-toggle-btn {
+        left: 245px !important; /* Yeh button ko exact sidebar ki right edge par shift karega */
+        z-index: 1000001 !important;
+    }
+}
+
+/* 2. Mobile Screens View (Max-Width: 768px) */
+@media (max-width: 768px) {
+    body.sidebar-open #sidebarToggleBtn, 
+    body.sidebar-open .global-toggle-btn {
+        left: 235px !important; /* Mobile layouts par screen ke hisab se safe adjust */
     }
 }
