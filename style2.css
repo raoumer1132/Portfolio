@@ -813,3 +813,17 @@ body {
         padding-top: 70px !important;
     }
 }
+
+/* Jab desktop par sidebar open ho to main content right push ho */
+@media (min-width: 769px) {
+    /* Agar body par class add hoti hai */
+    body.sidebar-open .main-portfolio-layout {
+        margin-left: 280px !important; /* Sidebar ki width + gap */
+    }
+    
+    /* Agar direct layout ko push karna ho */
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout,
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        margin-left: 280px !important;
+    }
+}
