@@ -244,16 +244,22 @@ body.page-ready {
     transform: translateX(-50%) translateY(0);
 }
 
+/* ISAY PURANE CODE KI JAGAH PASTE KAREIN */
 .main-portfolio-layout {
     width: 100%;
     max-width: 1300px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: 140px 40px 60px 130px;
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 50px;
     align-items: start;
     min-height: 100vh;
+    transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                max-width 0.35s ease, 
+                margin-right 0.35s ease, 
+                padding-left 0.35s ease !important;
 }
 .left-column {
     position: sticky;
@@ -706,11 +712,6 @@ body.page-ready {
     padding: 20px 12px !important;
 }
 
-.gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout,
-.gemini-sidebar ~ .main-portfolio-layout {
-    padding-left: 130px !important; /* Fixed position boundary to stop horizontal pushing */
-}
-
 /* Obsolete layout top-bar resets */
 .sidebar-top {
     display: none !important;
@@ -808,38 +809,20 @@ body.page-ready {
     visibility: hidden !important;
     display: none !important;
 }
-/* ==========================================================================
-   THE DEFINITIVE GRID BREAKOUT & SIDEBAR PUSH SOLUTION
-   ========================================================================== */
+/* FILE KE BILKUL END MEIN PASTE KAREIN */
 
-/* 1. Desktop Push Engine (Min-Width: 1025px) */
+/* Desktop view push mechanism (1025px and up) */
 @media (min-width: 1025px) {
-    /* Target both potential classes (.sidebar-open and .sidebar-expanded) to ensure compatibility */
     body.sidebar-open .main-portfolio-layout,
-    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout,
-    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
-        display: grid !important;
-        grid-template-columns: 320px 1fr !important; /* Grid structure maintains desktop look */
-        margin-left: 280px !important;  /* Shifts layout right by exactly the sidebar's width */
-        margin-right: 0 !important;     /* Breaks the 'margin: 0 auto' centering lock */
-        max-width: calc(100% - 310px) !important; /* Prevents right-side overflow screen cuts */
-        padding-left: 30px !important;  /* Clean breathing room gap from the sidebar */
-    }
-
-    /* Standard Base State Smooth Transitions */
-    .main-portfolio-layout {
-        display: grid !important;
-        grid-template-columns: 320px 1fr !important;
-        transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.35s ease, margin-right 0.35s ease !important;
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
+        margin-left: 280px !important;            /* Layout ko exact sidebar ki width jitna right push karega */
+        margin-right: 0 !important;               /* Auto-center lock todega */
+        max-width: calc(100% - 310px) !important;  /* Screen se baahir overlap bachayega */
+        padding-left: 30px !important;             /* Sidebar se solid content gap */
     }
 }
 
-/* 2. Prevent Top Links Overlapping with Hamburger Button */
-.gemini-sidebar {
-    padding-top: 100px !important;
-}
-
-/* 3. Laptops & Medium Screens View Engine (769px to 1024px) */
+/* Laptop and medium screen view push mechanism (769px to 1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
     body.sidebar-open .main-portfolio-layout,
     .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
@@ -850,11 +833,11 @@ body.page-ready {
     }
 }
 
-/* 4. Small Mobile Screen Safety Bounds (Max-Width: 768px) */
+/* Mobile responsive alignment safety fallback */
 @media (max-width: 768px) {
     body.sidebar-open .main-portfolio-layout,
     .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
-        margin-left: 0 !important; /* On mobile, the sidebar acts as a standard overlay */
-        padding-left: 20px !important;
+        margin-left: 0 !important;                 /* Mobile par layout auto overlap mode pe rahega */
+        padding-left: 15px !important;
     }
 }
