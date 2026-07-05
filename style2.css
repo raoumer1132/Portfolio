@@ -827,3 +827,38 @@ body {
         margin-left: 280px !important;
     }
 }
+/* ==========================================================================
+   FINAL OVERRIDE: SIDEBAR PUSH AND OVERLAP INTENSE FIX
+   ========================================================================== */
+
+/* 1. Padding Fix for Hamburger Button Overlap */
+.gemini-sidebar {
+    padding-top: 90px !important; /* Buttons ko safe distance niche lane ke liye */
+}
+
+/* 2. Desktop Strict Layout Push (Dono body classes aur sibling selectors ke liye) */
+@media (min-width: 1025px) {
+    body.sidebar-open .main-portfolio-layout,
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout,
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        margin-left: 310px !important; /* 250px sidebar width + 60px safe gap */
+        padding-left: 0 !important;   /* Grid structural reset */
+    }
+}
+
+/* 3. Tablet & Small Screens Smooth Layout Push */
+@media (max-width: 1024px) and (min-width: 769px) {
+    body.sidebar-open .main-portfolio-layout,
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout,
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        margin-left: 290px !important;
+        padding-left: 0 !important;
+    }
+}
+
+/* 4. Mobile Screens Layout Adjust (Mobile par overlay hi suitable rehta hai width kam hone ki wajah se) */
+@media (max-width: 768px) {
+    .gemini-sidebar {
+        padding-top: 75px !important;
+    }
+}
