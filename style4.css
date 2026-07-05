@@ -809,50 +809,52 @@ body.page-ready {
     display: none !important;
 }
 /* ==========================================================================
-   FINAL POOJA FIX: FORCE DESKTOP PUSH & HAMBURGER OVERLAP CONTROL
+   THE DEFINITIVE GRID BREAKOUT & SIDEBAR PUSH SOLUTION
    ========================================================================== */
 
-/* 1. Hamburger button ke upar links overlap na hon */
-.gemini-sidebar {
-    padding-top: 100px !important; /* Pehle link (Subscription/Dashboard) ko button se niche push karne ke liye */
-}
-
-/* 2. Desktop Screens par dynamic Layout Push Effect (Min-Width: 1025px) */
+/* 1. Desktop Push Engine (Min-Width: 1025px) */
 @media (min-width: 1025px) {
-    /* Jab sidebar open ho to main section ko right side dhaka dein */
+    /* Target both potential classes (.sidebar-open and .sidebar-expanded) to ensure compatibility */
     body.sidebar-open .main-portfolio-layout,
-    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
-        margin-left: 300px !important; /* Sidebar width (250px) + Perfect Gap spacing (50px) */
-        padding-left: 40px !important;  /* Base structural safety padding */
-        max-width: calc(100% - 300px) !important; /* Page width auto lock stretch constraint */
-        transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    .gemini-sidebar.sidebar-open ~ .main-portfolio-layout,
+    .gemini-sidebar.sidebar-expanded ~ .main-portfolio-layout {
+        display: grid !important;
+        grid-template-columns: 320px 1fr !important; /* Grid structure maintains desktop look */
+        margin-left: 280px !important;  /* Shifts layout right by exactly the sidebar's width */
+        margin-right: 0 !important;     /* Breaks the 'margin: 0 auto' centering lock */
+        max-width: calc(100% - 310px) !important; /* Prevents right-side overflow screen cuts */
+        padding-left: 30px !important;  /* Clean breathing room gap from the sidebar */
     }
-    
-    /* Layout transition structural setup */
+
+    /* Standard Base State Smooth Transitions */
     .main-portfolio-layout {
-        transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding-left 0.35s ease !important;
+        display: grid !important;
+        grid-template-columns: 320px 1fr !important;
+        transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.35s ease, margin-right 0.35s ease !important;
     }
 }
 
-/* 3. Laptops aur Medium Screens Layout Adjustments (769px to 1024px) */
+/* 2. Prevent Top Links Overlapping with Hamburger Button */
+.gemini-sidebar {
+    padding-top: 100px !important;
+}
+
+/* 3. Laptops & Medium Screens View Engine (769px to 1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
     body.sidebar-open .main-portfolio-layout,
     .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
-        margin-left: 280px !important;
-        padding-left: 20px !important;
+        margin-left: 260px !important;
+        margin-right: 0 !important;
         max-width: calc(100% - 280px) !important;
+        padding-left: 20px !important;
     }
 }
 
-/* 4. Small Mobile Screen Optimization Guardrails (Max-Width: 768px) */
+/* 4. Small Mobile Screen Safety Bounds (Max-Width: 768px) */
 @media (max-width: 768px) {
-    .gemini-sidebar {
-        padding-top: 85px !important; /* Mobile padding calculation gap */
-    }
-    /* Mobile screen par static overlap smooth clean dark overlay ke sath standard default rakhna behtar hai */
     body.sidebar-open .main-portfolio-layout,
     .gemini-sidebar.sidebar-open ~ .main-portfolio-layout {
-        margin-left: 0 !important;
-        padding-left: 40px !important;
+        margin-left: 0 !important; /* On mobile, the sidebar acts as a standard overlay */
+        padding-left: 20px !important;
     }
 }
