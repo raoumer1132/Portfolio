@@ -119,6 +119,9 @@ addToCartButtons.forEach(button => {
         alert(`${packageName} successfully cart me add ho gaya hai!`);
     });
 });
+/* IS NAYE CODE KO APNI FILE KE BILKUL END MEIN PASTE KAREIN */
+
+// 1. Badge update karne ka function
 function updateCartBadge() {
     let currentCart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
     const totalItems = currentCart.reduce((total, item) => total + item.quantity, 0);
@@ -128,3 +131,21 @@ function updateCartBadge() {
     }
 }
 document.addEventListener("DOMContentLoaded", updateCartBadge);
+
+// 2. Clear Cart karne par number foran 0 karne ka logic
+const clearCartBtn = document.getElementById('clear-cart-btn') || document.querySelector('.clear-cart-btn');
+
+if (clearCartBtn) {
+    clearCartBtn.addEventListener('click', () => {
+        // LocalStorage se cart remove kiya
+        localStorage.removeItem('portfolioCart');
+        
+        // Cart array ko bhi khaali kiya taake purana data load na ho
+        cart = []; 
+        
+        // FORAN badge ko 0 karne ke liye trigger kiya
+        updateCartBadge(); 
+        
+        alert("Cart successfully clear ho gaya hai!");
+    });
+}
