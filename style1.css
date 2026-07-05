@@ -920,3 +920,17 @@ body.sidebar-open {
     visibility: hidden !important;
     display: none !important;
 }
+
+/* ==========================================================================
+   SIDEBAR BUTTON OVERLAP FIX (HAMBURGER GAP)
+   ========================================================================== */
+.gemini-sidebar {
+    padding-top: 80px !important; /* Hamburger button ke liye upar 80px ki clear jagah */
+}
+
+/* Mobile screen ke liye adjustment */
+@media (max-width: 768px) {
+    .gemini-sidebar {
+        padding-top: 70px !important; /* Mobile par gap thoda kam kar diya */
+    }
+}
