@@ -112,10 +112,10 @@ addToCartButtons.forEach(button => {
 
         // LocalStorage me save karna
         localStorage.setItem('portfolioCart', JSON.stringify(cart));
-        // === EXACT YAHAN PAR YEH LINE PASTE KAREIN ===
-updateCartBadge(); 
 
-alert(`${packageName} successfully cart me add ho gaya hai!`);
+        // UI update engine trigger
+        updateCartBadge();
+
         alert(`${packageName} successfully cart me add ho gaya hai!`);
     });
 });
