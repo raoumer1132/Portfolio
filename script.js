@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (toggleBtn && sidebar) {
         toggleBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            e.stopPropagation(); // Click event ko baqi body par click hone se rokta hai
+            e.stopPropagation(); 
             
             sidebar.classList.toggle("sidebar-open");
             document.body.classList.toggle("sidebar-open");
@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
         link.addEventListener("click", function (e) {
             const targetUrl = this.getAttribute("href");
 
-            // External links ya section anchors (#) ko transition overlay block na kare
             if (
                 targetUrl &&
                 !targetUrl.startsWith("#") &&
@@ -73,55 +72,57 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-});
 
-// Page load hote hi black screen overlay ko remove karne ke liye
-window.addEventListener("DOMContentLoaded", () => {
-    const overlay = document.querySelector(".page-transition-overlay");
-    if (overlay) {
-        overlay.classList.add("fade-out");
-        setTimeout(() => {
-            overlay.style.display = "none";
-        }, 400);
+    // ==========================================
+    // 3. CART ADD TO CART LOGIC
+    // ==========================================
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            let cart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
+            
+            const packageName = e.target.getAttribute('data-name');
+            const packagePrice = parseFloat(e.target.getAttribute('data-price'));
+
+            const item = {
+                name: packageName,
+                price: packagePrice,
+                quantity: 1
+            };
+
+            const existingItemIndex = cart.findIndex(cartItem => cartItem.name === packageName);
+
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push(item);
+            }
+
+            localStorage.setItem('portfolioCart', JSON.stringify(cart));
+            updateCartBadge();
+            alert(`${packageName} successfully cart me add ho gaya hai!`);
+        });
+    });
+
+    // Clear Cart button logic
+    const clearCartBtn = document.getElementById('clear-cart-btn') || document.querySelector('.clear-cart-btn');
+    if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', () => {
+            localStorage.removeItem('portfolioCart');
+            updateCartBadge(); 
+            alert("Cart successfully clear ho gaya hai!");
+            
+            if(window.location.pathname.includes('cart.html')) {
+                window.location.reload(); 
+            }
+        });
     }
 });
 
-// Cart check karega agar pehle se LocalStorage me data hai
-let cart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
-
-const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        const packageName = e.target.getAttribute('data-name');
-        const packagePrice = parseFloat(e.target.getAttribute('data-price'));
-
-        const item = {
-            name: packageName,
-            price: packagePrice,
-            quantity: 1
-        };
-
-        const existingItemIndex = cart.findIndex(cartItem => cartItem.name === packageName);
-
-        if (existingItemIndex > -1) {
-            cart[existingItemIndex].quantity += 1;
-        } else {
-            cart.push(item);
-        }
-
-        // LocalStorage me save karna
-        localStorage.setItem('portfolioCart', JSON.stringify(cart));
-
-        // UI update engine trigger
-        updateCartBadge();
-
-        alert(`${packageName} successfully cart me add ho gaya hai!`);
-    });
-});
-/* IS NAYE CODE KO APNI FILE KE BILKUL END MEIN PASTE KAREIN */
-
-// 1. Badge update karne ka function
+// ==========================================
+// 4. GLOBAL FUNCTIONS & CACHE FIX
+// ==========================================
 function updateCartBadge() {
     let currentCart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
     const totalItems = currentCart.reduce((total, item) => total + item.quantity, 0);
@@ -130,22 +131,13 @@ function updateCartBadge() {
         badge.innerText = totalItems;
     }
 }
+
+// Page load hone par badge update karein
 document.addEventListener("DOMContentLoaded", updateCartBadge);
 
-// 2. Clear Cart karne par number foran 0 karne ka logic
-const clearCartBtn = document.getElementById('clear-cart-btn') || document.querySelector('.clear-cart-btn');
-
-if (clearCartBtn) {
-    clearCartBtn.addEventListener('click', () => {
-        // LocalStorage se cart remove kiya
-        localStorage.removeItem('portfolioCart');
-        
-        // Cart array ko bhi khaali kiya taake purana data load na ho
-        cart = []; 
-        
-        // FORAN badge ko 0 karne ke liye trigger kiya
-        updateCartBadge(); 
-        
-        alert("Cart successfully clear ho gaya hai!");
-    });
-}
+// 🔥 Jab user BACK button daba kar aaye, tab bhi badge 0 ho jaye!
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+        updateCartBadge();
+    }
+});
