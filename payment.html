@@ -71,6 +71,7 @@
             font-size: 14px;
             color: #555;
             background-color: #fff;
+            transition: all 0.2s ease;
         }
 
         .method-tab.active {
@@ -214,18 +215,19 @@
                 <div class="form-section-title">CHECKOUT</div>
 
                 <div class="payment-methods">
-                    <button type="button" class="method-tab active">
+                    <!-- Dono buttons par humne click handler aur id laga di hai -->
+                    <button type="button" class="method-tab active" id="credit-tab" onclick="switchMethod('credit')">
                         <i class="fas fa-credit-card"></i> Credit Card
                     </button>
-                    <button type="button" class="method-tab">
+                    <button type="button" class="method-tab" id="debit-tab" onclick="switchMethod('debit')">
                         <i class="far fa-credit-card"></i> Debit Card
                     </button>
                 </div>
 
-                <div class="card-details-title">Card Details</div>
+                <div class="card-details-title" id="form-type-title">Credit Card Details</div>
                 <form id="portfolioPaymentForm">
                     <div class="form-group">
-                        <label for="cardNumber">Card Number</label>
+                        <label for="cardNumber" id="card-num-label">Credit Card Number</label>
                         <div class="input-wrapper">
                             <i class="fas fa-credit-card"></i>
                             <input type="text" id="cardNumber" placeholder="1234 5678 9101 1121" required maxlength="19">
@@ -262,11 +264,11 @@
                         <label for="saveCard" style="display: inline; cursor: pointer; color: #555;">Save this card for future transactions</label>
                     </div>
 
-                    <button type="submit" class="pay-btn">Pay Now</button>
+                    <button type="submit" class="pay-btn" id="pay-submit-btn">Pay with Credit Card</button>
                 </form>
             </div>
 
-            <!-- Right Sidebar -->
+            <!-- Right: Price Sidebar -->
             <div class="payment-summary-section">
                 <div class="summary-title">Price Details</div>
                 <div class="price-details">
@@ -281,6 +283,33 @@
     </div>
 
     <script>
+        // Tab switching function
+        function switchMethod(method) {
+            const creditTab = document.getElementById('credit-tab');
+            const debitTab = document.getElementById('debit-tab');
+            const formTitle = document.getElementById('form-type-title');
+            const cardLabel = document.getElementById('card-num-label');
+            const payBtn = document.getElementById('pay-submit-btn');
+            const form = document.getElementById('portfolioPaymentForm');
+
+            // Form clean karein jab method badle
+            form.reset();
+
+            if (method === 'credit') {
+                creditTab.classList.add('active');
+                debitTab.classList.remove('active');
+                formTitle.textContent = 'Credit Card Details';
+                cardLabel.textContent = 'Credit Card Number';
+                payBtn.textContent = 'Pay with Credit Card';
+            } else {
+                debitTab.classList.add('active');
+                creditTab.classList.remove('active');
+                formTitle.textContent = 'Debit Card Details';
+                cardLabel.textContent = 'Debit Card Number';
+                payBtn.textContent = 'Pay with Debit Card';
+            }
+        }
+
         function loadOrderDetails() {
             const cart = JSON.parse(localStorage.getItem('portfolioCart')) || []; 
             const itemsContainer = document.getElementById('cart-items-summary');
@@ -316,12 +345,15 @@
 
         document.getElementById('portfolioPaymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Mock Payment Successful! Thank you for the purchase.');
             
-            // Cart memory clear hogi
+            // Dynamic message credit vs debit ke mutabiq
+            const activeMethod = document.querySelector('.method-tab.active').id === 'credit-tab' ? 'Credit Card' : 'Debit Card';
+            alert(`Mock Payment via ${activeMethod} Successful! Thank you for the purchase.`);
+            
+            // Success hone par cart clear hoga
             localStorage.removeItem('portfolioCart'); 
             
-            // Redirect to subscription page
+            // Redirect back to subscription page
             window.location.href = 'subscription.html'; 
         });
     </script>
