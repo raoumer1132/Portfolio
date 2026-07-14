@@ -95,6 +95,34 @@
             </div>
         </div>
     </section>
+<!-- 1. Yeh code cart ke badge ko automatic update karega -->
+    <script>
+        function updateBadgeCount() {
+            // Local storage se check karo ke cart mein kuch bacha hai ya nahi
+            let cart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
+            let totalCount = 0;
+            
+            // Jitne items hain unhe jama (add) karo
+            cart.forEach(item => {
+                totalCount += parseInt(item.quantity) || 1;
+            });
+            
+            // Screen par jo "My Cart 0" likha hai, us 0 ko real number se badal do
+            const badge = document.getElementById('cart-count');
+            if (badge) {
+                badge.textContent = totalCount;
+            }
+        }
 
+        // Jaise hi subscription page open ho, foran counter check karo (0 ho jayega agar payment ho chuki hai)
+        window.addEventListener('DOMContentLoaded', updateBadgeCount);
+
+        // Agar user page par khade khade "Add to Cart" dabaye, toh count foran barh jaye
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                setTimeout(updateBadgeCount, 100); 
+            });
+        });
+    </script>
 </body>
 </html>
