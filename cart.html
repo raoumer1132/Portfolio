@@ -58,9 +58,11 @@
         displayCart();
     }
 
-    function checkout() {
-        alert("Thank you! Connecting you to the payment gateway...");
-    }
+    // Apne existing "Proceed to Checkout" ke click event listener ke andar is tarah update karein:
+alert("Thank you! Connecting you to the payment gateway...");
+
+// Alert ok karne ke baad user payment page par chala jae ga:
+window.location.href = "payment.html";
 
     displayCart();
 </script>
