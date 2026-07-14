@@ -28,56 +28,7 @@
             color: #2c3e50;
             font-size: 28px;
             font-weight: 600;
-            margin-bottom: 25px;
-        }
-
-        /* --- Steps Indicator --- */
-        .steps-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 30px;
-            color: #555;
-            position: relative;
-        }
-
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            position: relative;
-            z-index: 2;
-            color: #888;
-        }
-
-        .step-num {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-        }
-
-        .step.active {
-            color: #2c3e50;
-            font-weight: 600;
-        }
-        
-        .step.active .step-num {
-            border-color: #035e5c; /* Dark Teal from Image 1 */
-            color: #035e5c;
-        }
-
-        .line {
-            height: 1px;
-            background-color: #ccc;
-            width: 80px;
-            margin: 0 10px;
+            margin-bottom: 35px;
         }
 
         /* --- Payment Interface Layout --- */
@@ -93,7 +44,7 @@
         /* --- Left Section (Form) --- */
         .payment-form-section {
             flex: 2;
-            padding: 25px 35px;
+            padding: 35px 40px;
             border-right: 1px solid #e0e0e0;
         }
 
@@ -167,7 +118,7 @@
 
         input {
             width: 100%;
-            padding: 11px 11px 11px 40px; /* space for icon */
+            padding: 11px 11px 11px 40px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 14px;
@@ -201,7 +152,7 @@
         }
 
         .pay-btn {
-            background-color: #035e5c; /* Dark Teal */
+            background-color: #035e5c;
             color: white;
             border: none;
             padding: 12px 28px;
@@ -221,7 +172,7 @@
         /* --- Right Section (Sidebar) --- */
         .payment-summary-section {
             flex: 1;
-            padding: 25px;
+            padding: 35px 25px;
             background-color: #fbfbfb;
         }
 
@@ -230,7 +181,7 @@
             text-transform: uppercase;
             font-weight: bold;
             color: #555;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .price-details {
@@ -244,13 +195,18 @@
             margin-bottom: 12px;
         }
 
+        /* Cart items dynamically inserted here */
+        #cart-items-summary {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
         .summary-row.total {
-            margin-top: 18px;
-            border-top: 1px solid #eee;
-            padding-top: 12px;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 16px;
             color: #000;
+            margin-top: 10px;
         }
 
     </style>
@@ -261,25 +217,7 @@
         <!-- 1. Page Title -->
         <div class="page-title">Payment Gateway</div>
 
-        <!-- 2. Steps Indicator -->
-        <div class="steps-container">
-            <div class="step">
-                <div class="step-num">1</div>
-                <span>Cart</span>
-            </div>
-            <div class="line"></div>
-            <div class="step">
-                <div class="step-num">2</div>
-                <span>Address</span>
-            </div>
-            <div class="line"></div>
-            <div class="step active"> <!-- Checkout is Active -->
-                <div class="step-num">3</div>
-                <span>Checkout</span>
-            </div>
-        </div>
-
-        <!-- 3. Main Payment Interface -->
+        <!-- 2. Main Payment Interface -->
         <div class="payment-box">
             <!-- Left: Form -->
             <div class="payment-form-section">
@@ -344,28 +282,17 @@
 
             <!-- Right: Price Sidebar -->
             <div class="payment-summary-section">
-                <div class="summary-title">Price Details (2 Items)</div>
+                <div class="summary-title">Price Details</div>
                 <div class="price-details">
-                    <div class="summary-row">
-                        <span>Total Price (MRP)</span>
-                        <span>$19</span> <!-- Basic Plan -->
-                    </div>
-                    <div class="summary-row">
-                        <span></span>
-                        <span>$49</span> <!-- Standard Plan -->
-                    </div>
-                    <div class="summary-row" style="color: #666; font-size: 13px;">
-                        <span>Discount</span>
-                        <span style="color: green;">-$0</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Shipping Charges</span>
-                        <span>$0</span>
+                    <!-- Dynamic Cart Items Container -->
+                    <div id="cart-items-summary">
+                        <!-- Items will load automatically from localStorage -->
                     </div>
 
+                    <!-- Cleaned up Total Row -->
                     <div class="summary-row total">
                         <span>Total Amount</span>
-                        <span>$68</span>
+                        <span id="final-total">$0</span>
                     </div>
                 </div>
             </div>
@@ -373,13 +300,53 @@
     </div>
 
     <script>
-        // Simple success message on pay
+        // Automatic Dynamic Price Loading
+        function loadOrderDetails() {
+            // Hum cart ko localStorage se utha rhe hain (jis key me aap cart items store kar rhe hen)
+            const cart = JSON.parse(localStorage.getItem('cart')) || []; 
+            const itemsContainer = document.getElementById('cart-items-summary');
+            const totalElement = document.getElementById('final-total');
+            
+            let totalAmount = 0;
+            itemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '<div class="summary-row" style="color: #888;">Cart is empty</div>';
+                totalElement.textContent = '$0';
+                return;
+            }
+
+            cart.forEach(item => {
+                // Item Price calculate karna (price * quantity)
+                const itemPrice = parseFloat(item.price) || 0;
+                const itemQty = parseInt(item.quantity) || 1;
+                const lineTotal = itemPrice * itemQty;
+                totalAmount += lineTotal;
+
+                // Sidebar me individual items load karna
+                itemsContainer.innerHTML += `
+                    <div class="summary-row">
+                        <span>${item.name || 'Plan'} (x${itemQty})</span>
+                        <span>$${lineTotal}</span>
+                    </div>
+                `;
+            });
+
+            // Automatically updates the total price
+            totalElement.textContent = `$${totalAmount}`;
+        }
+
+        // Run on load
+        window.onload = loadOrderDetails;
+
+        // Payment Submit Handler
         document.getElementById('portfolioPaymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Mock Payment Successful! Thank you for the portfolio purchase.');
-            window.location.href = 'index.html'; // Adjust redirection as needed
+            alert('Mock Payment Successful! Thank you for the purchase.');
+            localStorage.removeItem('cart'); // Clears the cart on successful checkout
+            window.location.href = 'index.html'; // Redirect to home page
         });
-    </style>
+    </script>
 
 </body>
 </html>
