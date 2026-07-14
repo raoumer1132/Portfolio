@@ -32,7 +32,7 @@
 
         /* Outer Frame / Glass Container */
         .checkout-wrapper {
-            width: 1100px;
+            width: 1000px;
             max-width: 100%;
             background: var(--bg-glass);
             backdrop-filter: blur(20px);
@@ -60,11 +60,11 @@
             margin-bottom: 30px;
         }
 
-        /* Payment Tabs Grid */
+        /* Payment Tabs Grid (4 Items now) */
         .payment-methods-grid {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
             margin-bottom: 35px;
         }
 
@@ -90,7 +90,7 @@
         }
 
         .method-btn span {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 500;
         }
 
@@ -167,7 +167,7 @@
         }
 
         /* Text inputs normal font */
-        input#name.bracket-input {
+        input#name.bracket-input, input#genericEmail.bracket-input {
             font-family: 'Inter', sans-serif;
             letter-spacing: normal;
         }
@@ -348,7 +348,7 @@
         <div class="header-title">Payment Checkout</div>
         <div class="subtitle">Choose Payment Method</div>
 
-        <!-- Horizontal Tabs (Matches exactly with 7 options) -->
+        <!-- Horizontal Tabs (4 Methods) -->
         <div class="payment-methods-grid">
             <div class="method-btn active" onclick="switchTab('credit', this)">
                 <i class="fa-solid fa-credit-card"></i>
@@ -357,18 +357,6 @@
             <div class="method-btn" onclick="switchTab('debit', this)">
                 <i class="fa-regular fa-credit-card"></i>
                 <span>Debit Card</span>
-            </div>
-            <div class="method-btn" onclick="switchTab('jazzcash', this)">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                <span>JazzCash</span>
-            </div>
-            <div class="method-btn" onclick="switchTab('easypaisa', this)">
-                <i class="fa-solid fa-phone-volume"></i>
-                <span>Easypaisa</span>
-            </div>
-            <div class="method-btn" onclick="switchTab('bank', this)">
-                <i class="fa-solid fa-building-columns"></i>
-                <span>Bank Transfer</span>
             </div>
             <div class="method-btn" onclick="switchTab('paypal', this)">
                 <i class="fa-brands fa-paypal"></i>
@@ -419,23 +407,7 @@
                         </div>
                     </div>
 
-                    <!-- 2. MOBILE WALLET VIEW (JazzCash / Easypaisa) -->
-                    <div id="wallet-view" class="dynamic-view">
-                        <div class="panel-title" id="wallet-panel-title">Mobile Wallet details</div>
-                        <div class="wallet-instruction">
-                            Please enter your account number. You will receive an OTP or instant push notification request on your mobile screen to complete the payment.
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Mobile Account Number</label>
-                            <input type="text" id="walletNumber" class="bracket-input" placeholder="[ 03xx xxxxxxx ]" maxlength="11">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">CNIC (Last 6 Digits)</label>
-                            <input type="text" id="walletCnic" class="bracket-input" placeholder="[ xxxxxx ]" maxlength="6">
-                        </div>
-                    </div>
-
-                    <!-- 3. OTHER VIEWS (Bank, Paypal, Payoneer Generic Input) -->
+                    <!-- 2. OTHER VIEWS (Paypal, Payoneer Generic Input) -->
                     <div id="generic-view" class="dynamic-view">
                         <div class="panel-title" id="generic-panel-title">External Gateway Details</div>
                         <div class="wallet-instruction" id="generic-info-text">
@@ -508,7 +480,7 @@
             
             currentMethodType = method;
 
-            // Reset forms and validation status
+            // Reset forms
             const form = document.getElementById('unifiedCheckoutForm');
             form.reset();
 
@@ -518,47 +490,29 @@
             const btnText = document.getElementById('btn-text');
             const totalText = document.getElementById('total-val').textContent;
 
-            // Map Views
+            // Map Views (Sarf Card ya Generic View trigger hoga)
             if (method === 'credit' || method === 'debit') {
                 document.getElementById('card-view').classList.add('active');
                 document.getElementById('form-panel-title').textContent = (method === 'credit') ? 'Credit Card Details' : 'Debit Card Details';
                 document.getElementById('card-label-text').textContent = (method === 'credit') ? 'Credit Card Number' : 'Debit Card Number';
                 
-                // Fields required tags manage
                 setRequired('cardNumber', true);
                 setRequired('name', true);
                 setRequired('expiry', true);
                 setRequired('cvv', true);
-                setRequired('walletNumber', false);
                 setRequired('genericEmail', false);
                 
                 btnText.textContent = `PAY SECURELY ${totalText}`;
             } 
-            else if (method === 'jazzcash' || method === 'easypaisa') {
-                document.getElementById('wallet-view').classList.add('active');
-                document.getElementById('wallet-panel-title').textContent = (method === 'jazzcash') ? 'JazzCash Details' : 'Easypaisa Details';
-                
-                setRequired('cardNumber', false);
-                setRequired('name', false);
-                setRequired('expiry', false);
-                setRequired('cvv', false);
-                setRequired('walletNumber', true);
-                setRequired('genericEmail', false);
-
-                btnText.textContent = `PAY WITH ${(method === 'jazzcash') ? 'JAZZCASH' : 'EASYPAISA'} ${totalText}`;
-            } 
             else {
                 document.getElementById('generic-view').classList.add('active');
-                document.getElementById('generic-panel-title').textContent = (method === 'bank') ? 'Bank Transfer Details' : (method === 'paypal') ? 'PayPal Checkout' : 'Payoneer Transfer';
-                document.getElementById('generic-info-text').textContent = (method === 'bank') 
-                    ? 'Please authorize and secure payment using direct bank routing transfer instructions.' 
-                    : 'You will be redirected safely to complete authentication via secure merchant page.';
+                document.getElementById('generic-panel-title').textContent = (method === 'paypal') ? 'PayPal Checkout' : 'Payoneer Transfer';
+                document.getElementById('generic-info-text').textContent = 'You will be redirected safely to complete authentication via secure merchant page.';
 
                 setRequired('cardNumber', false);
                 setRequired('name', false);
                 setRequired('expiry', false);
                 setRequired('cvv', false);
-                setRequired('walletNumber', false);
                 setRequired('genericEmail', true);
 
                 btnText.textContent = `PROCEED WITH ${method.toUpperCase()} ${totalText}`;
@@ -575,7 +529,6 @@
         const cardInput = document.getElementById('cardNumber');
         const expiryInput = document.getElementById('expiry');
         const cvvInput = document.getElementById('cvv');
-        const walletInput = document.getElementById('walletNumber');
 
         cardInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
@@ -600,10 +553,6 @@
             e.target.value = e.target.value.replace(/[^0-9]/gi, '');
         });
 
-        walletInput.addEventListener('input', function (e) {
-            e.target.value = e.target.value.replace(/[^0-9]/gi, '');
-        });
-
 
         // Dynamic Summary Loader
         function loadSummary() {
@@ -623,7 +572,6 @@
                 return;
             }
 
-            // Simple integration for single cart layout
             const activeItem = cart[0]; 
             const qtyStr = activeItem.quantity > 1 ? ` (x${activeItem.quantity})` : '';
             pkgTitle.textContent = activeItem.name + qtyStr;
