@@ -3,120 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Payment</title>
+    <title>Payment Gateway - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #0d0d0d;
-            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
         }
-        .payment-container {
-            background-color: #1a1a1a;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid #c84b1e; /* matching your theme */
+
+        .main-container {
+            width: 1000px;
+            max-width: 95%;
+            margin: 20px auto;
         }
-        h2 {
+
+        /* --- Page Title --- */
+        .page-title {
             text-align: center;
-            color: #c84b1e;
+            color: #2c3e50;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        /* --- Steps Indicator --- */
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            color: #555;
+            position: relative;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+            color: #888;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .step.active {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .step.active .step-num {
+            border-color: #035e5c; /* Dark Teal from Image 1 */
+            color: #035e5c;
+        }
+
+        .line {
+            height: 1px;
+            background-color: #ccc;
+            width: 80px;
+            margin: 0 10px;
+        }
+
+        /* --- Payment Interface Layout --- */
+        .payment-box {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* --- Left Section (Form) --- */
+        .payment-form-section {
+            flex: 2;
+            padding: 25px 35px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .form-section-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #555;
             margin-bottom: 20px;
+            letter-spacing: 0.5px;
         }
-        .form-group {
+
+        /* Payment Method Tabs */
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .method-tab {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #555;
+            background-color: #fff;
+        }
+
+        .method-tab.active {
+            background-color: #f0f7f7;
+            border-color: #035e5c;
+            color: #035e5c;
+            font-weight: 500;
+        }
+
+        /* Card Details Form */
+        .card-details-title {
+            font-size: 15px;
+            color: #333;
             margin-bottom: 15px;
+            font-weight: 600;
         }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
         label {
             display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #ccc;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #666;
         }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 16px;
+        }
+
         input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #333;
-            background-color: #262626;
-            color: #fff;
-            border-radius: 5px;
+            padding: 11px 11px 11px 40px; /* space for icon */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
             box-sizing: border-box;
+            color: #333;
         }
+        
         input:focus {
             outline: none;
-            border-color: #c84b1e;
+            border-color: #035e5c;
+            box-shadow: 0 0 0 1px rgba(3, 94, 92, 0.2);
         }
-        .row {
+
+        .expiry-cvv {
             display: flex;
-            gap: 10px;
+            gap: 20px;
         }
+        
+        .expiry-cvv .form-group {
+            flex: 1;
+        }
+
+        .save-card-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: -10px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            color: #555;
+        }
+
         .pay-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #c84b1e;
+            background-color: #035e5c; /* Dark Teal */
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 12px 28px;
+            border-radius: 30px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: 0.3s;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
         }
+        
         .pay-btn:hover {
-            background-color: #a33b16;
+            background-color: #024a49;
         }
+
+        /* --- Right Section (Sidebar) --- */
+        .payment-summary-section {
+            flex: 1;
+            padding: 25px;
+            background-color: #fbfbfb;
+        }
+
+        .summary-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .price-details {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .summary-row.total {
+            margin-top: 18px;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+            font-weight: bold;
+            font-size: 15px;
+            color: #000;
+        }
+
     </style>
 </head>
 <body>
 
-<div class="payment-container">
-    <h2>Secure Checkout</h2>
-    <form id="paymentForm">
-        <!-- Billing Info -->
-        <div class="form-group">
-            <label for="name">Cardholder Name</label>
-            <input type="text" id="name" required placeholder="John Doe">
-        </div>
-        
-        <!-- Card Info -->
-        <div class="form-group">
-            <label for="cardNumber">Card Number</label>
-            <input type="text" id="cardNumber" required placeholder="1234 5678 9101 1121" maxlength="19">
-        </div>
+    <div class="main-container">
+        <!-- 1. Page Title -->
+        <div class="page-title">Payment Gateway</div>
 
-        <div class="row">
-            <div class="form-group" style="flex: 1;">
-                <label for="expiry">Expiry Date</label>
-                <input type="text" id="expiry" required placeholder="MM/YY" maxlength="5">
+        <!-- 2. Steps Indicator -->
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-num">1</div>
+                <span>Cart</span>
             </div>
-            <div class="form-group" style="flex: 1;">
-                <label for="cvv">CVV</label>
-                <input type="password" id="cvv" required placeholder="123" maxlength="3">
+            <div class="line"></div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <span>Address</span>
+            </div>
+            <div class="line"></div>
+            <div class="step active"> <!-- Checkout is Active -->
+                <div class="step-num">3</div>
+                <span>Checkout</span>
             </div>
         </div>
 
-        <button type="submit" class="pay-btn">Pay Now</button>
-    </form>
-</div>
+        <!-- 3. Main Payment Interface -->
+        <div class="payment-box">
+            <!-- Left: Form -->
+            <div class="payment-form-section">
+                <div class="form-section-title">CHECKOUT</div>
 
-<script>
-    document.getElementById('paymentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Payment Successful! Thank you for your purchase.');
-        
-        // Cart clear karne ke liye (agar local storage use kar rahe hain toh):
-        localStorage.removeItem('cart'); 
-        
-        // Wapas main portfolio page par redirect karne ke liye:
-        window.location.href = 'index.html'; 
-    });
-</script>
+                <!-- Tabs -->
+                <div class="payment-methods">
+                    <button type="button" class="method-tab active">
+                        <i class="fas fa-credit-card"></i>
+                        Credit Card
+                    </button>
+                    <button type="button" class="method-tab">
+                        <i class="far fa-credit-card"></i>
+                        Debit Card
+                    </button>
+                </div>
+
+                <!-- Form Details -->
+                <div class="card-details-title">Card Details</div>
+                <form id="portfolioPaymentForm">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-credit-card"></i>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9101 1121" required maxlength="19">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Name on Card</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="name" placeholder="John Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="expiry-cvv">
+                        <div class="form-group">
+                            <label for="expiry">Valid Thru (MM/YY)</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-calendar-alt"></i>
+                                <input type="text" id="expiry" placeholder="MM/YY" required maxlength="5">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="cvv" placeholder="123" required maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="save-card-group">
+                        <input type="checkbox" id="saveCard" style="width: auto; margin-right: 5px;">
+                        <label for="saveCard" style="display: inline; cursor: pointer; color: #555;">Save this card for future transactions</label>
+                    </div>
+
+                    <button type="submit" class="pay-btn">Pay Now</button>
+                </form>
+            </div>
+
+            <!-- Right: Price Sidebar -->
+            <div class="payment-summary-section">
+                <div class="summary-title">Price Details (2 Items)</div>
+                <div class="price-details">
+                    <div class="summary-row">
+                        <span>Total Price (MRP)</span>
+                        <span>$19</span> <!-- Basic Plan -->
+                    </div>
+                    <div class="summary-row">
+                        <span></span>
+                        <span>$49</span> <!-- Standard Plan -->
+                    </div>
+                    <div class="summary-row" style="color: #666; font-size: 13px;">
+                        <span>Discount</span>
+                        <span style="color: green;">-$0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping Charges</span>
+                        <span>$0</span>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>Total Amount</span>
+                        <span>$68</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple success message on pay
+        document.getElementById('portfolioPaymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mock Payment Successful! Thank you for the portfolio purchase.');
+            window.location.href = 'index.html'; // Adjust redirection as needed
+        });
+    </style>
 
 </body>
 </html>
