@@ -22,7 +22,6 @@
             margin: 20px auto;
         }
 
-        /* --- Page Title --- */
         .page-title {
             text-align: center;
             color: #2c3e50;
@@ -31,7 +30,6 @@
             margin-bottom: 35px;
         }
 
-        /* --- Payment Interface Layout --- */
         .payment-box {
             background-color: #fff;
             border: 1px solid #e0e0e0;
@@ -41,7 +39,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        /* --- Left Section (Form) --- */
         .payment-form-section {
             flex: 2;
             padding: 35px 40px;
@@ -57,7 +54,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Payment Method Tabs */
         .payment-methods {
             display: flex;
             gap: 15px;
@@ -84,7 +80,6 @@
             font-weight: 500;
         }
 
-        /* Card Details Form */
         .card-details-title {
             font-size: 15px;
             color: #333;
@@ -169,7 +164,6 @@
             background-color: #024a49;
         }
 
-        /* --- Right Section (Sidebar) --- */
         .payment-summary-section {
             flex: 1;
             padding: 35px 25px;
@@ -195,7 +189,6 @@
             margin-bottom: 12px;
         }
 
-        /* Cart items dynamically inserted here */
         #cart-items-summary {
             border-bottom: 1px solid #eee;
             padding-bottom: 15px;
@@ -208,34 +201,27 @@
             color: #000;
             margin-top: 10px;
         }
-
     </style>
 </head>
 <body>
 
     <div class="main-container">
-        <!-- 1. Page Title -->
         <div class="page-title">Payment Gateway</div>
 
-        <!-- 2. Main Payment Interface -->
         <div class="payment-box">
-            <!-- Left: Form -->
+            <!-- Left Form -->
             <div class="payment-form-section">
                 <div class="form-section-title">CHECKOUT</div>
 
-                <!-- Tabs -->
                 <div class="payment-methods">
                     <button type="button" class="method-tab active">
-                        <i class="fas fa-credit-card"></i>
-                        Credit Card
+                        <i class="fas fa-credit-card"></i> Credit Card
                     </button>
                     <button type="button" class="method-tab">
-                        <i class="far fa-credit-card"></i>
-                        Debit Card
+                        <i class="far fa-credit-card"></i> Debit Card
                     </button>
                 </div>
 
-                <!-- Form Details -->
                 <div class="card-details-title">Card Details</div>
                 <form id="portfolioPaymentForm">
                     <div class="form-group">
@@ -280,16 +266,11 @@
                 </form>
             </div>
 
-            <!-- Right: Price Sidebar -->
+            <!-- Right Sidebar -->
             <div class="payment-summary-section">
                 <div class="summary-title">Price Details</div>
                 <div class="price-details">
-                    <!-- Dynamic Cart Items Container -->
-                    <div id="cart-items-summary">
-                        <!-- Items will load automatically from localStorage -->
-                    </div>
-
-                    <!-- Cleaned up Total Row -->
+                    <div id="cart-items-summary"></div>
                     <div class="summary-row total">
                         <span>Total Amount</span>
                         <span id="final-total">$0</span>
@@ -300,10 +281,8 @@
     </div>
 
     <script>
-        // Automatic Dynamic Price Loading
         function loadOrderDetails() {
-            // Hum cart ko localStorage se utha rhe hain (jis key me aap cart items store kar rhe hen)
-            const cart = JSON.parse(localStorage.getItem('cart')) || []; 
+            const cart = JSON.parse(localStorage.getItem('portfolioCart')) || []; 
             const itemsContainer = document.getElementById('cart-items-summary');
             const totalElement = document.getElementById('final-total');
             
@@ -317,36 +296,34 @@
             }
 
             cart.forEach(item => {
-                // Item Price calculate karna (price * quantity)
                 const itemPrice = parseFloat(item.price) || 0;
                 const itemQty = parseInt(item.quantity) || 1;
                 const lineTotal = itemPrice * itemQty;
                 totalAmount += lineTotal;
 
-                // Sidebar me individual items load karna
                 itemsContainer.innerHTML += `
                     <div class="summary-row">
-                        <span>${item.name || 'Plan'} (x${itemQty})</span>
+                        <span>${item.name} (x${itemQty})</span>
                         <span>$${lineTotal}</span>
                     </div>
                 `;
             });
 
-            // Automatically updates the total price
             totalElement.textContent = `$${totalAmount}`;
         }
 
-        // Run on load
         window.onload = loadOrderDetails;
 
-        // Payment Submit Handler
         document.getElementById('portfolioPaymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Mock Payment Successful! Thank you for the purchase.');
-            localStorage.removeItem('cart'); // Clears the cart on successful checkout
-            window.location.href = 'index.html'; // Redirect to home page
+            
+            // Cart memory clear hogi
+            localStorage.removeItem('portfolioCart'); 
+            
+            // Redirect to subscription page
+            window.location.href = 'subscription.html'; 
         });
     </script>
-
 </body>
 </html>
