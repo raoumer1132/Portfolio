@@ -18,8 +18,7 @@
 
 <div class="cart-wrapper">
     <h1>Your Selected Packages</h1>
-    <div id="cart-items-list">
-        </div>
+    <div id="cart-items-list"></div>
     <div class="total">Total: $<span id="cart-total-price">0</span></div>
     <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
     <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
@@ -58,11 +57,15 @@
         displayCart();
     }
 
-   // Apne cart JS ke Checkout function me ye likhein:
-alert("Thank you! Connecting you to the payment gateway...");
-
-// Safe redirection jo current folder ke mutabiq payment.html kholegi
-window.location.href = "./payment.html";
+    function checkout() {
+        let cart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
+        if(cart.length === 0) {
+            alert("Your cart is empty! Please add a package first.");
+            return;
+        }
+        alert("Thank you! Connecting you to the payment gateway...");
+        window.location.href = "./payment.html";
+    }
 
     displayCart();
 </script>
