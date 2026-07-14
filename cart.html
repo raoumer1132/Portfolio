@@ -58,11 +58,11 @@
         displayCart();
     }
 
-    // Apne existing "Proceed to Checkout" ke click event listener ke andar is tarah update karein:
+   // Apne cart JS ke Checkout function me ye likhein:
 alert("Thank you! Connecting you to the payment gateway...");
 
-// Alert ok karne ke baad user payment page par chala jae ga:
-window.location.href = "payment.html";
+// Safe redirection jo current folder ke mutabiq payment.html kholegi
+window.location.href = "./payment.html";
 
     displayCart();
 </script>
