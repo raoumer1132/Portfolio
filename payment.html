@@ -41,6 +41,7 @@
             border-radius: 16px;
             padding: 40px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
         }
 
         .header-title {
@@ -60,7 +61,7 @@
             margin-bottom: 30px;
         }
 
-        /* Payment Tabs Grid (4 Items now) */
+        /* Payment Tabs Grid */
         .payment-methods-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -115,12 +116,26 @@
             gap: 30px;
         }
 
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .checkout-wrapper {
+                padding: 20px;
+            }
+            .payment-methods-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .checkout-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Card panels */
         .glass-panel {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-glass);
             border-radius: 16px;
             padding: 30px;
+            box-sizing: border-box;
         }
 
         .panel-title {
@@ -130,7 +145,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* Inputs and Brackets Style */
+        /* Inputs Style */
         .form-group {
             margin-bottom: 20px;
             position: relative;
@@ -150,7 +165,6 @@
             align-items: center;
         }
 
-        /* Brackets Style inputs */
         .bracket-input {
             width: 100%;
             background: rgba(255, 255, 255, 0.02);
@@ -166,6 +180,11 @@
             letter-spacing: 1px;
         }
 
+        /* Fix Collapse: Card input ke right me padding di hai taake logos overlap na ho */
+        #cardNumber {
+            padding-right: 75px;
+        }
+
         /* Text inputs normal font */
         input#name.bracket-input, input#genericEmail.bracket-input {
             font-family: 'Inter', sans-serif;
@@ -177,17 +196,19 @@
             box-shadow: 0 0 8px rgba(255, 87, 34, 0.2);
         }
 
-        /* Logos embedded inside Card number input */
+        /* Card Logos inside input */
         .card-logos {
             position: absolute;
-            right: 15px;
+            right: 12px;
             display: flex;
-            gap: 8px;
+            align-items: center;
+            gap: 6px;
             pointer-events: none;
         }
 
         .card-logos img {
-            height: 18px;
+            height: 16px;
+            width: auto;
             opacity: 0.8;
         }
 
@@ -230,7 +251,7 @@
             font-weight: 500;
         }
 
-        /* Submit Button with Glow */
+        /* Submit Button */
         .submit-btn {
             width: 100%;
             background: linear-gradient(90deg, #ff5722 0%, #e64a19 100%);
@@ -377,10 +398,10 @@
                     
                     <!-- 1. CARD VIEW (Credit / Debit) -->
                     <div id="card-view" class="dynamic-view active">
-                        <div class="panel-title" id="form-panel-title">Payment Details</div>
+                        <div class="panel-title" id="form-panel-title">Credit Card Details</div>
                         
                         <div class="form-group">
-                            <label class="form-label" id="card-label-text">Card Number</label>
+                            <label class="form-label" id="card-label-text">Credit Card Number</label>
                             <div class="input-container">
                                 <input type="text" id="cardNumber" class="bracket-input" placeholder="•••• •••• •••• ••••" maxlength="19" required>
                                 <div class="card-logos">
@@ -392,17 +413,17 @@
 
                         <div class="form-group">
                             <label class="form-label">Name</label>
-                            <input type="text" id="name" class="bracket-input" placeholder="[ John Doe ]" required>
+                            <input type="text" id="name" class="bracket-input" placeholder="John Doe" required>
                         </div>
 
                         <div class="form-row-half">
                             <div class="form-group">
                                 <label class="form-label">Expiry</label>
-                                <input type="text" id="expiry" class="bracket-input" placeholder="[ MM/YY ]" maxlength="5" required>
+                                <input type="text" id="expiry" class="bracket-input" placeholder="MM/YY" maxlength="5" required>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">CVV</label>
-                                <input type="password" id="cvv" class="bracket-input" placeholder="[ 123 ]" maxlength="3" required>
+                                <input type="password" id="cvv" class="bracket-input" placeholder="123" maxlength="3" required>
                             </div>
                         </div>
                     </div>
@@ -415,7 +436,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Registered Email / Username</label>
-                            <input type="email" id="genericEmail" class="bracket-input" placeholder="[ user@example.com ]">
+                            <input type="email" id="genericEmail" class="bracket-input" placeholder="user@example.com">
                         </div>
                     </div>
 
@@ -473,24 +494,19 @@
 
         // Tab Switching Logic
         function switchTab(method, element) {
-            // Remove active classes
             document.querySelectorAll('.method-btn').forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
             element.classList.add('active');
             
             currentMethodType = method;
 
-            // Reset forms
             const form = document.getElementById('unifiedCheckoutForm');
             form.reset();
 
-            // Hide all dynamic sections
             document.querySelectorAll('.dynamic-view').forEach(view => view.classList.remove('active'));
 
             const btnText = document.getElementById('btn-text');
             const totalText = document.getElementById('total-val').textContent;
 
-            // Map Views (Sarf Card ya Generic View trigger hoga)
             if (method === 'credit' || method === 'debit') {
                 document.getElementById('card-view').classList.add('active');
                 document.getElementById('form-panel-title').textContent = (method === 'credit') ? 'Credit Card Details' : 'Debit Card Details';
@@ -525,11 +541,18 @@
             if(input) input.required = isRequired;
         }
 
-        // Smart Formats (Auto spacing Card, Expiry, CVV numbers)
+        // Inputs Formatting & Validations
         const cardInput = document.getElementById('cardNumber');
+        const nameInput = document.getElementById('name');
         const expiryInput = document.getElementById('expiry');
         const cvvInput = document.getElementById('cvv');
 
+        // 1. Name input field: ONLY ALLOW ALPHABETS AND SPACES
+        nameInput.addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+        });
+
+        // 2. Card Number spacing (4 digits each)
         cardInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
             let formattedValue = '';
@@ -540,6 +563,7 @@
             e.target.value = formattedValue.trim();
         });
 
+        // 3. Expiry formatting (MM/YY)
         expiryInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\//g, '').replace(/[^0-9]/gi, '');
             if (value.length > 2) {
@@ -549,10 +573,10 @@
             }
         });
 
+        // 4. CVV digits only
         cvvInput.addEventListener('input', function (e) {
             e.target.value = e.target.value.replace(/[^0-9]/gi, '');
         });
-
 
         // Dynamic Summary Loader
         function loadSummary() {
