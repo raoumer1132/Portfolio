@@ -491,7 +491,7 @@
 
     <script>
         let currentMethodType = 'credit';
-
+        let generatedOTP = "";
         // Tab Switching Logic
         function switchTab(method, element) {
             document.querySelectorAll('.method-btn').forEach(btn => btn.classList.remove('active'));
@@ -609,14 +609,38 @@
 
         window.onload = loadSummary;
 
-        // Form Submission Logic
-        document.getElementById('unifiedCheckoutForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            alert(`Payment transaction via ${currentMethodType.toUpperCase()} successfully processed. Thank you!`);
-            localStorage.removeItem('portfolioCart'); 
-            window.location.href = 'subscription.html'; 
-        });
+       document.getElementById('unifiedCheckoutForm').addEventListener('submit', function(e){
+
+    e.preventDefault();
+
+    sendOTP();
+
+});
+        function sendOTP(){
+
+    generatedOTP = Math.floor(100000 + Math.random()*900000);
+
+    let userOTP = prompt(
+        "Demo OTP Verification\n\nYour Demo OTP is : "
+        + generatedOTP +
+        "\n\nEnter OTP:"
+    );
+
+    if(userOTP == generatedOTP){
+
+        alert("✅ Payment Successful!");
+
+        localStorage.removeItem('portfolioCart');
+
+        window.location.href="subscription.html";
+
+    }else{
+
+        alert("❌ Wrong OTP");
+
+    }
+
+}
     </script>
 </body>
 </html>
