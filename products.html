@@ -4,192 +4,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Products</title>
 
-    <title>Products</title>
+    <!-- Google Font: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- CSS START -->
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        body{
-             background-color: #0c0a0a;
-             color:white;
-             padding:30px;
+        body {
+            background-color: #090d16;
+            color: #f1f5f9;
+            padding: 40px 20px;
+            min-height: 100vh;
         }
 
-        h1{
-            text-align:center;
-            margin-bottom:30px;
-            color:white;
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        .products-container{
-            display:flex;
-            justify-content:center;
-            gap:25px;
-            flex-wrap:wrap;
+        .header-section h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Product Card Box Styling Fixed */
-        .product-card{
-            background-color: #1a1818;
-            width:280px;
-            padding:20px;
-            border-radius:15px;
-            text-align:center;
-            border: 1px solid #2a2a2a;
-            box-shadow:0px 5px 15px rgba(0,0,0,0.5);
-            transition:0.3s;
+        .header-section p {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-top: 5px;
         }
 
-        .product-card:hover{
-            transform:translateY(-10px);
-            border-color: #444;
+        .products-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        .product-card img{
-            width:100%;
-            height:220px;
-            object-fit:cover;
-            border-radius:10px;
+        /* Sleek Product Card */
+        .product-card {
+            background: #111827;
+            width: 300px;
+            padding: 18px;
+            border-radius: 16px;
+            border: 1px solid #1f2937;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        /* Product Heading Text Color Fixed */
-        .product-card h2{
-            margin:15px 0;
-            color: #ffffff;
-            font-size: 20px;
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: #38bdf8;
+            box-shadow: 0 20px 30px -10px rgba(56, 189, 248, 0.15);
         }
 
-        .price{
-            font-size:20px;
-            color: #2eb85c;
-            font-weight:bold;
-            margin-bottom:15px;
+        .badge {
+            position: absolute;
+            top: 28px;
+            left: 28px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            color: #38bdf8;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            z-index: 2;
         }
 
-        button{
+        .img-wrapper {
             background: #ffffff;
-            color: #000000;
-            font-weight: bold;
-            border:none;
-            padding:12px 25px;
-            border-radius:8px;
-            cursor:pointer;
-            font-size:16px;
-            transition: 0.3s;
+            border-radius: 12px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            height: 200px;
         }
 
-        button:hover{
-            background: #ff3333;
+        .product-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .product-card h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f8fafc;
+            margin-bottom: 6px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            color: #34d399;
+            font-weight: 700;
+        }
+
+        .btn-add {
+            width: 100%;
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-add:hover {
+            opacity: 0.95;
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+            transform: translateY(-1px);
+        }
+
+        /* Modern Cart Section */
+        #cart {
+            margin: 50px auto 0 auto;
+            max-width: 950px;
+            background: #111827;
+            border: 1px solid #1f2937;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .cart-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        .cart-count {
+            background: #0284c7;
+            color: white;
+            font-size: 12px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        #cart-items {
+            list-style: none;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 10px;
+            border-bottom: 1px solid #1f2937;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+        }
+
+        .cart-item-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-item-price {
+            color: #34d399;
+            font-weight: 600;
+        }
+
+        .btn-remove {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .btn-remove:hover {
+            background: #ef4444;
             color: white;
         }
 
-        /* Shopping Cart Section Fixed For Dark Theme */
-        #cart{
-            margin: 40px auto 0 auto;
-            max-width: 900px;
-            background: #1a1818;
+        .empty-cart-msg {
+            color: #64748b;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .cart-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #1f2937;
+        }
+
+        .total-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        .total-price span {
+            color: #34d399;
+        }
+
+        .btn-checkout {
+            background: #10b981;
             color: white;
-            padding:20px;
-            border-radius:12px;
-            border: 1px solid #2a2a2a;
-            box-shadow:0px 5px 15px rgba(0,0,0,0.5);
+            font-weight: 600;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
         }
 
-        #cart h2{
-            margin-bottom:15px;
-            color: #ffffff;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
+        .btn-checkout:hover {
+            background: #059669;
         }
-
-        #cart-items{
-            list-style:none;
-        }
-
-        #cart-items li{
-            padding:10px;
-            border-bottom:1px solid #2a2a2a;
-            color: #ddd;
-        }
-
     </style>
     <!-- CSS END -->
-
 </head>
 
 <body>
 
-<h1>My Products</h1>
-
-<div class="products-container">
-
-    <div class="product-card">
-        <img src="images/th.jfif" alt="Laptop">
-        <h2>Premium Laptop</h2>
-        <p class="price">$800</p>
-        <button onclick="addToCart('Premium Laptop')">
-            Add To Cart
-        </button>
+    <div class="header-section">
+        <h1>Featured Store</h1>
+        <p>Explore high-performance gear & accessories</p>
     </div>
 
-    <div class="product-card">
-        <img src="images/smart.jfif" alt="Smart Watch">
-        <h2>Smart Watch</h2>
-        <p class="price">$120</p>
-        <button onclick="addToCart('Smart Watch')">
-            Add To Cart
-        </button>
+    <div class="products-container">
+
+        <!-- Product 1 -->
+        <div class="product-card">
+            <span class="badge">Tech</span>
+            <div class="img-wrapper">
+                <img src="images/th.jfif" alt="Laptop">
+            </div>
+            <div class="product-info">
+                <h2>Premium Laptop</h2>
+                <div class="price-row">
+                    <span class="price">$800</span>
+                </div>
+            </div>
+            <button class="btn-add" onclick="addToCart('Premium Laptop', 800)">Add To Cart</button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+            <span class="badge">Wearable</span>
+            <div class="img-wrapper">
+                <img src="images/smart.jfif" alt="Smart Watch">
+            </div>
+            <div class="product-info">
+                <h2>Smart Watch</h2>
+                <div class="price-row">
+                    <span class="price">$120</span>
+                </div>
+            </div>
+            <button class="btn-add" onclick="addToCart('Smart Watch', 120)">Add To Cart</button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+            <span class="badge">Audio</span>
+            <div class="img-wrapper">
+                <img src="images/head.jfif" alt="Headphones">
+            </div>
+            <div class="product-info">
+                <h2>Headphones</h2>
+                <div class="price-row">
+                    <span class="price">$60</span>
+                </div>
+            </div>
+            <button class="btn-add" onclick="addToCart('Headphones', 60)">Add To Cart</button>
+        </div>
+
     </div>
 
-    <div class="product-card">
-        <img src="images/head.jfif" alt="Headphones">
-        <h2>Headphones</h2>
-        <p class="price">$60</p>
-        <button onclick="addToCart('Headphones')">
-            Add To Cart
-        </button>
+    <!-- Cart Section -->
+    <div id="cart">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <span class="cart-count" id="cart-count">0 items</span>
+        </div>
+
+        <ul id="cart-items">
+            <li class="empty-cart-msg">Your cart is currently empty.</li>
+        </ul>
+
+        <div class="cart-footer">
+            <div class="total-price">Total: <span id="total-amount">$0</span></div>
+            <button class="btn-checkout" onclick="alert('Proceeding to checkout...')">Checkout</button>
+        </div>
     </div>
 
-</div>
+    <!-- JAVASCRIPT START -->
+    <script>
+        let cart = [];
 
-<div id="cart">
-    <h2>Shopping Cart</h2>
-    <ul id="cart-items">
-    </ul>
-</div>
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            displayCart();
+        }
 
-<!-- JAVASCRIPT START -->
-<script>
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            displayCart();
+        }
 
-let cart = [];
+        function displayCart() {
+            let cartList = document.getElementById("cart-items");
+            let cartCount = document.getElementById("cart-count");
+            let totalAmount = document.getElementById("total-amount");
 
-function addToCart(product){
-    cart.push(product);
-    displayCart();
-    alert(product + " Added To Cart");
-}
+            cartList.innerHTML = "";
 
-function displayCart(){
-    let cartList = document.getElementById("cart-items");
-    cartList.innerHTML="";
+            if (cart.length === 0) {
+                cartList.innerHTML = '<li class="empty-cart-msg">Your cart is currently empty.</li>';
+                cartCount.innerText = "0 items";
+                totalAmount.innerText = "$0";
+                return;
+            }
 
-    cart.forEach(function(item){
-        let li = document.createElement("li");
-        li.innerHTML = item;
-        cartList.appendChild(li);
-    });
-}
+            let total = 0;
 
-</script>
-<!-- JAVASCRIPT END -->
+            cart.forEach(function(item, index) {
+                total += item.price;
+
+                let li = document.createElement("li");
+                li.className = "cart-item";
+                li.innerHTML = `
+                    <span class="cart-item-name">${item.title}</span>
+                    <div class="cart-item-right">
+                        <span class="cart-item-price">$${item.price}</span>
+                        <button class="btn-remove" onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `;
+                cartList.appendChild(li);
+            });
+
+            cartCount.innerText = `${cart.length} item${cart.length > 1 ? 's' : ''}`;
+            totalAmount.innerText = `$${total}`;
+        }
+    </script>
+    <!-- JAVASCRIPT END -->
 
 </body>
 </html>
