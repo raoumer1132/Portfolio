@@ -492,38 +492,63 @@
 
         </div>
     </div>
+<script>
+    let count = 1;
 
-    <script>
-        let count = 1;
-        function updateQty(val) {
-            count += val;
-            if (count < 1) count = 1;
-            document.getElementById('qty').innerText = count;
+    // Plus/Minus buttons ke liye
+    function updateQty(val) {
+        count += val;
+        if (count < 1) count = 1;
+        document.getElementById('qty').innerText = count;
+    }
+
+    // Actual Cart me add karne ka function
+    function addToCartMsg() {
+        let product = {
+            id: 'laptop',
+            name: 'Premium Laptop',
+            price: 800,
+            image: 'images/th.jfif',
+            quantity: count
+        };
+
+        // Browser ki memory se purana cart read karna
+        let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+
+        // Check karna ke kya laptop pehle se cart me hai?
+        let existingIndex = cart.findIndex(item => item.id === product.id);
+
+        if (existingIndex > -1) {
+            cart[existingIndex].quantity += count; // Agar hai toh quantity barha do
+        } else {
+            cart.push(product); // Agar nahi hai toh naya add kar do
         }
 
-        function addToCartMsg() {
-            alert(count + ' Premium Laptop(s) added to cart!');
-        }
+        // Browser ki memory (localStorage) me dubara save karna
+        localStorage.setItem('myCart', JSON.stringify(cart));
 
-        function toggleWishlist(btn) {
-            const icon = btn.querySelector('i');
-            if (icon.classList.contains('fa-regular')) {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid');
-                alert('Added to Wishlist!');
-            } else {
-                icon.classList.remove('fa-solid');
-                icon.classList.add('fa-regular');
-            }
-        }
+        alert(`${count} Premium Laptop cart me add ho gaya!`);
+    }
 
-        function changeImage(src, element) {
-            document.getElementById('mainImg').src = src;
-            document.querySelectorAll('.thumb-box').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
+    // Wishlist button ke liye
+    function toggleWishlist(btn) {
+        const icon = btn.querySelector('i');
+        if (icon.classList.contains('fa-regular')) {
+            icon.classList.remove('fa-regular');
+            icon.classList.add('fa-solid');
+            alert('Added to Wishlist!');
+        } else {
+            icon.classList.remove('fa-solid');
+            icon.classList.add('fa-regular');
         }
-    </script>
+    }
 
+    function changeImage(src, element) {
+        document.getElementById('mainImg').src = src;
+        document.querySelectorAll('.thumb-box').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+    }
+</script>
 </body>
 
 </html>
