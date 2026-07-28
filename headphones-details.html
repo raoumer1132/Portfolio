@@ -478,35 +478,54 @@
     </div>
 
     <script>
-        let count = 1;
-        function updateQty(val) {
-            count += val;
-            if (count < 1) count = 1;
-            document.getElementById('qty').innerText = count;
+    let count = 1;
+
+    function updateQty(val) {
+        count += val;
+        if (count < 1) count = 1;
+        document.getElementById('qty').innerText = count;
+    }
+
+    function addToCartMsg() {
+        let product = {
+            id: 'headphones',
+            name: 'Headphones',
+            price: 60,
+            image: 'images/head.jfif',
+            quantity: count
+        };
+
+        let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+        let existingIndex = cart.findIndex(item => item.id === product.id);
+
+        if (existingIndex > -1) {
+            cart[existingIndex].quantity += count;
+        } else {
+            cart.push(product);
         }
 
-        function addToCartMsg() {
-            alert(count + ' Headphone(s) added to cart!');
-        }
+        localStorage.setItem('myCart', JSON.stringify(cart));
+        alert(`${count} Headphone cart me add ho gaya!`);
+    }
 
-        function toggleWishlist(btn) {
-            const icon = btn.querySelector('i');
-            if (icon.classList.contains('fa-regular')) {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid');
-                alert('Added to Wishlist!');
-            } else {
-                icon.classList.remove('fa-solid');
-                icon.classList.add('fa-regular');
-            }
+    function toggleWishlist(btn) {
+        const icon = btn.querySelector('i');
+        if (icon.classList.contains('fa-regular')) {
+            icon.classList.remove('fa-regular');
+            icon.classList.add('fa-solid');
+            alert('Added to Wishlist!');
+        } else {
+            icon.classList.remove('fa-solid');
+            icon.classList.add('fa-regular');
         }
+    }
 
-        function changeImage(src, element) {
-            document.getElementById('mainImg').src = src;
-            document.querySelectorAll('.thumb-box').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-        }
-    </script>
+    function changeImage(src, element) {
+        document.getElementById('mainImg').src = src;
+        document.querySelectorAll('.thumb-box').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+    }
+</script>
 
 </body>
 
