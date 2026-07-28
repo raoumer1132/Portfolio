@@ -54,6 +54,13 @@
             margin: 0 auto;
         }
 
+        /* Card Link Wrapper Styling */
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
         /* Sleek Product Card */
         .product-card {
             background: #111827;
@@ -67,6 +74,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            height: 100%;
+            cursor: pointer;
         }
 
         .product-card:hover {
@@ -158,7 +167,7 @@
             transform: translateY(-1px);
         }
 
-        /* Modern Cart Section */
+        /* Cart Styling */
         #cart {
             margin: 50px auto 0 auto;
             max-width: 950px;
@@ -293,49 +302,56 @@
     <div class="products-container">
 
         <!-- Product 1 -->
-        <div class="product-card">
-            <span class="badge">Tech</span>
-            <div class="img-wrapper">
-                <img src="images/th.jfif" alt="Laptop">
-            </div>
-            <div class="product-info">
-                <h2>Premium Laptop</h2>
-                <div class="price-row">
-                    <span class="price">$800</span>
+        <a href="laptop-details.html" class="card-link">
+            <div class="product-card">
+                <span class="badge">Tech</span>
+                <div class="img-wrapper">
+                    <img src="images/th.jfif" alt="Laptop">
                 </div>
+                <div class="product-info">
+                    <h2>Premium Laptop</h2>
+                    <div class="price-row">
+                        <span class="price">$800</span>
+                    </div>
+                </div>
+                <!-- event.stopPropagation() is written to stop page redirect when clicking "Add To Cart" -->
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Premium Laptop', 800)">Add To Cart</button>
             </div>
-            <button class="btn-add" onclick="addToCart('Premium Laptop', 800)">Add To Cart</button>
-        </div>
+        </a>
 
         <!-- Product 2 -->
-        <div class="product-card">
-            <span class="badge">Wearable</span>
-            <div class="img-wrapper">
-                <img src="images/smart.jfif" alt="Smart Watch">
-            </div>
-            <div class="product-info">
-                <h2>Smart Watch</h2>
-                <div class="price-row">
-                    <span class="price">$120</span>
+        <a href="watch-details.html" class="card-link">
+            <div class="product-card">
+                <span class="badge">Wearable</span>
+                <div class="img-wrapper">
+                    <img src="images/smart.jfif" alt="Smart Watch">
                 </div>
+                <div class="product-info">
+                    <h2>Smart Watch</h2>
+                    <div class="price-row">
+                        <span class="price">$120</span>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Smart Watch', 120)">Add To Cart</button>
             </div>
-            <button class="btn-add" onclick="addToCart('Smart Watch', 120)">Add To Cart</button>
-        </div>
+        </a>
 
         <!-- Product 3 -->
-        <div class="product-card">
-            <span class="badge">Audio</span>
-            <div class="img-wrapper">
-                <img src="images/head.jfif" alt="Headphones">
-            </div>
-            <div class="product-info">
-                <h2>Headphones</h2>
-                <div class="price-row">
-                    <span class="price">$60</span>
+        <a href="headphones-details.html" class="card-link">
+            <div class="product-card">
+                <span class="badge">Audio</span>
+                <div class="img-wrapper">
+                    <img src="images/head.jfif" alt="Headphones">
                 </div>
+                <div class="product-info">
+                    <h2>Headphones</h2>
+                    <div class="price-row">
+                        <span class="price">$60</span>
+                    </div>
+                </div>
+                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Headphones', 60)">Add To Cart</button>
             </div>
-            <button class="btn-add" onclick="addToCart('Headphones', 60)">Add To Cart</button>
-        </div>
+        </a>
 
     </div>
 
