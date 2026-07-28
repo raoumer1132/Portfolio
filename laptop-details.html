@@ -502,35 +502,41 @@
         document.getElementById('qty').innerText = count;
     }
 
-    // Actual Cart me add karne ka function
+    // Dynamic Add to Cart Function
     function addToCartMsg() {
+        // Dynamic Data Read Karna
+        let pName = document.querySelector('.product-title').innerText.trim();
+        let pPrice = document.querySelector('.price-tag').innerText.replace('$', '').trim();
+        let pImg = document.getElementById('mainImg').getAttribute('src');
+
         let product = {
-            id: 'laptop',
-            name: 'Premium Laptop',
-            price: 800,
-            image: 'images/th.jfif',
+            id: pName.toLowerCase().replace(/\s+/g, '-'), // Auto-generated ID (e.g. premium-laptop)
+            name: pName,
+            price: parseFloat(pPrice),
+            image: pImg,
             quantity: count
         };
 
-        // Browser ki memory se purana cart read karna
+        // LocalStorage Read
         let cart = JSON.parse(localStorage.getItem('myCart')) || [];
 
-        // Check karna ke kya laptop pehle se cart me hai?
+        // Check if item already exists
         let existingIndex = cart.findIndex(item => item.id === product.id);
 
         if (existingIndex > -1) {
-            cart[existingIndex].quantity += count; // Agar hai toh quantity barha do
+            cart[existingIndex].quantity += count;
         } else {
-            cart.push(product); // Agar nahi hai toh naya add kar do
+            cart.push(product);
         }
 
-        // Browser ki memory (localStorage) me dubara save karna
+        // Save back to LocalStorage
         localStorage.setItem('myCart', JSON.stringify(cart));
 
-        alert(`${count} Premium Laptop cart me add ho gaya!`);
+        // Sweet Alert / Alert Message
+        alert(`${count} x ${product.name} successfully cart me add ho gaya!`);
     }
 
-    // Wishlist button ke liye
+    // Wishlist Toggle
     function toggleWishlist(btn) {
         const icon = btn.querySelector('i');
         if (icon.classList.contains('fa-regular')) {
@@ -543,6 +549,7 @@
         }
     }
 
+    // Image Switcher
     function changeImage(src, element) {
         document.getElementById('mainImg').src = src;
         document.querySelectorAll('.thumb-box').forEach(el => el.classList.remove('active'));
