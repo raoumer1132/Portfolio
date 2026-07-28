@@ -25,7 +25,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1050px;
             margin: 0 auto;
         }
 
@@ -50,65 +50,79 @@
             background: #111827;
             border: 1px solid #1f2937;
             border-radius: 20px;
-            padding: 30px;
-            display: flex;
+            padding: 35px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
             gap: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            flex-wrap: wrap;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
         .product-gallery {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .main-img-box {
-            background: #ffffff;
+            background: #0f172a;
+            border: 1px solid #1e293b;
             border-radius: 16px;
-            padding: 20px;
+            padding: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 350px;
-            overflow: hidden;
-            margin-bottom: 15px;
+            height: 380px;
         }
 
-        .main-img-box img {
+        .product-gallery img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6));
+            transition: transform 0.3s ease;
+        }
+
+        .product-gallery:hover img {
+            transform: scale(1.05);
         }
 
         .product-content {
-            flex: 1.2;
-            min-width: 300px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
+        .meta-tags {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
         .badge {
-            align-self: flex-start;
             background: rgba(56, 189, 248, 0.15);
             color: #38bdf8;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             padding: 4px 12px;
             border-radius: 20px;
             border: 1px solid rgba(56, 189, 248, 0.3);
-            margin-bottom: 10px;
+        }
+
+        .stock-tag {
+            background: rgba(52, 211, 153, 0.15);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(52, 211, 153, 0.3);
         }
 
         .product-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: #f8fafc;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            line-height: 1.2;
         }
 
         .price-tag {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #34d399;
             font-weight: 700;
             margin-bottom: 15px;
@@ -121,33 +135,70 @@
             margin-bottom: 25px;
         }
 
-        .specs-list {
-            list-style: none;
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            padding: 15px;
+            border-radius: 12px;
             margin-bottom: 25px;
-            border-top: 1px solid #1f2937;
-            border-bottom: 1px solid #1f2937;
-            padding: 15px 0;
         }
 
-        .specs-list li {
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
+        .spec-item {
+            font-size: 0.85rem;
         }
 
-        .specs-list li:last-child {
-            margin-bottom: 0;
-        }
-
-        .specs-label {
+        .spec-item .label {
             color: #64748b;
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
         }
 
-        .actions {
+        .spec-item .value {
+            color: #f1f5f9;
+            font-weight: 500;
+        }
+
+        .action-row {
             display: flex;
             gap: 15px;
+            align-items: center;
+        }
+
+        .quantity-box {
+            display: flex;
+            align-items: center;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 45px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background: #1e293b;
+        }
+
+        .quantity-value {
+            width: 35px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
         }
 
         .btn-buy {
@@ -156,22 +207,23 @@
             color: white;
             font-weight: 600;
             border: none;
-            padding: 14px;
+            height: 45px;
             border-radius: 10px;
             cursor: pointer;
             font-size: 15px;
-            transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
 
         .btn-buy:hover {
             opacity: 0.95;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 850px) {
             .product-detail-wrapper {
-                flex-direction: column;
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -185,47 +237,68 @@
         <div class="product-detail-wrapper">
             
             <div class="product-gallery">
-                <div class="main-img-box">
-            <img src="images/smart.jfif" alt="Smart Watch">
-                </div>
+                <img src="images/smart.jfif" alt="Smart Watch">
             </div>
 
             <div class="product-content">
                 <div>
-                    <span class="badge">Wearables</span>
+                    <div class="meta-tags">
+                        <span class="badge">Wearable</span>
+                        <span class="stock-tag">In Stock</span>
+                    </div>
+
                     <h1 class="product-title">Smart Watch</h1>
                     <div class="price-tag">$120</div>
+
                     <p class="description">
-                        Track your daily fitness, real-time heart rate, and stay connected with instant notifications. Designed with an HD AMOLED display and IP68 water resistance.
+                        Stay connected and monitor your health seamlessly. Offers heart rate tracking, sport modes, HD AMOLED display, and ultra-long battery life.
                     </p>
 
-                    <ul class="specs-list">
-                        <li>
-                            <span class="specs-label">Display:</span>
-                            <span>1.8" AMOLED Touchscreen</span>
-                        </li>
-                        <li>
-                            <span class="specs-label">Battery Life:</span>
-                            <span>Up to 7 Days</span>
-                        </li>
-                        <li>
-                            <span class="specs-label">Connectivity:</span>
-                            <span>Bluetooth 5.2</span>
-                        </li>
-                        <li>
-                            <span class="specs-label">Water Resistance:</span>
-                            <span>IP68 Rated</span>
-                        </li>
-                    </ul>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <span class="label">Display</span>
+                            <span class="value">1.8" AMOLED Touch</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="label">Battery Life</span>
+                            <span class="value">Up to 7 Days</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="label">Connectivity</span>
+                            <span class="value">Bluetooth 5.2</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="label">Resistance</span>
+                            <span class="value">IP68 Water Proof</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="actions">
-                    <button class="btn-buy" onclick="alert('Item added to cart!')">Add to Cart</button>
+                <div class="action-row">
+                    <div class="quantity-box">
+                        <button class="quantity-btn" onclick="updateQty(-1)">-</button>
+                        <span class="quantity-value" id="qty">1</span>
+                        <button class="quantity-btn" onclick="updateQty(1)">+</button>
+                    </div>
+                    <button class="btn-buy" onclick="addToCartMsg()">Add to Cart</button>
                 </div>
             </div>
 
         </div>
     </div>
+
+    <script>
+        let count = 1;
+        function updateQty(val) {
+            count += val;
+            if (count < 1) count = 1;
+            document.getElementById('qty').innerText = count;
+        }
+
+        function addToCartMsg() {
+            alert(count + ' Smart Watch(es) added to cart!');
+        }
+    </script>
 
 </body>
 
