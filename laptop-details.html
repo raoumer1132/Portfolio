@@ -25,11 +25,11 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1050px;
             margin: 0 auto;
         }
 
-        /* Back Button */
+        /* Back Link */
         .back-btn {
             display: inline-flex;
             align-items: center;
@@ -47,72 +47,87 @@
             transform: translateX(-4px);
         }
 
-        /* Product Detail Layout */
+        /* Detail Card Layout */
         .product-detail-wrapper {
             background: #111827;
             border: 1px solid #1f2937;
             border-radius: 20px;
-            padding: 30px;
-            display: flex;
+            padding: 35px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
             gap: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            flex-wrap: wrap;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
-        /* Left Column: Image Container */
+        /* Modern Image Box (Fixed White Background issue) */
         .product-gallery {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .main-img-box {
-            background: #ffffff;
+            background: #0f172a;
+            border: 1px solid #1e293b;
             border-radius: 16px;
-            padding: 20px;
+            padding: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 350px;
-            overflow: hidden;
-            margin-bottom: 15px;
+            height: 380px;
+            position: relative;
         }
 
-        .main-img-box img {
+        .product-gallery img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6));
+            transition: transform 0.3s ease;
         }
 
-        /* Right Column: Content */
+        .product-gallery:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Content Styling */
         .product-content {
-            flex: 1.2;
-            min-width: 300px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
+        .meta-tags {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
         .badge {
-            align-self: flex-start;
             background: rgba(56, 189, 248, 0.15);
             color: #38bdf8;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             padding: 4px 12px;
             border-radius: 20px;
             border: 1px solid rgba(56, 189, 248, 0.3);
-            margin-bottom: 10px;
+        }
+
+        .stock-tag {
+            background: rgba(52, 211, 153, 0.15);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(52, 211, 153, 0.3);
         }
 
         .product-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: #f8fafc;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            line-height: 1.2;
         }
 
         .price-tag {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #34d399;
             font-weight: 700;
             margin-bottom: 15px;
@@ -125,35 +140,72 @@
             margin-bottom: 25px;
         }
 
-        /* Tech Specs List */
-        .specs-list {
-            list-style: none;
+        /* Specifications Table */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            padding: 15px;
+            border-radius: 12px;
             margin-bottom: 25px;
-            border-top: 1px solid #1f2937;
-            border-bottom: 1px solid #1f2937;
-            padding: 15px 0;
         }
 
-        .specs-list li {
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
+        .spec-item {
+            font-size: 0.85rem;
         }
 
-        .specs-list li:last-child {
-            margin-bottom: 0;
-        }
-
-        .specs-label {
+        .spec-item .label {
             color: #64748b;
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
         }
 
-        /* Action Buttons */
-        .actions {
+        .spec-item .value {
+            color: #f1f5f9;
+            font-weight: 500;
+        }
+
+        /* Quantity & Action Controls */
+        .action-row {
             display: flex;
             gap: 15px;
+            align-items: center;
+        }
+
+        .quantity-box {
+            display: flex;
+            align-items: center;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 45px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background: #1e293b;
+        }
+
+        .quantity-value {
+            width: 35px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
         }
 
         .btn-buy {
@@ -162,23 +214,23 @@
             color: white;
             font-weight: 600;
             border: none;
-            padding: 14px;
+            height: 45px;
             border-radius: 10px;
             cursor: pointer;
             font-size: 15px;
-            transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
 
         .btn-buy:hover {
             opacity: 0.95;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
 
-        /* Responsive Breakpoint */
-        @media (max-width: 768px) {
+        @media (max-width: 850px) {
             .product-detail-wrapper {
-                flex-direction: column;
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -187,57 +239,77 @@
 <body>
 
     <div class="container">
-        <!-- Back Link -->
         <a href="products.html" class="back-btn">← Back to Products</a>
 
         <div class="product-detail-wrapper">
             
-            <!-- Left: Image Gallery -->
+            <!-- Left: Gallery -->
             <div class="product-gallery">
-                <div class="main-img-box">
-                    <img src="images/th.jfif" alt="Laptop">
-                </div>
+                <img src="images/th.jfif" alt="Premium Laptop">
             </div>
 
-            <!-- Right: Product Information -->
+            <!-- Right: Details -->
             <div class="product-content">
                 <div>
-                    <span class="badge">Tech / Laptops</span>
+                    <div class="meta-tags">
+                        <span class="badge">Tech / Laptops</span>
+                        <span class="stock-tag">In Stock</span>
+                    </div>
+
                     <h1 class="product-title">Premium Laptop</h1>
                     <div class="price-tag">$800</div>
+
                     <p class="description">
-                        Experience next-level speed and performance with our Premium Laptop. Engineered for developers, content creators, and power users with long battery life and ultra-sharp display.
+                        Experience uncompromised speed and performance. Built for developers, creators, and power users featuring ultra-fast DDR5 memory and brilliant color accuracy.
                     </p>
 
-                    <!-- Key Specifications -->
-                    <ul class="specs-list">
-                        <li>
-                            <span class="specs-label">Processor:</span>
-                            <span>Intel Core i7 (12th Gen)</span>
-                        </li>
-                        <li>
-                            <span class="specs-label">RAM:</span>
-                            <span>16GB DDR5</span>
-                        </li>
-                        <li>
-                            <span class="specs-label">Storage:</span>
-                            <span>512GB NVMe SSD</span>
-                        </li>
-                        <li>
-                            <span class="specs-label">Display:</span>
-                            <span>15.6" Full HD IPS</span>
-                        </li>
-                    </ul>
+                    <!-- Tech Specs Grid -->
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <span class="label">Processor</span>
+                            <span class="value">Intel Core i7 (12th Gen)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="label">RAM Memory</span>
+                            <span class="value">16GB DDR5 High-Speed</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="label">Storage</span>
+                            <span class="value">512GB NVMe M.2 SSD</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="label">Display Size</span>
+                            <span class="value">15.6" Full HD IPS</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Action Button -->
-                <div class="actions">
-                    <button class="btn-buy" onclick="alert('Item added to cart!')">Add to Cart</button>
+                <!-- Buy & Quantity -->
+                <div class="action-row">
+                    <div class="quantity-box">
+                        <button class="quantity-btn" onclick="updateQty(-1)">-</button>
+                        <span class="quantity-value" id="qty">1</span>
+                        <button class="quantity-btn" onclick="updateQty(1)">+</button>
+                    </div>
+                    <button class="btn-buy" onclick="addToCartMsg()">Add to Cart</button>
                 </div>
             </div>
 
         </div>
     </div>
+
+    <script>
+        let count = 1;
+        function updateQty(val) {
+            count += val;
+            if (count < 1) count = 1;
+            document.getElementById('qty').innerText = count;
+        }
+
+        function addToCartMsg() {
+            alert(count + ' Premium Laptop(s) added to cart!');
+        }
+    </script>
 
 </body>
 
