@@ -481,9 +481,9 @@
                         <span class="quantity-value" id="qty">1</span>
                         <button class="quantity-btn" onclick="updateQty(1)">+</button>
                     </div>
-                    <button class="btn-buy" onclick="addToCartMsg()">
-                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                    </button>
+                    <button type="button" class="btn-buy" onclick="addToCartMsg(event)">
+    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+</button>
                     <button class="wishlist-btn" title="Add to Wishlist" onclick="toggleWishlist(this)">
                         <i class="fa-regular fa-heart"></i>
                     </button>
@@ -495,48 +495,37 @@
 <script>
     let count = 1;
 
-    // Plus/Minus buttons ke liye
     function updateQty(val) {
         count += val;
         if (count < 1) count = 1;
         document.getElementById('qty').innerText = count;
     }
 
-    // Dynamic Add to Cart Function
-    function addToCartMsg() {
-        // Dynamic Data Read Karna
-        let pName = document.querySelector('.product-title').innerText.trim();
-        let pPrice = document.querySelector('.price-tag').innerText.replace('$', '').trim();
-        let pImg = document.getElementById('mainImg').getAttribute('src');
+    function addToCartMsg(e) {
+        if(e) e.preventDefault(); // Page reload hone se rokey ga
 
         let product = {
-            id: pName.toLowerCase().replace(/\s+/g, '-'), // Auto-generated ID (e.g. premium-laptop)
-            name: pName,
-            price: parseFloat(pPrice),
-            image: pImg,
+            id: 'laptop',
+            name: 'Premium Laptop',
+            price: 800,
+            image: 'images/th.jfif',
             quantity: count
         };
 
-        // LocalStorage Read
+        // Browser ki memory (localStorage) me save karna
         let cart = JSON.parse(localStorage.getItem('myCart')) || [];
-
-        // Check if item already exists
+        
         let existingIndex = cart.findIndex(item => item.id === product.id);
-
         if (existingIndex > -1) {
             cart[existingIndex].quantity += count;
         } else {
             cart.push(product);
         }
 
-        // Save back to LocalStorage
         localStorage.setItem('myCart', JSON.stringify(cart));
-
-        // Sweet Alert / Alert Message
-        alert(`${count} x ${product.name} successfully cart me add ho gaya!`);
+        alert(`${count} Premium Laptop Cart me add ho gaya hai!`);
     }
 
-    // Wishlist Toggle
     function toggleWishlist(btn) {
         const icon = btn.querySelector('i');
         if (icon.classList.contains('fa-regular')) {
@@ -549,7 +538,6 @@
         }
     }
 
-    // Image Switcher
     function changeImage(src, element) {
         document.getElementById('mainImg').src = src;
         document.querySelectorAll('.thumb-box').forEach(el => el.classList.remove('active'));
