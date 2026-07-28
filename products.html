@@ -7,7 +7,6 @@
 
     <title>Products</title>
 
-
     <!-- CSS START -->
     <style>
 
@@ -18,295 +17,179 @@
             font-family:Arial, sans-serif;
         }
 
-
         body{
-
              background-color: #0c0a0a;
              color:white;
              padding:30px;
         }
 
-
         h1{
-
             text-align:center;
             margin-bottom:30px;
             color:white;
-
         }
 
-
-
         .products-container{
-
             display:flex;
             justify-content:center;
             gap:25px;
             flex-wrap:wrap;
-
         }
 
-
-
+        /* Product Card Box Styling Fixed */
         .product-card{
-
-            background-color: #0c0a0a;
+            background-color: #1a1818;
             width:280px;
             padding:20px;
             border-radius:15px;
             text-align:center;
-            box-shadow:0px 5px 15px rgba(0,0,0,0.2);
+            border: 1px solid #2a2a2a;
+            box-shadow:0px 5px 15px rgba(0,0,0,0.5);
             transition:0.3s;
-
         }
-
-
 
         .product-card:hover{
-
             transform:translateY(-10px);
-
+            border-color: #444;
         }
 
-
-
         .product-card img{
-
             width:100%;
             height:220px;
             object-fit:cover;
             border-radius:10px;
-
         }
 
-
-
+        /* Product Heading Text Color Fixed */
         .product-card h2{
-
             margin:15px 0;
-            color:#333;
-
+            color: #ffffff;
+            font-size: 20px;
         }
-
-
 
         .price{
-
             font-size:20px;
-            color:green;
+            color: #2eb85c;
             font-weight:bold;
             margin-bottom:15px;
-
         }
 
-
-
         button{
-
-            background:black;
-            color:white;
+            background: #ffffff;
+            color: #000000;
+            font-weight: bold;
             border:none;
             padding:12px 25px;
             border-radius:8px;
             cursor:pointer;
             font-size:16px;
-
+            transition: 0.3s;
         }
-
-
 
         button:hover{
-
-            background:red;
-
+            background: #ff3333;
+            color: white;
         }
 
-
-
+        /* Shopping Cart Section Fixed For Dark Theme */
         #cart{
-
-            margin-top:40px;
-            background:white;
+            margin: 40px auto 0 auto;
+            max-width: 900px;
+            background: #1a1818;
+            color: white;
             padding:20px;
-            border-radius:10px;
-            box-shadow:0px 5px 10px #ccc;
-
+            border-radius:12px;
+            border: 1px solid #2a2a2a;
+            box-shadow:0px 5px 15px rgba(0,0,0,0.5);
         }
-
-
 
         #cart h2{
-
             margin-bottom:15px;
-
+            color: #ffffff;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
         }
-
 
         #cart-items{
-
             list-style:none;
-
         }
-
-
 
         #cart-items li{
-
-            padding:8px;
-            border-bottom:1px solid #ddd;
-
+            padding:10px;
+            border-bottom:1px solid #2a2a2a;
+            color: #ddd;
         }
-
 
     </style>
     <!-- CSS END -->
 
 </head>
 
-
-
 <body>
-
-
 
 <h1>My Products</h1>
 
-
-
 <div class="products-container">
 
-
-
     <div class="product-card">
-
         <img src="images/th.jfif" alt="Laptop">
-
         <h2>Premium Laptop</h2>
-
         <p class="price">$800</p>
-
         <button onclick="addToCart('Premium Laptop')">
             Add To Cart
         </button>
-
     </div>
 
-
-
-
     <div class="product-card">
-
         <img src="images/smart.jfif" alt="Smart Watch">
-
-
         <h2>Smart Watch</h2>
-
         <p class="price">$120</p>
-
         <button onclick="addToCart('Smart Watch')">
             Add To Cart
         </button>
-
     </div>
 
-
-
-
     <div class="product-card">
-
         <img src="images/head.jfif" alt="Headphones">
-
         <h2>Headphones</h2>
-
         <p class="price">$60</p>
-
         <button onclick="addToCart('Headphones')">
             Add To Cart
         </button>
-
     </div>
 
-
 </div>
-
-
-
 
 <div id="cart">
-
     <h2>Shopping Cart</h2>
-
     <ul id="cart-items">
-
     </ul>
-
 </div>
 
-
-
-
-
 <!-- JAVASCRIPT START -->
-
 <script>
-
 
 let cart = [];
 
-
-
 function addToCart(product){
-
-
     cart.push(product);
-
-
     displayCart();
-
-
     alert(product + " Added To Cart");
-
-
 }
-
-
-
 
 function displayCart(){
-
-
     let cartList = document.getElementById("cart-items");
-
-
     cartList.innerHTML="";
 
-
     cart.forEach(function(item){
-
-
         let li = document.createElement("li");
-
-
         li.innerHTML = item;
-
-
         cartList.appendChild(li);
-
-
     });
-
-
 }
 
-
-
 </script>
-
-
 <!-- JAVASCRIPT END -->
 
-
-
 </body>
-
 </html>
