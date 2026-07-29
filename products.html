@@ -77,6 +77,16 @@
             justify-content: center;
             position: relative;
             padding: 15px;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
         }
 
         .card-img-wrapper img {
@@ -84,6 +94,7 @@
             max-width: 100%;
             object-fit: contain;
             transition: transform 0.3s ease;
+            border-radius: 8px;
         }
 
         .product-card:hover .card-img-wrapper img {
@@ -102,6 +113,7 @@
             padding: 4px 10px;
             border-radius: 20px;
             border: 1px solid rgba(56, 189, 248, 0.3);
+            z-index: 2;
         }
 
         .badge-discount {
@@ -114,6 +126,7 @@
             font-weight: 700;
             padding: 3px 8px;
             border-radius: 6px;
+            z-index: 2;
         }
 
         /* Card Details */
@@ -128,6 +141,7 @@
             margin-bottom: 6px;
             text-decoration: none;
             display: block;
+            transition: color 0.2s;
         }
 
         .card-title:hover {
@@ -194,7 +208,7 @@
 
         .cart-icon-btn:hover {
             transform: scale(1.08);
-            background: linear-gradient(135deg, #ff6b00 0%, #e05e00 100%); /* Hover par Daraz Orange */
+            background: linear-gradient(135deg, #ff6b00 0%, #e05e00 100%);
             box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);
         }
 
@@ -297,7 +311,7 @@
             <p>Explore high-performance gear & accessories</p>
         </div>
 
-        <!-- Products Grid (Daraz Cards Style) -->
+        <!-- Products Grid -->
         <div class="product-grid">
 
             <!-- Card 1: Premium Laptop -->
@@ -306,7 +320,7 @@
                     <span class="badge-category">Tech</span>
                     <span class="badge-discount">-20%</span>
                     <a href="laptop-details.html">
-                        <img src="images/th.jfif" alt="Premium Laptop">
+                        <img src="images/th.jfif" alt="Premium Laptop" onerror="this.src='https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=500&q=80'">
                     </a>
                 </div>
                 <div class="card-body">
@@ -336,10 +350,12 @@
                 <div class="card-img-wrapper">
                     <span class="badge-category">Wearable</span>
                     <span class="badge-discount">-15%</span>
-                    <img src="images/watch.png" alt="Smart Watch" onerror="this.src='https://via.placeholder.com/150'">
+                    <a href="watch-details.html">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smart Watch">
+                    </a>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">Smart Watch</h3>
+                    <a href="watch-details.html" class="card-title">Smart Watch</a>
                     <div class="rating-row">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -353,7 +369,7 @@
                             <span class="price">$120</span>
                             <span class="old-price">$140</span>
                         </div>
-                        <button class="cart-icon-btn" onclick="quickAddToCart('watch', 'Smart Watch', 120, 'images/watch.png', this)" title="Add to Cart">
+                        <button class="cart-icon-btn" onclick="quickAddToCart('watch', 'Smart Watch', 120, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80', this)" title="Add to Cart">
                             <i class="fa-solid fa-cart-plus"></i>
                         </button>
                     </div>
@@ -365,10 +381,12 @@
                 <div class="card-img-wrapper">
                     <span class="badge-category">Audio</span>
                     <span class="badge-discount">-25%</span>
-                    <img src="images/headphones.png" alt="Headphones" onerror="this.src='https://via.placeholder.com/150'">
+                    <a href="headphone-details.html">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headphones">
+                    </a>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">Headphones</h3>
+                    <a href="headphone-details.html" class="card-title">Headphones</a>
                     <div class="rating-row">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -382,7 +400,7 @@
                             <span class="price">$60</span>
                             <span class="old-price">$80</span>
                         </div>
-                        <button class="cart-icon-btn" onclick="quickAddToCart('headphones', 'Headphones', 60, 'images/headphones.png', this)" title="Add to Cart">
+                        <button class="cart-icon-btn" onclick="quickAddToCart('headphones', 'Headphones', 60, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80', this)" title="Add to Cart">
                             <i class="fa-solid fa-cart-plus"></i>
                         </button>
                     </div>
@@ -406,7 +424,6 @@
 
     <!-- JavaScript Logic -->
     <script>
-        // DOM load hone par cart fetch karein
         document.addEventListener('DOMContentLoaded', updateCartUI);
 
         function quickAddToCart(id, name, price, image, btn) {
@@ -421,7 +438,7 @@
 
             localStorage.setItem('myCart', JSON.stringify(cart));
             
-            // Button feedback (Animation on click)
+            // Visual Animation on Click
             btn.innerHTML = '<i class="fa-solid fa-check"></i>';
             btn.classList.add('added');
             
