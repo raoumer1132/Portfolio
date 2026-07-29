@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Featured Products</title>
+    <title>Featured Products & Cart</title>
 
-    <!-- Google Font: Poppins -->
+    <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- CSS START -->
     <style>
         * {
             margin: 0;
@@ -25,403 +25,455 @@
             min-height: 100vh;
         }
 
-        .header-section {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header-section h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header-section p {
-            color: #64748b;
-            font-size: 0.95rem;
-            margin-top: 5px;
-        }
-
-        .products-container {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
+        .container {
             max-width: 1100px;
             margin: 0 auto;
         }
 
-        /* Card Link Wrapper Styling */
-        .card-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        /* Sleek Product Card */
+        .section-header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* Grid Layout for Products */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        /* Daraz Style Product Card */
         .product-card {
             background: #111827;
-            width: 300px;
-            padding: 18px;
-            border-radius: 16px;
             border: 1px solid #1f2937;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            border-radius: 18px;
+            padding: 16px;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 100%;
-            cursor: pointer;
+            position: relative;
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: #38bdf8;
-            box-shadow: 0 20px 30px -10px rgba(56, 189, 248, 0.15);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
         }
 
-        .badge {
+        /* Image Wrapper */
+        .card-img-wrapper {
+            background: #0f172a;
+            border-radius: 12px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 15px;
+        }
+
+        .card-img-wrapper img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .card-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        /* Badges */
+        .badge-category {
             position: absolute;
-            top: 28px;
-            left: 28px;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(4px);
+            top: 10px;
+            left: 10px;
+            background: rgba(56, 189, 248, 0.15);
             color: #38bdf8;
             font-size: 11px;
             font-weight: 600;
             padding: 4px 10px;
             border-radius: 20px;
             border: 1px solid rgba(56, 189, 248, 0.3);
-            z-index: 2;
         }
 
-        .img-wrapper {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            height: 200px;
+        .badge-discount {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
         }
 
-        .product-card img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
+        /* Card Details */
+        .card-body {
+            margin-top: 14px;
         }
 
-        .product-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .product-info {
-            margin-top: 15px;
-            text-align: left;
-        }
-
-        .product-card h2 {
+        .card-title {
             font-size: 1.1rem;
             font-weight: 600;
             color: #f8fafc;
             margin-bottom: 6px;
+            text-decoration: none;
+            display: block;
         }
 
-        .price-row {
+        .card-title:hover {
+            color: #38bdf8;
+        }
+
+        .rating-row {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #fbbf24;
+            margin-bottom: 12px;
+        }
+
+        .rating-text {
+            color: #94a3b8;
+            margin-left: 4px;
+            font-size: 11px;
+        }
+
+        /* Bottom Row: Price & Daraz Action Button */
+        .card-bottom-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-top: 10px;
-            margin-bottom: 15px;
+        }
+
+        .price-box {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
         }
 
         .price {
             font-size: 1.3rem;
-            color: #34d399;
             font-weight: 700;
+            color: #34d399;
         }
 
-        .btn-add {
-            width: 100%;
+        .old-price {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-decoration: line-through;
+        }
+
+        /* Daraz Quick Add Cart Button Icon */
+        .cart-icon-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
-            color: white;
-            font-weight: 600;
+            color: #ffffff;
             border: none;
-            padding: 12px;
-            border-radius: 10px;
+            font-size: 16px;
             cursor: pointer;
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        .btn-add:hover {
-            opacity: 0.95;
-            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
-            transform: translateY(-1px);
+        .cart-icon-btn:hover {
+            transform: scale(1.08);
+            background: linear-gradient(135deg, #ff6b00 0%, #e05e00 100%); /* Hover par Daraz Orange */
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);
         }
 
-        /* Cart Styling */
-        #cart {
-            margin: 50px auto 0 auto;
-            max-width: 950px;
+        .cart-icon-btn.added {
+            background: #10b981 !important;
+        }
+
+        /* Shopping Cart Container Section */
+        .cart-section {
             background: #111827;
             border: 1px solid #1f2937;
+            border-radius: 20px;
             padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
         .cart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #1f2937;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #1e293b;
         }
 
         .cart-header h2 {
-            font-size: 1.3rem;
-            font-weight: 600;
+            font-size: 1.4rem;
             color: #f8fafc;
         }
 
-        .cart-count {
+        .cart-badge {
             background: #0284c7;
             color: white;
             font-size: 12px;
-            padding: 2px 10px;
-            border-radius: 12px;
             font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
         }
 
-        #cart-items {
-            list-style: none;
+        .cart-empty {
+            text-align: center;
+            color: #64748b;
+            padding: 30px 0;
+            font-size: 0.95rem;
         }
 
         .cart-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 12px 10px;
-            border-bottom: 1px solid #1f2937;
-            color: #cbd5e1;
-            font-size: 14px;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #1e293b;
         }
 
-        .cart-item-name {
-            font-weight: 500;
-        }
-
-        .cart-item-right {
+        .cart-item-info {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        .cart-item-price {
-            color: #34d399;
-            font-weight: 600;
-        }
-
-        .btn-remove {
-            background: rgba(239, 68, 68, 0.15);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            padding: 4px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: 0.2s;
-        }
-
-        .btn-remove:hover {
-            background: #ef4444;
-            color: white;
-        }
-
-        .empty-cart-msg {
-            color: #64748b;
-            text-align: center;
-            padding: 20px 0;
-            font-size: 0.9rem;
-        }
-
-        .cart-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #1f2937;
-        }
-
-        .total-price {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #f8fafc;
-        }
-
-        .total-price span {
-            color: #34d399;
-        }
-
-        .btn-checkout {
-            background: #10b981;
-            color: white;
-            font-weight: 600;
-            border: none;
-            padding: 10px 20px;
+        .cart-item-img {
+            width: 50px;
+            height: 50px;
             border-radius: 8px;
+            background: #0f172a;
+            object-fit: contain;
+            padding: 5px;
+        }
+
+        .cart-item-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .cart-item-price {
+            font-size: 0.85rem;
+            color: #34d399;
+        }
+
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: #ef4444;
             cursor: pointer;
             font-size: 14px;
             transition: 0.2s;
         }
 
-        .btn-checkout:hover {
-            background: #059669;
+        .remove-btn:hover {
+            color: #f87171;
         }
     </style>
-    <!-- CSS END -->
 </head>
 
 <body>
 
-    <div class="header-section">
-        <h1>Featured Store</h1>
-        <p>Explore high-performance gear & accessories</p>
-    </div>
-
-    <div class="products-container">
-
-        <!-- Product 1 -->
-        <a href="laptop-details.html" class="card-link">
-            <div class="product-card">
-                <span class="badge">Tech</span>
-                <div class="img-wrapper">
-                    <img src="images/th.jfif" alt="Laptop">
-                </div>
-                <div class="product-info">
-                    <h2>Premium Laptop</h2>
-                    <div class="price-row">
-                        <span class="price">$800</span>
-                    </div>
-                </div>
-                <!-- event.stopPropagation() is written to stop page redirect when clicking "Add To Cart" -->
-                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Premium Laptop', 800)">Add To Cart</button>
-            </div>
-        </a>
-
-        <!-- Product 2 -->
-        <a href="watch-details.html" class="card-link">
-            <div class="product-card">
-                <span class="badge">Wearable</span>
-                <div class="img-wrapper">
-                    <img src="images/smart.jfif" alt="Smart Watch">
-                </div>
-                <div class="product-info">
-                    <h2>Smart Watch</h2>
-                    <div class="price-row">
-                        <span class="price">$120</span>
-                    </div>
-                </div>
-                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Smart Watch', 120)">Add To Cart</button>
-            </div>
-        </a>
-
-        <!-- Product 3 -->
-        <a href="headphones-details.html" class="card-link">
-            <div class="product-card">
-                <span class="badge">Audio</span>
-                <div class="img-wrapper">
-                    <img src="images/head.jfif" alt="Headphones">
-                </div>
-                <div class="product-info">
-                    <h2>Headphones</h2>
-                    <div class="price-row">
-                        <span class="price">$60</span>
-                    </div>
-                </div>
-                <button class="btn-add" onclick="event.stopPropagation(); addToCart('Headphones', 60)">Add To Cart</button>
-            </div>
-        </a>
-
-    </div>
-
-    <!-- Cart Section -->
-    <div id="cart">
-        <div class="cart-header">
-            <h2>Shopping Cart</h2>
-            <span class="cart-count" id="cart-count">0 items</span>
+    <div class="container">
+        <!-- Header -->
+        <div class="section-header">
+            <p>Explore high-performance gear & accessories</p>
         </div>
 
-        <ul id="cart-items">
-            <li class="empty-cart-msg">Your cart is currently empty.</li>
-        </ul>
+        <!-- Products Grid (Daraz Cards Style) -->
+        <div class="product-grid">
 
-        <div class="cart-footer">
-            <div class="total-price">Total: <span id="total-amount">$0</span></div>
-            <button class="btn-checkout" onclick="alert('Proceeding to checkout...')">Checkout</button>
+            <!-- Card 1: Premium Laptop -->
+            <div class="product-card">
+                <div class="card-img-wrapper">
+                    <span class="badge-category">Tech</span>
+                    <span class="badge-discount">-20%</span>
+                    <a href="laptop-details.html">
+                        <img src="images/th.jfif" alt="Premium Laptop">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <a href="laptop-details.html" class="card-title">Premium Laptop</a>
+                    <div class="rating-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <span class="rating-text">4.8 (142)</span>
+                    </div>
+                    <div class="card-bottom-row">
+                        <div class="price-box">
+                            <span class="price">$800</span>
+                            <span class="old-price">$999</span>
+                        </div>
+                        <button class="cart-icon-btn" onclick="quickAddToCart('laptop', 'Premium Laptop', 800, 'images/th.jfif', this)" title="Add to Cart">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Smart Watch -->
+            <div class="product-card">
+                <div class="card-img-wrapper">
+                    <span class="badge-category">Wearable</span>
+                    <span class="badge-discount">-15%</span>
+                    <img src="images/watch.png" alt="Smart Watch" onerror="this.src='https://via.placeholder.com/150'">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Smart Watch</h3>
+                    <div class="rating-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <span class="rating-text">4.5 (89)</span>
+                    </div>
+                    <div class="card-bottom-row">
+                        <div class="price-box">
+                            <span class="price">$120</span>
+                            <span class="old-price">$140</span>
+                        </div>
+                        <button class="cart-icon-btn" onclick="quickAddToCart('watch', 'Smart Watch', 120, 'images/watch.png', this)" title="Add to Cart">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Headphones -->
+            <div class="product-card">
+                <div class="card-img-wrapper">
+                    <span class="badge-category">Audio</span>
+                    <span class="badge-discount">-25%</span>
+                    <img src="images/headphones.png" alt="Headphones" onerror="this.src='https://via.placeholder.com/150'">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Headphones</h3>
+                    <div class="rating-row">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="rating-text">5.0 (210)</span>
+                    </div>
+                    <div class="card-bottom-row">
+                        <div class="price-box">
+                            <span class="price">$60</span>
+                            <span class="old-price">$80</span>
+                        </div>
+                        <button class="cart-icon-btn" onclick="quickAddToCart('headphones', 'Headphones', 60, 'images/headphones.png', this)" title="Add to Cart">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+        <!-- Dynamic Shopping Cart Display Section -->
+        <div class="cart-section">
+            <div class="cart-header">
+                <h2>Shopping Cart</h2>
+                <span class="cart-badge" id="cartCountBadge">0 items</span>
+            </div>
+            <div id="cartItemsContainer">
+                <p class="cart-empty">Your cart is currently empty.</p>
+            </div>
+        </div>
+
     </div>
 
-    <!-- JAVASCRIPT START -->
+    <!-- JavaScript Logic -->
     <script>
-        let cart = [];
+        // DOM load hone par cart fetch karein
+        document.addEventListener('DOMContentLoaded', updateCartUI);
 
-        function addToCart(title, price) {
-            cart.push({ title, price });
-            displayCart();
+        function quickAddToCart(id, name, price, image, btn) {
+            let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+            
+            let existingIndex = cart.findIndex(item => item.id === id);
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+
+            localStorage.setItem('myCart', JSON.stringify(cart));
+            
+            // Button feedback (Animation on click)
+            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            btn.classList.add('added');
+            
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i>';
+                btn.classList.remove('added');
+            }, 1000);
+
+            updateCartUI();
         }
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            displayCart();
-        }
+        function updateCartUI() {
+            let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+            let container = document.getElementById('cartItemsContainer');
+            let badge = document.getElementById('cartCountBadge');
 
-        function displayCart() {
-            let cartList = document.getElementById("cart-items");
-            let cartCount = document.getElementById("cart-count");
-            let totalAmount = document.getElementById("total-amount");
-
-            cartList.innerHTML = "";
+            let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.innerText = `${totalItems} item${totalItems !== 1 ? 's' : ''}`;
 
             if (cart.length === 0) {
-                cartList.innerHTML = '<li class="empty-cart-msg">Your cart is currently empty.</li>';
-                cartCount.innerText = "0 items";
-                totalAmount.innerText = "$0";
+                container.innerHTML = '<p class="cart-empty">Your cart is currently empty.</p>';
                 return;
             }
 
-            let total = 0;
-
-            cart.forEach(function(item, index) {
-                total += item.price;
-
-                let li = document.createElement("li");
-                li.className = "cart-item";
-                li.innerHTML = `
-                    <span class="cart-item-name">${item.title}</span>
-                    <div class="cart-item-right">
-                        <span class="cart-item-price">$${item.price}</span>
-                        <button class="btn-remove" onclick="removeFromCart(${index})">Remove</button>
+            let html = '';
+            cart.forEach((item, index) => {
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://via.placeholder.com/50'">
+                            <div>
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">$${item.price} x ${item.quantity}</div>
+                            </div>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart(${index})" title="Remove Item">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
                     </div>
                 `;
-                cartList.appendChild(li);
             });
 
-            cartCount.innerText = `${cart.length} item${cart.length > 1 ? 's' : ''}`;
-            totalAmount.innerText = `$${total}`;
+            container.innerHTML = html;
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('myCart', JSON.stringify(cart));
+            updateCartUI();
         }
     </script>
-    <!-- JAVASCRIPT END -->
-
 </body>
+
 </html>
