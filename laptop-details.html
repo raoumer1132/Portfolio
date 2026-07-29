@@ -287,11 +287,12 @@
             display: block;
         }
 
-        /* Action Row */
+        /* Action Row (Daraz Style Layout) */
         .action-row {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .quantity-box {
@@ -325,8 +326,36 @@
             font-size: 14px;
         }
 
-        .btn-buy {
+        /* Daraz Orange Buy Now Button */
+        .btn-buy-now {
             flex: 1;
+            min-width: 120px;
+            background: #ff6b00;
+            color: white;
+            font-weight: 600;
+            border: none;
+            height: 45px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-buy-now:hover {
+            background: #e05e00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        /* Add to Cart Blue Button */
+        .btn-add-cart {
+            flex: 1;
+            min-width: 130px;
             background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
             color: white;
             font-weight: 600;
@@ -343,7 +372,7 @@
             gap: 8px;
         }
 
-        .btn-buy:hover {
+        .btn-add-cart:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
@@ -474,16 +503,25 @@
                     </div>
                 </div>
 
-                <!-- Action Controls -->
+                <!-- Action Controls (Daraz Double Button UI) -->
                 <div class="action-row">
                     <div class="quantity-box">
                         <button class="quantity-btn" onclick="updateQty(-1)">-</button>
                         <span class="quantity-value" id="qty">1</span>
                         <button class="quantity-btn" onclick="updateQty(1)">+</button>
                     </div>
-                    <button type="button" class="btn-buy" onclick="addToCartMsg(event)">
-    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-</button>
+
+                    <!-- Buy Now Button (Daraz Signature Orange) -->
+                    <button type="button" class="btn-buy-now" onclick="buyNowHandler(event)">
+                        Buy Now
+                    </button>
+
+                    <!-- Add to Cart Button -->
+                    <button type="button" class="btn-add-cart" onclick="addToCartMsg(event)">
+                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                    </button>
+
+                    <!-- Wishlist Button -->
                     <button class="wishlist-btn" title="Add to Wishlist" onclick="toggleWishlist(this)">
                         <i class="fa-regular fa-heart"></i>
                     </button>
@@ -492,6 +530,7 @@
 
         </div>
     </div>
+
 <script>
     let count = 1;
 
@@ -502,7 +541,7 @@
     }
 
     function addToCartMsg(e) {
-        if(e) e.preventDefault(); // Page reload hone se rokey ga
+        if(e) e.preventDefault();
 
         let product = {
             id: 'laptop',
@@ -512,7 +551,6 @@
             quantity: count
         };
 
-        // Browser ki memory (localStorage) me save karna
         let cart = JSON.parse(localStorage.getItem('myCart')) || [];
         
         let existingIndex = cart.findIndex(item => item.id === product.id);
@@ -524,6 +562,13 @@
 
         localStorage.setItem('myCart', JSON.stringify(cart));
         alert(`${count} Premium Laptop Cart me add ho gaya hai!`);
+    }
+
+    function buyNowHandler(e) {
+        if(e) e.preventDefault();
+        // Item cart me add karega aur direct products.html/cart par redirect karega
+        addToCartMsg(e);
+        window.location.href = "products.html";
     }
 
     function toggleWishlist(btn) {
