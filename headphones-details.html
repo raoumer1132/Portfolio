@@ -64,6 +64,7 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
+        /* Gallery Styling */
         .gallery-container {
             display: flex;
             flex-direction: column;
@@ -79,6 +80,7 @@
             align-items: center;
             justify-content: center;
             height: 360px;
+            position: relative;
         }
 
         .product-gallery img {
@@ -93,33 +95,7 @@
             transform: scale(1.05);
         }
 
-        .thumbnail-list {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .thumb-box {
-            width: 65px;
-            height: 65px;
-            border-radius: 10px;
-            background: #0f172a;
-            border: 2px solid #1e293b;
-            padding: 5px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .thumb-box.active, .thumb-box:hover {
-            border-color: #38bdf8;
-        }
-
-        .thumb-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
+        /* Content Styling */
         .product-content {
             display: flex;
             flex-direction: column;
@@ -201,38 +177,7 @@
             margin-bottom: 20px;
         }
 
-        .option-section {
-            margin-bottom: 20px;
-        }
-
-        .option-title {
-            font-size: 12px;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .color-options {
-            display: flex;
-            gap: 10px;
-        }
-
-        .color-dot {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: 0.2s;
-        }
-
-        .color-dot.active {
-            border-color: #38bdf8;
-            transform: scale(1.1);
-        }
-
+        /* Specs Grid */
         .specs-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -257,6 +202,7 @@
             font-size: 0.85rem;
         }
 
+        /* Trust Icons Grid */
         .trust-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -281,10 +227,12 @@
             display: block;
         }
 
+        /* Action Row (Daraz Style Layout) */
         .action-row {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .quantity-box {
@@ -318,8 +266,32 @@
             font-size: 14px;
         }
 
-        .btn-buy {
+        .btn-buy-now {
             flex: 1;
+            min-width: 120px;
+            background: #ff6b00;
+            color: white;
+            font-weight: 600;
+            border: none;
+            height: 45px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-buy-now:hover {
+            background: #e05e00;
+            transform: translateY(-2px);
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            min-width: 130px;
             background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
             color: white;
             font-weight: 600;
@@ -336,29 +308,8 @@
             gap: 8px;
         }
 
-        .btn-buy:hover {
+        .btn-add-cart:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-        }
-
-        .wishlist-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            background: #0f172a;
-            border: 1px solid #1e293b;
-            color: #f43f5e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .wishlist-btn:hover {
-            background: rgba(244, 63, 94, 0.15);
-            border-color: #f43f5e;
         }
 
         @media (max-width: 850px) {
@@ -378,17 +329,14 @@
 
         <div class="product-detail-wrapper">
             
+            <!-- Gallery Section -->
             <div class="gallery-container">
                 <div class="product-gallery">
-                    <img id="mainImg" src="images/head.jfif" alt="Headphones">
-                </div>
-                <div class="thumbnail-list">
-                    <div class="thumb-box active" onclick="changeImage('images/head.jfif', this)">
-                        <img src="images/head.jfif" alt="Thumb 1">
-                    </div>
+                    <img id="mainImg" src="images/headphones.png" alt="Headphones" onerror="this.src='https://via.placeholder.com/300'">
                 </div>
             </div>
 
+            <!-- Content Section -->
             <div class="product-content">
                 <div>
                     <div class="meta-tags">
@@ -398,6 +346,7 @@
 
                     <h1 class="product-title">Headphones</h1>
 
+                    <!-- Ratings -->
                     <div class="ratings-row">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -407,42 +356,37 @@
                         <span class="rating-text">5.0 (210 reviews)</span>
                     </div>
 
+                    <!-- Price -->
                     <div class="price-wrapper">
                         <span class="price-tag">$60</span>
-                        <span class="old-price">$90</span>
+                        <span class="old-price">$80</span>
                     </div>
 
                     <p class="description">
-                        Immerse yourself in rich, high-fidelity sound. Features active noise cancellation (ANC), soft memory-foam cushions, and extended battery playback.
+                        Immerse yourself in crystal-clear audio with Active Noise Cancellation, deep bass drivers, comfortable memory foam earcups, and HD microphone.
                     </p>
 
-                    <div class="option-section">
-                        <div class="option-title">Select Color</div>
-                        <div class="color-options">
-                            <span class="color-dot active" style="background-color: #0f172a;" title="Matte Black"></span>
-                            <span class="color-dot" style="background-color: #f8fafc;" title="Pure White"></span>
-                        </div>
-                    </div>
-
+                    <!-- Specs -->
                     <div class="specs-grid">
                         <div class="spec-item">
                             <span class="label">Driver Size</span>
-                            <span class="value">40mm Dynamic</span>
+                            <span class="value">50mm Dynamic</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="label">Connectivity</span>
+                            <span class="value">Bluetooth 5.3 & 3.5mm</span>
                         </div>
                         <div class="spec-item">
                             <span class="label">Playtime</span>
-                            <span class="value">30 Hours Battery</span>
+                            <span class="value">Up to 30 Hours</span>
                         </div>
                         <div class="spec-item">
-                            <span class="label">Cancellation</span>
-                            <span class="value">Active ANC Tech</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="label">Mic</span>
-                            <span class="value">Built-in HD Mic</span>
+                            <span class="label">Noise Cancellation</span>
+                            <span class="value">Active ANC</span>
                         </div>
                     </div>
 
+                    <!-- Trust Icons -->
                     <div class="trust-grid">
                         <div class="trust-box">
                             <i class="fa-solid fa-truck-fast"></i>
@@ -454,22 +398,25 @@
                         </div>
                         <div class="trust-box">
                             <i class="fa-solid fa-rotate-left"></i>
-                            7 Days Easy Return
+                            7 Days Return Policy
                         </div>
                     </div>
                 </div>
 
+                <!-- Action Controls -->
                 <div class="action-row">
                     <div class="quantity-box">
                         <button class="quantity-btn" onclick="updateQty(-1)">-</button>
                         <span class="quantity-value" id="qty">1</span>
                         <button class="quantity-btn" onclick="updateQty(1)">+</button>
                     </div>
-                   <button type="button" class="btn-buy" onclick="addToCartMsg(event)">
-    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-</button>
-                    <button class="wishlist-btn" title="Add to Wishlist" onclick="toggleWishlist(this)">
-                        <i class="fa-regular fa-heart"></i>
+
+                    <button type="button" class="btn-buy-now" onclick="buyNowHandler(event)">
+                        Buy Now
+                    </button>
+
+                    <button type="button" class="btn-add-cart" onclick="addToCartMsg(event)">
+                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                     </button>
                 </div>
             </div>
@@ -477,7 +424,7 @@
         </div>
     </div>
 
-    <script>
+<script>
     let count = 1;
 
     function updateQty(val) {
@@ -486,18 +433,20 @@
         document.getElementById('qty').innerText = count;
     }
 
-    function addToCartMsg() {
+    function addToCartMsg(e) {
+        if(e) e.preventDefault();
+
         let product = {
             id: 'headphones',
             name: 'Headphones',
             price: 60,
-            image: 'images/head.jfif',
+            image: 'images/headphones.png',
             quantity: count
         };
 
         let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+        
         let existingIndex = cart.findIndex(item => item.id === product.id);
-
         if (existingIndex > -1) {
             cart[existingIndex].quantity += count;
         } else {
@@ -505,28 +454,14 @@
         }
 
         localStorage.setItem('myCart', JSON.stringify(cart));
-        alert(`${count} Headphone cart me add ho gaya!`);
+        alert(`${count} Headphones Cart me add ho gaya hai!`);
     }
 
-    function toggleWishlist(btn) {
-        const icon = btn.querySelector('i');
-        if (icon.classList.contains('fa-regular')) {
-            icon.classList.remove('fa-regular');
-            icon.classList.add('fa-solid');
-            alert('Added to Wishlist!');
-        } else {
-            icon.classList.remove('fa-solid');
-            icon.classList.add('fa-regular');
-        }
-    }
-
-    function changeImage(src, element) {
-        document.getElementById('mainImg').src = src;
-        document.querySelectorAll('.thumb-box').forEach(el => el.classList.remove('active'));
-        element.classList.add('active');
+    function buyNowHandler(e) {
+        addToCartMsg(e);
+        window.location.href = "products.html";
     }
 </script>
-
 </body>
 
 </html>
