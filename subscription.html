@@ -1,128 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscription Packages - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./style4.css">
-    <script src="./script.js" defer></script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* Floating Cart Icon Styling */
-        .top-cart-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto 20px auto;
-            padding: 0 20px;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #000; color: #fff; padding: 30px 20px; min-height: 100vh; }
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .back-link { color: #fff; text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; font-weight: 500; }
+        .cart-pill-btn {
+            background: #111418; border: 1px solid #22262c; color: #fff; padding: 8px 18px;
+            border-radius: 20px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: 600;
         }
-        .custom-cart-btn {
-            background-color: #111111;
-            border: 1px solid #222222;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
+        .cart-badge { background: #ff5722; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 50%; }
+
+        .main-title { text-align: center; font-size: 2.2rem; font-weight: 700; margin-bottom: 40px; letter-spacing: 1px; }
+
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+
+        .plan-card {
+            background: #0d0f12; border: 1px solid #1f242d; border-radius: 16px; padding: 35px 25px;
+            text-align: center; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;
         }
-        .custom-cart-btn:hover {
-            border-color: #ff5722;
-            color: #ff5722;
+        .plan-card.featured { border-color: #ff5722; box-shadow: 0 0 20px rgba(255, 87, 34, 0.15); }
+        .plan-card:hover { transform: translateY(-5px); }
+
+        .plan-name { font-size: 1.25rem; font-weight: 600; margin-bottom: 10px; }
+        .plan-price { font-size: 2.5rem; font-weight: 700; color: #ff5722; margin-bottom: 25px; }
+        .plan-price span { font-size: 0.9rem; color: #94a3b8; font-weight: 400; }
+
+        .features-list { list-style: none; margin-bottom: 30px; }
+        .features-list li { color: #cbd5e1; font-size: 0.9rem; margin-bottom: 12px; border-bottom: 1px solid #181d25; padding-bottom: 8px; }
+
+        .btn-add {
+            width: 100%; background: #ffffff; color: #000; border: none; padding: 12px;
+            border-radius: 25px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
         }
-        #cart-count {
-            background-color: #ff5722;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 50%;
-            font-size: 0.8rem;
-        }
+        .btn-add:hover { background: #ff5722; color: #ffffff; }
     </style>
 </head>
-<body style="background-color: #000000; padding-top: 40px;">
 
-    <div class="top-cart-container">
-        <a href="index.html" style="color: #aaaaaa; text-decoration: none; font-weight: bold;">
-            <i class="fa-solid fa-arrow-left"></i> Back to Home
-        </a>
-        
-        <a href="cart.html" class="custom-cart-btn">
-            <i class="fa-solid fa-cart-shopping"></i> My Cart <span id="cart-count">0</span>
-        </a>
-    </div>
+<body>
 
-    <section class="pricing-section">
-        <h2 class="section-title">Subscription Fee Packages</h2>
-        
-        <div class="packages-container">
-            <div class="package-card">
-                <h3>Basic Plan</h3>
-                <div class="price">$19<span>/mo</span></div>
-                <ul>
-                    <li>Single Page Website</li>
-                    <li>Basic UI/UX Design</li>
-                    <li>1 Month Support</li>
-                </ul>
-                <button class="add-to-cart-btn" data-name="Basic Plan" data-price="19">Add to Cart</button>
+    <div class="container">
+        <header class="top-nav">
+            <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+            <a href="cart.html" class="cart-pill-btn">
+                <i class="fa-solid fa-cart-shopping"></i> My Cart
+                <span class="cart-badge" id="subCartBadge">0</span>
+            </a>
+        </header>
+
+        <h1 class="main-title">SUBSCRIPTION FEE PACKAGES</h1>
+
+        <div class="packages-grid">
+            <!-- Basic Plan -->
+            <div class="plan-card">
+                <div>
+                    <h2 class="plan-name">Basic Plan</h2>
+                    <div class="plan-price">$19<span>/mo</span></div>
+                    <ul class="features-list">
+                        <li>Single Page Website</li>
+                        <li>Basic UI/UX Design</li>
+                        <li>1 Month Support</li>
+                    </ul>
+                </div>
+                <button class="btn-add" onclick="addSubscription('Basic Plan', 19)">Add to Cart</button>
             </div>
 
-            <div class="package-card featured">
-                <h3>Standard Plan</h3>
-                <div class="price">$49<span>/mo</span></div>
-                <ul>
-                    <li>Multi-page Website</li>
-                    <li>E-commerce Integration</li>
-                    <li>3 Months Support</li>
-                </ul>
-                <button class="add-to-cart-btn" data-name="Standard Plan" data-price="49">Add to Cart</button>
+            <!-- Standard Plan -->
+            <div class="plan-card featured">
+                <div>
+                    <h2 class="plan-name">Standard Plan</h2>
+                    <div class="plan-price">$49<span>/mo</span></div>
+                    <ul class="features-list">
+                        <li>Multi-page Website</li>
+                        <li>E-commerce Integration</li>
+                        <li>3 Months Support</li>
+                    </ul>
+                </div>
+                <button class="btn-add" onclick="addSubscription('Standard Plan', 49)">Add to Cart</button>
             </div>
 
-            <div class="package-card">
-                <h3>Premium Plan</h3>
-                <div class="price">$99<span>/mo</span></div>
-                <ul>
-                    <li>Custom Web Application</li>
-                    <li>Advanced Dashboard & Security</li>
-                    <li>1 Year Support</li>
-                </ul>
-                <button class="add-to-cart-btn" data-name="Premium Plan" data-price="99">Add to Cart</button>
+            <!-- Premium Plan -->
+            <div class="plan-card">
+                <div>
+                    <h2 class="plan-name">Premium Plan</h2>
+                    <div class="plan-price">$99<span>/mo</span></div>
+                    <ul class="features-list">
+                        <li>Custom Web Application</li>
+                        <li>Advanced Dashboard & Security</li>
+                        <li>1 Year Support</li>
+                    </ul>
+                </div>
+                <button class="btn-add" onclick="addSubscription('Premium Plan', 99)">Add to Cart</button>
             </div>
         </div>
-    </section>
-<!-- 1. Yeh code cart ke badge ko automatic update karega -->
+    </div>
+
     <script>
-        function updateBadgeCount() {
-            // Local storage se check karo ke cart mein kuch bacha hai ya nahi
-            let cart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
-            let totalCount = 0;
+        document.addEventListener('DOMContentLoaded', updateCartBadge);
+
+        function addSubscription(planName, price) {
+            let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             
-            // Jitne items hain unhe jama (add) karo
-            cart.forEach(item => {
-                totalCount += parseInt(item.quantity) || 1;
-            });
-            
-            // Screen par jo "My Cart 0" likha hai, us 0 ko real number se badal do
-            const badge = document.getElementById('cart-count');
-            if (badge) {
-                badge.textContent = totalCount;
+            let existing = cart.find(item => item.name === planName);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ name: planName, price: price, quantity: 1, type: 'subscription' });
             }
+
+            localStorage.setItem('userCart', JSON.stringify(cart));
+            updateCartBadge();
+            window.location.href = 'cart.html';
         }
 
-        // Jaise hi subscription page open ho, foran counter check karo (0 ho jayega agar payment ho chuki hai)
-        window.addEventListener('DOMContentLoaded', updateBadgeCount);
-
-        // Agar user page par khade khade "Add to Cart" dabaye, toh count foran barh jaye
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                setTimeout(updateBadgeCount, 100); 
-            });
-        });
+        function updateCartBadge() {
+            let cart = JSON.parse(localStorage.getItem('userCart')) || [];
+            let count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('subCartBadge').innerText = count;
+        }
     </script>
 </body>
+
 </html>
