@@ -1,77 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #000; color: #fff; font-family: Arial, sans-serif; padding: 40px; }
-        .cart-wrapper { max-width: 600px; margin: 0 auto; background: #111; padding: 20px; border-radius: 10px; border: 1px solid #222; }
-        h1 { color: #ff5722; text-align: center; text-transform: uppercase; }
-        .cart-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #222; }
-        .total { font-size: 1.5rem; text-align: right; margin-top: 20px; color: #ff5722; font-weight: bold; }
-        .checkout-btn { background: #ff5722; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 25px; cursor: pointer; font-size: 1rem; margin-top: 20px; font-weight: bold; }
-        .clear-btn { background: #333; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #000; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+
+        .cart-box {
+            background: #111418;
+            border: 1px solid #22262c;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 550px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .title {
+            color: #ff5722;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #1e232a;
+            font-size: 1rem;
+            color: #e2e8f0;
+        }
+
+        .empty-text {
+            text-align: center;
+            color: #64748b;
+            padding: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ff5722;
+        }
+
+        .btn-checkout {
+            display: block;
+            width: 100%;
+            background: #ff5722;
+            color: #fff;
+            text-align: center;
+            padding: 14px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 25px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-checkout:hover { background: #e04818; }
+
+        .btn-clear {
+            background: #22262c;
+            color: #94a3b8;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .btn-clear:hover { background: #ef4444; color: #fff; }
     </style>
 </head>
+
 <body>
 
-<div class="cart-wrapper">
-    <h1>Your Selected Packages</h1>
-    <div id="cart-items-list"></div>
-    <div class="total">Total: $<span id="cart-total-price">0</span></div>
-    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
-    <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
-</div>
+    <div class="cart-box">
+        <h1 class="title">YOUR SELECTED PACKAGES</h1>
 
-<script>
-    function displayCart() {
-        let cart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
-        let listContainer = document.getElementById('cart-items-list');
-        let totalContainer = document.getElementById('cart-total-price');
-        
-        if(cart.length === 0) {
-            listContainer.innerHTML = "<p style='text-align:center; color:#888;'>Your cart is empty.</p>";
-            totalContainer.innerText = "0";
-            return;
+        <div id="cartItemsList"></div>
+
+        <div class="total-row">
+            <span>Total:</span>
+            <span id="cartTotal">$0</span>
+        </div>
+
+        <a href="payment.html" class="btn-checkout">Proceed to Checkout</a>
+        <button onclick="clearCart()" class="btn-clear">Clear Cart</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', displayCart);
+
+        function displayCart() {
+            let cart = JSON.parse(localStorage.getItem('userCart')) || [];
+            let listContainer = document.getElementById('cartItemsList');
+            let totalElement = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                listContainer.innerHTML = '<p class="empty-text">Your cart is empty.</p>';
+                totalElement.innerText = '$0';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                let itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                html += `
+                    <div class="item-row">
+                        <span>${item.name} (x${item.quantity})</span>
+                        <span>$${itemTotal}</span>
+                    </div>
+                `;
+            });
+
+            listContainer.innerHTML = html;
+            totalElement.innerText = `$${total}`;
         }
-        
-        listContainer.innerHTML = "";
-        let total = 0;
-        
-        cart.forEach(item => {
-            total += (item.price * item.quantity);
-            listContainer.innerHTML += `
-                <div class="cart-item">
-                    <span>${item.name} (x${item.quantity})</span>
-                    <span>$${item.price * item.quantity}</span>
-                </div>
-            `;
-        });
-        
-        totalContainer.innerText = total;
-    }
 
-    function clearCart() {
-        localStorage.removeItem('portfolioCart');
-        displayCart();
-    }
-
-    function checkout() {
-        let cart = JSON.parse(localStorage.getItem('portfolioCart')) || [];
-        if(cart.length === 0) {
-            alert("Your cart is empty! Please add a package first.");
-            return;
+        function clearCart() {
+            localStorage.removeItem('userCart');
+            displayCart();
         }
-        alert("Thank you! Connecting you to the payment gateway...");
-        window.location.href = "./payment.html";
-    }
-
-    displayCart();
-
-
-    
-</script>
+    </script>
 
 </body>
+
 </html>
