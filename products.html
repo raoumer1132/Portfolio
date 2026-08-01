@@ -42,7 +42,6 @@
         .card-body { margin-top: 14px; }
         .card-title { font-size: 1.1rem; font-weight: 600; color: #f8fafc; margin-bottom: 6px; text-decoration: none; display: block; }
         .rating-row { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #fbbf24; margin-bottom: 12px; }
-        .rating-text { color: #94a3b8; margin-left: 4px; font-size: 11px; }
 
         .card-bottom-row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
         .price { font-size: 1.3rem; font-weight: 700; color: #34d399; }
@@ -83,7 +82,7 @@
                     <div class="rating-row"><i class="fa-solid fa-star"></i> 4.8 (142)</div>
                     <div class="card-bottom-row">
                         <div><span class="price">$800</span><span class="old-price">$999</span></div>
-                        <button class="cart-icon-btn" onclick="quickAddToCart('Premium Laptop', 800)"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="cart-icon-btn" onclick="addToCart('Premium Laptop', 800)"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -99,7 +98,7 @@
                     <div class="rating-row"><i class="fa-solid fa-star"></i> 4.5 (89)</div>
                     <div class="card-bottom-row">
                         <div><span class="price">$120</span><span class="old-price">$140</span></div>
-                        <button class="cart-icon-btn" onclick="quickAddToCart('Smart Watch', 120)"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="cart-icon-btn" onclick="addToCart('Smart Watch', 120)"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -115,7 +114,7 @@
                     <div class="rating-row"><i class="fa-solid fa-star"></i> 5.0 (210)</div>
                     <div class="card-bottom-row">
                         <div><span class="price">$60</span><span class="old-price">$80</span></div>
-                        <button class="cart-icon-btn" onclick="quickAddToCart('Headphones', 60)"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button class="cart-icon-btn" onclick="addToCart('Headphones', 60)"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -123,22 +122,22 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', updateCartCount);
+        document.addEventListener('DOMContentLoaded', updateBadge);
 
-        function quickAddToCart(name, price) {
-            let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             let item = cart.find(i => i.name === name);
             if (item) {
                 item.quantity += 1;
             } else {
                 cart.push({ name: name, price: price, quantity: 1 });
             }
-            localStorage.setItem('myCart', JSON.stringify(cart));
-            updateCartCount();
+            localStorage.setItem('userCart', JSON.stringify(cart));
+            updateBadge();
         }
 
-        function updateCartCount() {
-            let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+        function updateBadge() {
+            let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             let count = cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('topCartCount').innerText = count;
         }
