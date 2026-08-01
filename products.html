@@ -6,416 +6,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Featured Products & Cart</title>
 
-    <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #090d16; color: #f1f5f9; padding: 20px 20px 40px; min-height: 100vh; }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-        body {
-            background-color: #090d16;
-            color: #f1f5f9;
-            padding: 20px 20px 40px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        /* Top Navigation Header (New) */
-        .top-navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0 30px 0;
-        }
-
+        .top-navbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 30px 0; }
         .nav-pill-btn {
-            background-color: #111827;
-            color: #f8fafc;
-            border: 1px solid #1f2937;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background-color: #111827; color: #f8fafc; border: 1px solid #1f2937;
+            padding: 10px 20px; border-radius: 30px; font-size: 14px; font-weight: 500;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease;
         }
+        .nav-pill-btn:hover { background-color: #1e293b; border-color: #ff5722; color: #ff5722; }
+        .header-cart-badge { background-color: #ff5722; color: #ffffff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 50%; }
 
-        .nav-pill-btn:hover {
-            background-color: #1e293b;
-            border-color: #38bdf8;
-            color: #38bdf8;
-        }
+        .section-header { text-align: center; margin-bottom: 30px; }
+        .section-header p { color: #94a3b8; font-size: 0.95rem; }
 
-        .header-cart-badge {
-            background-color: #ef4444;
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 2px 7px;
-            border-radius: 50%;
-            margin-left: 4px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .section-header p {
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
-
-        /* Grid Layout for Products */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        /* Daraz Style Product Card */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .product-card {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 18px;
-            padding: 16px;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
+            background: #111827; border: 1px solid #1f2937; border-radius: 18px; padding: 16px;
+            transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; position: relative;
         }
+        .product-card:hover { transform: translateY(-5px); border-color: #ff5722; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: #38bdf8;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-        }
+        .card-img-wrapper { background: #0f172a; border-radius: 12px; height: 200px; display: flex; align-items: center; justify-content: center; position: relative; padding: 15px; overflow: hidden; }
+        .card-img-wrapper img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 8px; }
 
-        /* Image Wrapper */
-        .card-img-wrapper {
-            background: #0f172a;
-            border-radius: 12px;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 15px;
-            overflow: hidden;
-        }
+        .badge-category { position: absolute; top: 10px; left: 10px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .badge-discount { position: absolute; top: 10px; right: 10px; background: #ef4444; color: #ffffff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
 
-        .card-img-wrapper a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            text-decoration: none;
-        }
+        .card-body { margin-top: 14px; }
+        .card-title { font-size: 1.1rem; font-weight: 600; color: #f8fafc; margin-bottom: 6px; text-decoration: none; display: block; }
+        .rating-row { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #fbbf24; margin-bottom: 12px; }
+        .rating-text { color: #94a3b8; margin-left: 4px; font-size: 11px; }
 
-        .card-img-wrapper img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-            border-radius: 8px;
-        }
+        .card-bottom-row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+        .price { font-size: 1.3rem; font-weight: 700; color: #34d399; }
+        .old-price { font-size: 0.85rem; color: #64748b; text-decoration: line-through; margin-left: 5px; }
 
-        .product-card:hover .card-img-wrapper img {
-            transform: scale(1.05);
-        }
-
-        /* Badges */
-        .badge-category {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(56, 189, 248, 0.15);
-            color: #38bdf8;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            z-index: 2;
-        }
-
-        .badge-discount {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ef4444;
-            color: #ffffff;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-            z-index: 2;
-        }
-
-        /* Card Details */
-        .card-body {
-            margin-top: 14px;
-        }
-
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #f8fafc;
-            margin-bottom: 6px;
-            text-decoration: none;
-            display: block;
-            transition: color 0.2s;
-        }
-
-        .card-title:hover {
-            color: #38bdf8;
-        }
-
-        .rating-row {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            color: #fbbf24;
-            margin-bottom: 12px;
-        }
-
-        .rating-text {
-            color: #94a3b8;
-            margin-left: 4px;
-            font-size: 11px;
-        }
-
-        /* Bottom Row: Price & Action Button */
-        .card-bottom-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .price-box {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-        }
-
-        .price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #34d399;
-        }
-
-        .old-price {
-            font-size: 0.85rem;
-            color: #64748b;
-            text-decoration: line-through;
-        }
-
-        /* Cart Button Icon */
         .cart-icon-btn {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
-            color: #ffffff;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            width: 42px; height: 42px; border-radius: 12px; background: #0284c7; color: #ffffff;
+            border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
         }
-
-        .cart-icon-btn:hover {
-            transform: scale(1.08);
-            background: linear-gradient(135deg, #ff6b00 0%, #e05e00 100%);
-            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);
-        }
-
-        .cart-icon-btn.added {
-            background: #10b981 !important;
-        }
+        .cart-icon-btn:hover { transform: scale(1.08); background: #ff5722; }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-
-        <!-- Top Header with Navigation & Cart Button -->
         <header class="top-navbar">
-            <a href="index.html" class="nav-pill-btn">
-                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            <a href="index.html" class="nav-pill-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+            <a href="cart.html" class="nav-pill-btn">
+                <i class="fa-solid fa-cart-shopping"></i> My Cart
+                <span class="header-cart-badge" id="topCartCount">0</span>
             </a>
-
-            <a href="cart.html" class="nav-pill-btn" id="headerCartBtn">
-    <i class="fa-solid fa-cart-shopping"></i> My Cart
-    <span class="header-cart-badge" id="topCartCount">0</span>
-</a>
         </header>
 
-        <!-- Header -->
         <div class="section-header">
             <p>Explore high-performance gear & accessories</p>
         </div>
 
-        <!-- Products Grid -->
         <div class="product-grid">
-
-            <!-- Card 1: Premium Laptop -->
             <div class="product-card">
                 <div class="card-img-wrapper">
                     <span class="badge-category">Tech</span>
                     <span class="badge-discount">-20%</span>
-                    <a href="laptop-details.html">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=500&q=80" alt="Premium Laptop">
-                    </a>
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=500&q=80" alt="Premium Laptop">
                 </div>
                 <div class="card-body">
-                    <a href="laptop-details.html" class="card-title">Premium Laptop</a>
-                    <div class="rating-row">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                        <span class="rating-text">4.8 (142)</span>
-                    </div>
+                    <span class="card-title">Premium Laptop</span>
+                    <div class="rating-row"><i class="fa-solid fa-star"></i> 4.8 (142)</div>
                     <div class="card-bottom-row">
-                        <div class="price-box">
-                            <span class="price">$800</span>
-                            <span class="old-price">$999</span>
-                        </div>
-                        <button class="cart-icon-btn" onclick="quickAddToCart('laptop', 'Premium Laptop', 800, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=500&q=80', this)" title="Add to Cart">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
+                        <div><span class="price">$800</span><span class="old-price">$999</span></div>
+                        <button class="cart-icon-btn" onclick="quickAddToCart('Premium Laptop', 800)"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 2: Smart Watch -->
             <div class="product-card">
                 <div class="card-img-wrapper">
                     <span class="badge-category">Wearable</span>
                     <span class="badge-discount">-15%</span>
-                    <a href="watch-details.html">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smart Watch">
-                    </a>
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smart Watch">
                 </div>
                 <div class="card-body">
-                    <a href="watch-details.html" class="card-title">Smart Watch</a>
-                    <div class="rating-row">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <span class="rating-text">4.5 (89)</span>
-                    </div>
+                    <span class="card-title">Smart Watch</span>
+                    <div class="rating-row"><i class="fa-solid fa-star"></i> 4.5 (89)</div>
                     <div class="card-bottom-row">
-                        <div class="price-box">
-                            <span class="price">$120</span>
-                            <span class="old-price">$140</span>
-                        </div>
-                        <button class="cart-icon-btn" onclick="quickAddToCart('watch', 'Smart Watch', 120, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80', this)" title="Add to Cart">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
+                        <div><span class="price">$120</span><span class="old-price">$140</span></div>
+                        <button class="cart-icon-btn" onclick="quickAddToCart('Smart Watch', 120)"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 3: Headphones -->
             <div class="product-card">
                 <div class="card-img-wrapper">
                     <span class="badge-category">Audio</span>
                     <span class="badge-discount">-25%</span>
-                    <a href="headphones-details.html">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headphones">
-                    </a>
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headphones">
                 </div>
                 <div class="card-body">
-                    <a href="headphones-details.html" class="card-title">Headphones</a>
-                    <div class="rating-row">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <span class="rating-text">5.0 (210)</span>
-                    </div>
+                    <span class="card-title">Headphones</span>
+                    <div class="rating-row"><i class="fa-solid fa-star"></i> 5.0 (210)</div>
                     <div class="card-bottom-row">
-                        <div class="price-box">
-                            <span class="price">$60</span>
-                            <span class="old-price">$80</span>
-                        </div>
-                        <button class="cart-icon-btn" onclick="quickAddToCart('headphones', 'Headphones', 60, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80', this)" title="Add to Cart">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </button>
+                        <div><span class="price">$60</span><span class="old-price">$80</span></div>
+                        <button class="cart-icon-btn" onclick="quickAddToCart('Headphones', 60)"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
-    <!-- JavaScript Logic -->
     <script>
-        document.addEventListener('DOMContentLoaded', updateCartUI);
+        document.addEventListener('DOMContentLoaded', updateCartCount);
 
-        function quickAddToCart(id, name, price, image, btn) {
+        function quickAddToCart(name, price) {
             let cart = JSON.parse(localStorage.getItem('myCart')) || [];
-            
-            let existingIndex = cart.findIndex(item => item.id === id);
-            if (existingIndex > -1) {
-                cart[existingIndex].quantity += 1;
+            let item = cart.find(i => i.name === name);
+            if (item) {
+                item.quantity += 1;
             } else {
-                cart.push({ id, name, price, image, quantity: 1 });
+                cart.push({ name: name, price: price, quantity: 1 });
             }
-
             localStorage.setItem('myCart', JSON.stringify(cart));
-            
-            // Visual Animation on Click
-            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-            btn.classList.add('added');
-            
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i>';
-                btn.classList.remove('added');
-            }, 1000);
-
-            updateCartUI();
+            updateCartCount();
         }
 
-        function updateCartUI() {
+        function updateCartCount() {
             let cart = JSON.parse(localStorage.getItem('myCart')) || [];
-            let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            
-            // Update Top Header Cart Badge Count
-            let topBadge = document.getElementById('topCartCount');
-            if (topBadge) {
-                topBadge.innerText = totalItems;
-            }
+            let count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('topCartCount').innerText = count;
         }
     </script>
 </body>
