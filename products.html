@@ -83,7 +83,7 @@
                     <div class="rating-row"><i class="fa-solid fa-star"></i> 4.8 (142)</div>
                     <div class="card-bottom-row">
                         <div><span class="price">$800</span><span class="old-price">$999</span></div>
-                        <button type="button" class="cart-icon-btn" onclick="addToCart(event, 'Premium Laptop', 800)"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button type="button" class="cart-icon-btn" data-name="Premium Laptop" data-price="800"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                     <div class="rating-row"><i class="fa-solid fa-star"></i> 4.5 (89)</div>
                     <div class="card-bottom-row">
                         <div><span class="price">$120</span><span class="old-price">$140</span></div>
-                        <button type="button" class="cart-icon-btn" onclick="addToCart(event, 'Smart Watch', 120)"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button type="button" class="cart-icon-btn" data-name="Smart Watch" data-price="120"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                     <div class="rating-row"><i class="fa-solid fa-star"></i> 5.0 (210)</div>
                     <div class="card-bottom-row">
                         <div><span class="price">$60</span><span class="old-price">$80</span></div>
-                        <button type="button" class="cart-icon-btn" onclick="addToCart(event, 'Headphones', 60)"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button type="button" class="cart-icon-btn" data-name="Headphones" data-price="60"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -125,18 +125,31 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', updateBadge);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateBadge();
+            
+            // Buttons par direct JavaScript click listeners attach karna
+            const cartButtons = document.querySelectorAll('.cart-icon-btn');
+            
+            cartButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Kisi bhi kism ke automatic navigation/form submission ko forcefully block karein
+                    e.preventDefault();
+                    e.stopPropagation();
 
-        function addToCart(event, name, price) {
-            // Unwanted redirects/event propagation ko rokne ke liye
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
+                    // Button ke data attributes se values nikalna
+                    const name = this.getAttribute('data-name');
+                    const price = parseFloat(this.getAttribute('data-price'));
 
+                    addToCart(name, price);
+                });
+            });
+        });
+
+        function addToCart(name, price) {
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             let item = cart.find(i => i.name === name);
-            
+
             if (item) {
                 item.quantity += 1;
             } else {
@@ -146,14 +159,17 @@
             localStorage.setItem('userCart', JSON.stringify(cart));
             updateBadge();
 
-            // Notification user feedback ke liye (is se page navigate nahi hoga)
-            alert(`${name} item cart mein add ho gaya hai!`);
+            // Success feedback without page reload
+            alert(`${name} cart mein add ho gaya hai!`);
         }
 
         function updateBadge() {
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             let count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('topCartCount').innerText = count;
+            const badge = document.getElementById('topCartCount');
+            if (badge) {
+                badge.innerText = count;
+            }
         }
     </script>
 </body>
