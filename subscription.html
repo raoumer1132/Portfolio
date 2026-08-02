@@ -5,130 +5,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscription Packages - Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #000; color: #fff; padding: 30px 20px; min-height: 100vh; }
-        .container { max-width: 1100px; margin: 0 auto; }
+        body { background-color: #000; color: #fff; min-height: 100vh; padding: 20px 40px; }
 
-        .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-        .back-link { color: #fff; text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; font-weight: 500; }
-        .cart-pill-btn {
-            background: #111418; border: 1px solid #22262c; color: #fff; padding: 8px 18px;
-            border-radius: 20px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: 600;
+        .top-navbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; }
+        .back-btn { color: #fff; text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; font-weight: 500; }
+        
+        .cart-btn {
+            background: #111827; color: #fff; text-decoration: none; padding: 8px 18px;
+            border-radius: 25px; border: 1px solid #1f2937; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
         }
-        .cart-badge { background: #ff5722; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 50%; }
+        .cart-badge { background: #ff5722; color: #fff; font-size: 0.75rem; font-weight: 700; border-radius: 50%; padding: 2px 7px; }
 
-        .main-title { text-align: center; font-size: 2.2rem; font-weight: 700; margin-bottom: 40px; letter-spacing: 1px; }
+        .page-title { text-align: center; font-size: 2.2rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 50px; text-transform: uppercase; }
 
-        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-
-        .plan-card {
-            background: #0d0f12; border: 1px solid #1f242d; border-radius: 16px; padding: 35px 25px;
-            text-align: center; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1100px; margin: 0 auto; }
+        
+        .package-card {
+            background: #090d16; border: 1px solid #1f2937; border-radius: 16px; padding: 40px 25px;
+            text-align: center; display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s;
         }
-        .plan-card.featured { border-color: #ff5722; box-shadow: 0 0 20px rgba(255, 87, 34, 0.15); }
-        .plan-card:hover { transform: translateY(-5px); }
+        .package-card.featured { border: 1.5px solid #ff5722; }
 
-        .plan-name { font-size: 1.25rem; font-weight: 600; margin-bottom: 10px; }
-        .plan-price { font-size: 2.5rem; font-weight: 700; color: #ff5722; margin-bottom: 25px; }
-        .plan-price span { font-size: 0.9rem; color: #94a3b8; font-weight: 400; }
+        .plan-name { font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; }
+        .price-tag { font-size: 2.8rem; font-weight: 700; color: #ff5722; margin-bottom: 30px; }
+        .price-tag span { font-size: 0.9rem; color: #94a3b8; font-weight: 400; }
 
-        .features-list { list-style: none; margin-bottom: 30px; }
-        .features-list li { color: #cbd5e1; font-size: 0.9rem; margin-bottom: 12px; border-bottom: 1px solid #181d25; padding-bottom: 8px; }
+        .features-list { list-style: none; margin-bottom: 40px; }
+        .features-list li { color: #cbd5e1; font-size: 0.9rem; margin-bottom: 18px; border-bottom: 1px solid #111827; padding-bottom: 12px; }
 
         .btn-add {
-            width: 100%; background: #ffffff; color: #000; border: none; padding: 12px;
-            border-radius: 25px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+            background: #fff; color: #000; border: none; padding: 12px; border-radius: 25px;
+            font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; font-size: 0.95rem;
         }
-        .btn-add:hover { background: #ff5722; color: #ffffff; }
+        .btn-add:hover { background: #ff5722; color: #fff; }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <header class="top-nav">
-            <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
-            <a href="cart.html" class="cart-pill-btn">
-                <i class="fa-solid fa-cart-shopping"></i> My Cart
-                <span class="cart-badge" id="subCartBadge">0</span>
-            </a>
-        </header>
+    <div class="top-navbar">
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+        <a href="cart.html" class="cart-btn">
+            <i class="fa-solid fa-cart-shopping"></i> My Cart 
+            <span class="cart-badge" id="topCartCount">0</span>
+        </a>
+    </div>
 
-        <h1 class="main-title">SUBSCRIPTION FEE PACKAGES</h1>
+    <h1 class="page-title">Subscription Fee Packages</h1>
 
-        <div class="packages-grid">
-            <!-- Basic Plan -->
-            <div class="plan-card">
-                <div>
-                    <h2 class="plan-name">Basic Plan</h2>
-                    <div class="plan-price">$19<span>/mo</span></div>
-                    <ul class="features-list">
-                        <li>Single Page Website</li>
-                        <li>Basic UI/UX Design</li>
-                        <li>1 Month Support</li>
-                    </ul>
-                </div>
-                <button class="btn-add" onclick="addSubscription('Basic Plan', 19)">Add to Cart</button>
+    <div class="packages-grid">
+        <!-- Basic Plan -->
+        <div class="package-card">
+            <div>
+                <h3 class="plan-name">Basic Plan</h3>
+                <div class="price-tag">$19<span>/mo</span></div>
+                <ul class="features-list">
+                    <li>Single Page Website</li>
+                    <li>Basic UI/UX Design</li>
+                    <li>1 Month Support</li>
+                </ul>
             </div>
+            <button type="button" class="btn-add" onclick="addToCart('Basic Plan', 19)">Add to Cart</button>
+        </div>
 
-            <!-- Standard Plan -->
-            <div class="plan-card featured">
-                <div>
-                    <h2 class="plan-name">Standard Plan</h2>
-                    <div class="plan-price">$49<span>/mo</span></div>
-                    <ul class="features-list">
-                        <li>Multi-page Website</li>
-                        <li>E-commerce Integration</li>
-                        <li>3 Months Support</li>
-                    </ul>
-                </div>
-                <button class="btn-add" onclick="addSubscription('Standard Plan', 49)">Add to Cart</button>
+        <!-- Standard Plan -->
+        <div class="package-card featured">
+            <div>
+                <h3 class="plan-name">Standard Plan</h3>
+                <div class="price-tag">$49<span>/mo</span></div>
+                <ul class="features-list">
+                    <li>Multi-page Website</li>
+                    <li>E-commerce Integration</li>
+                    <li>3 Months Support</li>
+                </ul>
             </div>
+            <button type="button" class="btn-add" onclick="addToCart('Standard Plan', 49)">Add to Cart</button>
+        </div>
 
-            <!-- Premium Plan -->
-            <div class="plan-card">
-                <div>
-                    <h2 class="plan-name">Premium Plan</h2>
-                    <div class="plan-price">$99<span>/mo</span></div>
-                    <ul class="features-list">
-                        <li>Custom Web Application</li>
-                        <li>Advanced Dashboard & Security</li>
-                        <li>1 Year Support</li>
-                    </ul>
-                </div>
-                <button class="btn-add" onclick="addSubscription('Premium Plan', 99)">Add to Cart</button>
+        <!-- Premium Plan -->
+        <div class="package-card">
+            <div>
+                <h3 class="plan-name">Premium Plan</h3>
+                <div class="price-tag">$99<span>/mo</span></div>
+                <ul class="features-list">
+                    <li>Custom Web Application</li>
+                    <li>Advanced Dashboard & Security</li>
+                    <li>1 Year Support</li>
+                </ul>
             </div>
+            <button type="button" class="btn-add" onclick="addToCart('Premium Plan', 99)">Add to Cart</button>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', updateCartBadge);
+        document.addEventListener('DOMContentLoaded', updateBadge);
 
-        function addSubscription(planName, price) {
+        function addToCart(packageName, price) {
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
-            
-            let existing = cart.find(item => item.name === planName);
-            if (existing) {
-                existing.quantity += 1;
+            let item = cart.find(i => i.name === packageName);
+
+            if (item) {
+                item.quantity += 1;
             } else {
-                cart.push({ name: planName, price: price, quantity: 1, type: 'subscription' });
+                cart.push({ name: packageName, price: price, quantity: 1 });
             }
 
             localStorage.setItem('userCart', JSON.stringify(cart));
-            updateCartBadge();
-            window.location.href = 'cart.html';
+            
+            // Sirf top badge counter update hoga, REDIRECT NAHI HOGA!
+            updateBadge();
+
+            alert(packageName + " cart mein add ho gaya hai!");
         }
 
-        function updateCartBadge() {
+        function updateBadge() {
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             let count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('subCartBadge').innerText = count;
+            const badge = document.getElementById('topCartCount');
+            if (badge) {
+                badge.innerText = count;
+            }
         }
     </script>
+
 </body>
 
 </html>
