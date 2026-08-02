@@ -83,7 +83,7 @@
                     <div class="rating-row"><i class="fa-solid fa-star"></i> 4.8 (142)</div>
                     <div class="card-bottom-row">
                         <div><span class="price">$800</span><span class="old-price">$999</span></div>
-                        <button class="cart-icon-btn" onclick="addToCart('Premium Laptop', 800)"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button type="button" class="cart-icon-btn" onclick="addToCart(event, 'Premium Laptop', 800)"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                     <div class="rating-row"><i class="fa-solid fa-star"></i> 4.5 (89)</div>
                     <div class="card-bottom-row">
                         <div><span class="price">$120</span><span class="old-price">$140</span></div>
-                        <button class="cart-icon-btn" onclick="addToCart('Smart Watch', 120)"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button type="button" class="cart-icon-btn" onclick="addToCart(event, 'Smart Watch', 120)"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                     <div class="rating-row"><i class="fa-solid fa-star"></i> 5.0 (210)</div>
                     <div class="card-bottom-row">
                         <div><span class="price">$60</span><span class="old-price">$80</span></div>
-                        <button class="cart-icon-btn" onclick="addToCart('Headphones', 60)"><i class="fa-solid fa-cart-plus"></i></button>
+                        <button type="button" class="cart-icon-btn" onclick="addToCart(event, 'Headphones', 60)"><i class="fa-solid fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -127,16 +127,27 @@
     <script>
         document.addEventListener('DOMContentLoaded', updateBadge);
 
-        function addToCart(name, price) {
+        function addToCart(event, name, price) {
+            // Unwanted redirects/event propagation ko rokne ke liye
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
             let cart = JSON.parse(localStorage.getItem('userCart')) || [];
             let item = cart.find(i => i.name === name);
+            
             if (item) {
                 item.quantity += 1;
             } else {
                 cart.push({ name: name, price: price, quantity: 1 });
             }
+
             localStorage.setItem('userCart', JSON.stringify(cart));
             updateBadge();
+
+            // Notification user feedback ke liye (is se page navigate nahi hoga)
+            alert(`${name} item cart mein add ho gaya hai!`);
         }
 
         function updateBadge() {
